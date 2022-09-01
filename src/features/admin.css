@@ -1,0 +1,81 @@
+.active-select,
+.in-active-select .removed-select {
+  font-size: 12px;
+  line-height: 20px;
+  box-sizing: border-box;
+  border-radius: 2px;
+}
+
+.active-select {
+  color: #237804;
+}
+.in-active-select {
+  color: #db8837;
+}
+.removed-select {
+  color: #a8071a;
+}
+.user-select {
+  width: 100%;
+}
+
+.active-select.ant-select:not(.ant-select-customize-input)
+  .ant-select-selector {
+  background: #f6ffed;
+  border: 1px solid #389e0d;
+}
+
+.in-active-select.ant-select:not(.ant-select-customize-input)
+  .ant-select-selector {
+  background: #fff7e6;
+  border: 1px solid #db8837;
+}
+.removed-select.ant-select:not(.ant-select-customize-input)
+  .ant-select-selector {
+  background: #fff1f0;
+  border: 1px solid #a8071a;
+}
+.app-btn-container {
+
+    background: linear-gradient(127.43deg, #262626 32.59%, #030852 78.32%);
+    border: 1px solid #262626;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.043);
+    border-radius: 2px;
+    animation-timing-function: ease-out;
+    animation-duration: 300ms;
+  }
+
+  .ant-btn-primary:hover {
+    background: linear-gradient(154.58deg, #262626 15.08%, #262626 65.24%);
+    box-shadow: 0px 8px 13px rgba(0, 0, 0, 0.24);
+    border-radius: 2px;
+  }
+
+  .ant-btn-primary:focus {
+    background: linear-gradient(127.43deg, #262626 32.59%, #030852 78.32%);
+  }
+
+
+.ant-btn-primary:hover {
+  background: linear-gradient(154.58deg, #262626 15.08%, #262626 65.24%);
+  box-shadow: 0px 8px 13px rgba(0, 0, 0, 0.24);
+  border-radius: 2px;
+}
+
+.ant-btn-primary:focus {
+  background: linear-gradient(127.43deg, #262626 32.59%, #030852 78.32%);
+}
+.edit-btn:hover {
+  border-color: #c0e29d;
+}
+
+.updating {
+  color: green !important;
+}
+
+select-selected {
+  background-color: DodgerBlue;
+}
+
+/* ant-select active-select ant-select-single ant-select-show-arrow ant-select-open */

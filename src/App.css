@@ -1,0 +1,29 @@
+#components-layout-demo-top-side .logo {
+  float: left;
+  width: 120px;
+  height: 31px;
+  margin: 16px 24px 16px 0;
+  background: rgb(247, 243, 243);
+}
+
+.ant-row-rtl #components-layout-demo-top-side .logo {
+  float: right;
+  margin: 16px 0 16px 24px;
+}
+
+.site-layout-background {
+  background: #fff;
+}
+body,
+html {
+  background: #fff;
+  font-family: Roboto;
+  height: 100%;
+  width: 100%;
+}
+.inputs {
+  background-color: 'transparent';
+  color: 'white';
+  border: '1px solid white';
+}
+
