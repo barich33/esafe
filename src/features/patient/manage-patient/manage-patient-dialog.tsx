@@ -39,8 +39,8 @@ const  ManagePatientDialog =({modalConfig,isModalVisible,onOk,onCancel})=>{
         phone: { countryCode: country?.code, mobilePhone },
         sex:modalConfig.data?.sex,
         birthDate:birthDate,
-        regionId:modalConfig.data?.region.regionId,
-        subCityId:modalConfig.data?.subcity.subCityId,
+        regionId:modalConfig.data?.region?.regionId,
+        //subcityId:modalConfig.data?.subcity.subcityId,
       };
       
       form.setFieldsValue(formData);
@@ -76,7 +76,7 @@ const  ManagePatientDialog =({modalConfig,isModalVisible,onOk,onCancel})=>{
         `${dialCode}-${values.phone.mobilePhone}`,
         sex:values.sex,
         regionId:values.regionId,
-        subCityId:values.subCityId
+       // subcityId:values.subcityId
       };
       if (isEditMode) {
         prepareFormDataForUpdate(patient);
@@ -137,7 +137,7 @@ const  ManagePatientDialog =({modalConfig,isModalVisible,onOk,onCancel})=>{
   };
 
   return <Modal
-  width={900}
+  width={1400}
   title={modalConfig.title}
   visible={isModalVisible}
   onOk={handleModalOk}

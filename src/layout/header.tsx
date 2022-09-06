@@ -4,6 +4,7 @@ import Logo from '../features/icons/logo.png';
 import LogoutButton from '../shared/logout-button';
 import { useDispatch } from 'react-redux';
 import { useNavigate  } from 'react-router';
+import SideBar from './side_bar';
 const PrimeCareHeader = () => {
 
   const dispatch = useDispatch();
@@ -34,8 +35,14 @@ const PrimeCareHeader = () => {
             onClick={goToHome}
           />
         </div>
-
         <div className={'flex flex-col'}>
+        
+        <div className="flex space-x-2 items-center w-full justify-start">
+      dd
+          </div>
+          </div>
+        <div className={'flex flex-col'}>
+        
           <div className="flex space-x-2 items-center w-full justify-end">
             <div
               className="flex h-full overflow-hidden"

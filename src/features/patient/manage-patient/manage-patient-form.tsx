@@ -1,4 +1,5 @@
-import { DatePicker, Form, Input, Select } from "antd";
+
+import { DatePicker,Checkbox, Form, Input, Select, Typography, Tabs, Row, Col } from 'antd';
 import { useEffect, useState } from "react";
 import { Icon } from '@iconify/react';
 import PhoneNumberPrefix from "../../../shared/user-phone-number-prefix";
@@ -6,7 +7,7 @@ import { httpService } from "../../../service/http.service";
 import { lookupEndPoint } from "../../../api/primecareApi.endpoint";
 const { Option } = Select;
 const PatientManageForm =({form, isEditMode, modalConfig})=>{
-
+     const { TabPane } = Tabs;
     const [isCountryCodeRequired, setIsCountryCodeRequired] = useState(false);
     const gender = ["Male","Female"];
     const[regions,setRegions]=useState([]);
@@ -49,12 +50,15 @@ const getSubCities=() => {
       setIsSubCityFetched(false);
     });
 };
-   return <Form
+   return (
+    <Form
      form={form}
      layout={'vertical'}
      preserve={false}
     >
-         <div className="grid md:grid-cols-2">
+           <Tabs defaultActiveKey="1" className="p-3">
+          <TabPane tab="Crop Details" key={'1'}>
+            <div className="grid md:grid-cols-2">
           <div className={'md:border-r-2 md:pr-8 lg:pr-16'}>
         
         <Form.Item
@@ -182,35 +186,34 @@ const getSubCities=() => {
               />
             </Form.Item>
 
-            <Form.Item
-              name={['subCityId']}
-              label={'SubCity/Woreda'}
-             // rules={[{ required: true, message: 'select SubCity' }]}
-              hidden={!isSubCityFetched}
-            >
-              <Select
-                disabled={!isEditMode && subCities.length === 1}
-                showSearch={true}
-                placeholder="SubCity"
-                optionFilterProp="children"
-                filterOption={(input, option) =>
-                  option?.title?.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }
-                options={subCities?.map((_:any, index) => {
-                  return {
-                    key: index,
-                    value: _.subCityId,
-                    label: _.name,
-                    title: _.name,
-                  };
-                })}                
-              />
-            </Form.Item>
-
           </div>
           </div>
+          </TabPane>
+          <TabPane  tab="Adaptation and Seed rate (kg/ha)" key={'2'}>
+            <div>
+            <span>
+            Adaptation and Seed rate (kg/ha) ....
+            </span>
+            </div>
+          </TabPane>
+          <TabPane  tab="Agronomic requirement" key={'3'}>
+            <div>
+            <span>
+            Agronomic requirement...
+            </span>
+            </div>
+          </TabPane>
+          <TabPane  tab="Reaction" key={'4'}>
+            <div>
+            <span>
+            Reaction to major diseases and  Reaction to major insects
+            </span>
+            </div>
+          </TabPane>
 
+             </Tabs>
     </Form>
-}
+   );
+};
 
 export default PatientManageForm
