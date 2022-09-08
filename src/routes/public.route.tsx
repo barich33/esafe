@@ -5,7 +5,7 @@ import { isAuthenticated } from '../service/token.service'
 const PublicRoute = ()=> {
 
   if (isAuthenticated()){
-    return <Navigate to={'/dashboard'} replace />
+    return <Navigate to={'/admin'} replace />
   }
   else{
    return <Outlet />}

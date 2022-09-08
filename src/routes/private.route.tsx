@@ -1,8 +1,8 @@
 
 import { Navigate, Outlet} from 'react-router';
-import MainLayout from '../layout/main_layout';
+import MainLayout from '../adminlayout/main_layout';
 import { isAuthenticated } from '../service/token.service';
-const ProtectedRoute = ({redirectPath = '/dashboard'}) => {
+const ProtectedRoute = ({redirectPath = 'admin/dashboard'}) => {
 
   if (!isAuthenticated()) {
     return <Navigate to="/" replace />

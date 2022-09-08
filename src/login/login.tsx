@@ -21,7 +21,7 @@ const LoginPage = ()=>{
         .then((res)=>{
           localStorage.setItem('user', JSON.stringify(res.data));
             setToken(res.data.token);          
-           navigate('/dashboard')  
+           navigate('admin/dashboard')  
            setLoading(false); 
         })
         .catch(error=>{
@@ -35,9 +35,9 @@ const LoginPage = ()=>{
     }
     return (
     
-      <div className="w-3/3">
+   
       <div className="h-full">
-        <div className="standardList  flex flex-wrap justify-center items-center bg-no-repeat h-screen">
+        <div className="standardList  flex flex-wrap h-screen">
       
           <div className="relative mx-6 md:mx-auto w-full md:w-1/2 lg:w-96 z-20 ">
           
@@ -159,7 +159,7 @@ const LoginPage = ()=>{
                 </Form>
                 </div>
         </div>
-      </div>
+    
     </div>
     
     )

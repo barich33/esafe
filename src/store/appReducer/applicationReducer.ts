@@ -7,7 +7,7 @@ export interface ShellState {
 const defaultApplication: Application = {
   name: 'Home',
   code: 'home',
-  url: '/dashboard'
+  url: 'admin/dashboard'
 }
 
 const initialState: ShellState = {

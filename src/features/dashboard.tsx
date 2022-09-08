@@ -1,7 +1,7 @@
 import React from "react";
 import PCLogo from '../features/icons/pc_logo.png';
 
-const Home = ({message = ''}) => {
+const Dashboard = ({message = ''}) => {
   return (
     <div className="pt-3 pb-3 pl-3">
       <div className="bg-white" style={{ height: '90vh' }}>
@@ -18,4 +18,4 @@ const Home = ({message = ''}) => {
   );
 };
 
-export default Home;
+export default Dashboard;

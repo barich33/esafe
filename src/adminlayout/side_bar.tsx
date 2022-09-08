@@ -7,20 +7,20 @@ const SideBar=()=> {
   const MenuList = [
     {
      name:'Dashboard',
-     route:'/dashboard',
+     route:'/admin/dashboard',
     },
     {
      name:'Users',
-     route:'/dashboard/users',
+     route:'/admin/users',
     },
     {
      name:'Patients',
-     route:'/dashboard/patient_list',
+     route:'/admin/patient_list',
      icon:<MailOutlined/>
     },
     {
      name:'System Configurations',
-     route:'/dashboard/settings',
+     route:'/admin/settings',
      icon:<MailOutlined/>
     }
   ]
