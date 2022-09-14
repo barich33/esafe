@@ -19,12 +19,12 @@ const PrimeCareHeader = () => {
      route:'/admin/users',
     },
     {
-     name:'Patients',
-     route:'/admin/patient_list',
+     name:'Members',
+     route:'/admin/members',
     
     },
     {
-     name:'System Configurations',
+     name:'Settings',
      route:'/admin/settings',
    
     },

@@ -26,8 +26,8 @@ export const columns=(onEditcrop)=>{
       title: 'Source of BRS',
       dataIndex: 'cropSourceOfBreederSeeds',
       key: 'cropSourceOfBreederSeedId',
-      render: (cropSourceOfBreederSeeds, record, index) => {
-        return cropSourceOfBreederSeeds?.organization?.name;
+      render: (organization, record, index) => {
+        return organization?.map(m => m.organization?.name).join(' | ')
       },
   },
   {

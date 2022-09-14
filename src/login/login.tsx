@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom'
 import { userEndPoint } from '../api/primecareApi.endpoint';
 import { httpService } from '../service/http.service';
 import { setToken} from '../service/token.service';
-import Logo from '../features/icons/logo.png';
+import Logo from '../features/icons/logo.webp';
 const LoginPage = ()=>{
     const [loginForm] = Form.useForm();
     const [loading,setLoading] = useState(false)
@@ -40,15 +40,16 @@ const LoginPage = ()=>{
         <div className="standardList  flex flex-wrap h-screen">
       
           <div className="relative mx-6 md:mx-auto w-full md:w-1/2 lg:w-96 z-20 ">
-          
-          <img width={250} style={{height:'3em'}}
+          <div className='content-center'>
+          <img width={150} style={{height:'5em'}}
             src={Logo}
             className="cursor-pointer h-8"
             alt="PrimeCare"
           />   
             <span className="font-medium text-gray-900 text-2xl">            
-              Login into PrimeCare
+              Login into ESA
             </span>
+            </div>
             <div className="mt-10">
               <div>
                 {message ? (

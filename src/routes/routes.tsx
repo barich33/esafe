@@ -9,6 +9,8 @@ import ProtectedRoute from './private.route';
 import PublicRoute from './public.route';
 import Home from '../features/website/home';
 import CropList from '../features/crop/crop_list';
+import MemberList from '../features/member/member_list';
+import AboutUs from '../features/website/pages/about_us';
 
 const MainRoutes=()=>{
 
@@ -19,7 +21,8 @@ const MainRoutes=()=>{
 
         <Route path="/" element={<PublicRoute />} >
          <Route path="admin/login" element={<LoginPage />} />   
-        <Route path="/" element={<Home />} />  
+        <Route path="/" element={<Home />} /> 
+        <Route path="/about_us" element={<AboutUs />} />  
 
         </Route>
          
@@ -34,6 +37,7 @@ const MainRoutes=()=>{
           <Route index={true} element={<DashBoard />} />
           <Route path="users" element={<Users />} />
           <Route path='patient_list' element={<PatientList/>}/>
+          <Route path='members' element={<MemberList/>}/>
           <Route path='crops' element={<CropList/>}/>
           <Route path="*" element={<DashBoard />} />
           </Route>

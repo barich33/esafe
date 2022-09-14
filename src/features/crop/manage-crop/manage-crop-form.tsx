@@ -619,18 +619,18 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
                 <Input placeholder="" />
               </Form.Item>
 
-              <Form.Item label="Suitable to Irrigation" name="AdtSuitableToIrrigation">
+              <Form.Item label="Suitable to Irrigation" name="adtSuitableToIrrigation">
                 <Input placeholder="" />
               </Form.Item>
               <Form.Item
                 label="Suitable to Inter Cropping"
-                name="AdtSuitableToInterCropping"
+                name="adtSuitableToInterCropping"
               >
                 <Input placeholder="" />
               </Form.Item>
               <Form.Item
                 label="Suitable to Sole Cropping"
-                name="AdtSuitableToSoleCropping"
+                name="adtSuitableToSoleCropping"
               >
                 <Input placeholder="" />
               </Form.Item>
@@ -700,31 +700,31 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
 
               <PageHeader subTitle="Agronomic Requirements(Fertilizer)" />
 
-              <Form.Item label="Spacing Between Row" name="AgrSpacingBetweenRow">
+              <Form.Item label="Spacing Between Row" name="agrSpacingBetweenRow">
                 <Input placeholder="" />
               </Form.Item>
 
-              <Form.Item label="Spcing Between Plant" name="AgrSpcingBetweenPlant">
+              <Form.Item label="Spcing Between Plant" name="agrSpcingBetweenPlant">
                 <Input placeholder="" />
               </Form.Item>
-              <Form.Item label="Planting Date Range of Month" name="AgrPlantingDateRangeOfMonth">
-                <Input placeholder="" />
-              </Form.Item>
-
-              <Form.Item label="Nitrogen/Urea" name="AgrFertilizerNitrogenOrUrea">
-                <Input placeholder="" />
-              </Form.Item>
-              <Form.Item label="P2O5" name="AgrFertilizerP2O5">
-                <Input placeholder="" />
-              </Form.Item>
-              <Form.Item label="NPS" name="AgrFertilizerNPS">
+              <Form.Item label="Planting Date Range of Month" name="agrPlantingDateRangeOfMonth">
                 <Input placeholder="" />
               </Form.Item>
 
-              <Form.Item label="Sulfer" name="AgrFertilizerSulfer">
+              <Form.Item label="Nitrogen/Urea" name="agrFertilizerNitrogenOrUrea">
                 <Input placeholder="" />
               </Form.Item>
-              <Form.Item label="Copper" name="AgrFertilizerCopper">
+              <Form.Item label="P2O5" name="agrFertilizerP2o5">
+                <Input placeholder="" />
+              </Form.Item>
+              <Form.Item label="NPS" name="agrFertilizerNps">
+                <Input placeholder="" />
+              </Form.Item>
+
+              <Form.Item label="Sulfer" name="agrFertilizerSulfer">
+                <Input placeholder="" />
+              </Form.Item>
+              <Form.Item label="Copper" name="agrFertilizerCopper">
                 <Input placeholder="" />
               </Form.Item>
 </div>
@@ -736,7 +736,7 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
           <PageHeader subTitle="Reaction to Diseases" />
 
-          <Form.List name="diseases" initialValue={diseaseInputs}>
+          <Form.List name="cropDiseases" initialValue={diseaseInputs}>
           {(fields) => ( 
             
             <>
@@ -757,7 +757,7 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
                     label={diseaseInputs[index].name}
                     name={[field.name, "value"]}                   
                   >
-                    <Input placeholder="Value" />
+                    <Input placeholder="" />
                   </Form.Item>  
                               
              </div>
@@ -768,7 +768,7 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
 
         <PageHeader subTitle="Reaction to Insects" />
          
-          <Form.List name="insects" initialValue={insectInputs}>
+          <Form.List name="cropInsects" initialValue={insectInputs}>
           {(fields) => ( 
             
             <>
@@ -788,7 +788,7 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
                     label={insectInputs[index].name}
                     name={[field.name, "value"]}                   
                   >
-                    <Input placeholder="Value" />
+                    <Input placeholder="" />
                   </Form.Item>  
                               
              </div>
@@ -843,16 +843,16 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
               <Form.Item label="Extract(%)" name="qualityExtract">
              <Input placeholder="" />
               </Form.Item>    
-              <Form.Item label="HLW()kg/hl" name="QualityHLW">
+              <Form.Item label="HLW()kg/hl" name="qualityHlw">
              <Input placeholder="" />
               </Form.Item>    
               <Form.Item label="Grain Seed Size(mm)" name="qualityGrainSeedSize">
              <Input placeholder="" />
               </Form.Item>    
-              <Form.Item label="Thousand Seed Weight(g)" name="QualityThousandSeedWeight">
+              <Form.Item label="Thousand Seed Weight(g)" name="qualityThousandSeedWeight">
              <Input placeholder="" />
               </Form.Item>    
-              <Form.Item label="Sokability(%)" name="QualitySokability">
+              <Form.Item label="Sokability(%)" name="qualitySokability">
              <Input placeholder="" />
               </Form.Item>  
           </div>
