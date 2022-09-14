@@ -12,7 +12,7 @@ const PrimeCareHeader = () => {
   const MenuList = [
     {
      name:'Crops',
-     route:'/admin/crop',
+     route:'/admin/crops',
     },
     {
      name:'Users',
@@ -27,7 +27,8 @@ const PrimeCareHeader = () => {
      name:'System Configurations',
      route:'/admin/settings',
    
-    }
+    },
+    
   ]
   const dispatch = useDispatch();
   const history =useNavigate();

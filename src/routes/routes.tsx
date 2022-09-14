@@ -8,6 +8,7 @@ import LoginPage from '../login/login';
 import ProtectedRoute from './private.route';
 import PublicRoute from './public.route';
 import Home from '../features/website/home';
+import CropList from '../features/crop/crop_list';
 
 const MainRoutes=()=>{
 
@@ -33,6 +34,7 @@ const MainRoutes=()=>{
           <Route index={true} element={<DashBoard />} />
           <Route path="users" element={<Users />} />
           <Route path='patient_list' element={<PatientList/>}/>
+          <Route path='crops' element={<CropList/>}/>
           <Route path="*" element={<DashBoard />} />
           </Route>
           <Route path="*" element={<DashBoard />} />
