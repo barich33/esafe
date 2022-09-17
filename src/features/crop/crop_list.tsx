@@ -8,61 +8,90 @@ import ManageCropModal from './manage-crop/manage-crop-modal';
 import { columns } from './columns/crop-column';
 import  "../admin.css";
 import Croploading from './crop_loading';
+export interface ParamTypes {
+  crops: any;
+}
    const CropList=()=>{
-  const [crops, setCrops] = useState([]);
+  const [crops, setCrops] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(10);
   const [current, setCurrent] = useState(1);
-  const [showCropModal,setShowCropModal] = useState(false)
+  const [isCropModalVisible,setIsCropModalVisible] = useState(false)
+  const [searchValue, setSearchValue] = useState();
+  const [searchFilterDataHolder, setSearchFilterDataHolder] = useState([]);
 
   const [modalConfig,setModalConfig] = useState({
     title:'Add New Crop',
     data:{}
   })
   useEffect(() => {
-    getUserList();
+    getCropList();
    // setLoading(false)
   }, []);
 
   
-  const getUserList = () => {
+  const getCropList = () => {
     httpService
       .get(`${cropEndPoint.getCrops}?page=${1}&size=100`)
       .then((response) => {
         console.log(response.data);
-        setCrops(response.data.crops);
+        const crops=response.data?.crops;
+        setCrops(crops);
+        setSearchFilterDataHolder(crops);
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
         setCrops([]);
+        setSearchFilterDataHolder([]);
         console.error(error);
       });
 };
 
 const onShowCropModal =()=>{
   setModalConfig({ title: 'Add New Crop', data: {} });
-  setShowCropModal(true)
+  setIsCropModalVisible(true)
  
 }
 
-const onModalOk =()=>{
-  setShowCropModal(false)
+const handleCropModalOk =()=>{
+  setIsCropModalVisible(false)
+  getCropList();
 }
 
 const onModalCancel =()=>{
-  setShowCropModal(false)
+  setIsCropModalVisible(false)
 
 }
 
  const OnEditCrop = (data)=>{
 
-  setShowCropModal(true);
+  setIsCropModalVisible(true);
   setModalConfig({
     title:'Edit Crop',
     data:data
   })
  }
+
+ const clearSearch = (event) => {
+  setCrops(searchFilterDataHolder);
+  event.target.value = '';
+};
+ 
+ const onCropSearch = (value) => {
+  value !== ''?setCropSearch(value):setCrops(searchFilterDataHolder);
+
+};
+
+const setCropSearch =(value)=>{
+  const filteredCrops = crops.filter((crop)=>
+    crop.releaseYear?.toLowerCase().includes(value.toLowerCase())
+   /*  user.LastName?.toLowerCase().includes(value.toLowerCase())||
+    user.Email?.toLowerCase().includes(value.toLowerCase())||
+    user.PhoneNumber?.includes(value.toLowerCase() */
+    )
+  setCrops(filteredCrops);
+}
 
 if (!loading) {
 return (
@@ -72,10 +101,13 @@ return (
            <div className="flex justify-between items-center mb-5">
           <div className="flex items-center justify-center">
             <Input
-              // onChange={onBrandSearch}
-              // onKeyDown={clearSearch}
-              placeholder="Search"
-              suffix={<Icon icon="ci:search-small" fontSize={22}/>}
+                  value={searchValue}
+                  onChange={(event) => {
+                    onCropSearch(event.target.value);
+                    setCropSearch(event.target.value)
+                  }}
+                  placeholder="Search Users"
+                  suffix={<Icon icon="ci:search-small" fontSize={22}/>}
             />
           </div>
           <Button
@@ -88,12 +120,12 @@ return (
             Add
           </Button>
         </div>
-           <Table
+           <Table size='small'
              className="mt-1 w-full cursor-pointer"
            dataSource={crops} 
            columns={ columns(OnEditCrop)}
         
-           rowKey={'Id'}
+           rowKey={'cropId'}
            bordered
            pagination={{
             pageSize: page,
@@ -112,11 +144,11 @@ return (
           }}
           />
        </div>
-      {showCropModal&&
+      {isCropModalVisible&&
        <ManageCropModal
          modalConfig={modalConfig}
-         isModalVisible={showCropModal}
-         onOk={onModalOk}
+         isModalVisible={isCropModalVisible}
+         onOk={handleCropModalOk}
          onCancel={onModalCancel}
         />
       }

@@ -18,8 +18,8 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
   useEffect(() => {
     if (isEditMode) {
       const releaseYear= moment(moment(modalConfig.data?.releaseYear),format)
-      const  cropDiseases=modalConfig.data?.cropReactiontoDiseases;
-      const cropInsects= modalConfig.data?.cropReactionToInsects;
+      const  diseases=modalConfig.data?.cropReactiontoDiseases;
+      const insects= modalConfig.data?.cropReactionToInsects;
   
       const formData = {       
          releaseYear: releaseYear,
@@ -78,11 +78,11 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
         sourceOfPreBasicSeedIds: modalConfig.data?.cropSourceOfPreBasicSeeds?.map((c) => c.organizationId),
       };
 
-     if(cropDiseases.length>0){
-      formData['cropDiseases']=cropDiseases
+     if(diseases?.length>0){
+      formData['diseases']=diseases
      }
-  if(cropInsects.length>0){
-   formData['cropInsects']=cropInsects;
+  if(insects?.length>0){
+   formData['insects']=insects;
   }
       form.setFieldsValue(formData);
       setInitialFormData(formData);
@@ -100,30 +100,24 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
   }, [cropToSave]);
 
   const handleModalOk = () => {
-    form
+        form
       .validateFields()
       .then((values) => {
+        
         const crop = {
           ...values,
           releaseYear: prepareDateUsingLocalFormat(
             values?.releaseYear?._d,
             true
           ).toString(),
-          diseases: values.cropDiseases,
-          cropReactiontoDiseases: values.diseases.map((m) => {
+          diseases: values.diseases,
+          cropReactiontoDiseases: values.diseases?.map((m) => {
             return { diseaseId: m.diseaseId, value: m.value };
           }),
-          insects: values.cropInsects,
-          cropReactiontoInsects: values.insects.map((m) => {
+          insects: values.insects,
+          cropReactiontoInsects: values.insects?.map((m) => {
             return { insectId: m.insectId, value: m.value };
-          }),
-
-          /*  
-        "cropReactiontoDiseases": [],
-        "cropSourceOfBasicSeeds": [],
-        "cropSourceOfBreederSeeds": [],
-        "cropSourceOfPreBasicSeeds": [] */
-          // subcityId:values.subcityId
+          }),     
         };
         if (isEditMode) {
           prepareFormDataForUpdate(crop);
@@ -131,7 +125,7 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
         setCropToSave(crop);
       })
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      .catch(() => {});
+      .catch((error) => {console.log(error)});
   };
 
   const prepareFormDataForUpdate = (crop) => {
@@ -152,11 +146,13 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
     httpService
       .post(cropEndPoint[isEditMode ? url.update : url.add], cropToSave)
       .then((response) => {
+        
         if (response.status === 200) {
           showSuccess();
           onOk(response);
         } else {
           showError(response.data);
+          setIsFormSaving(false);
         }
       })
       .catch(() => showError());

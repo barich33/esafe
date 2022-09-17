@@ -29,10 +29,18 @@ export const lookupEndPoint = {
   getVarieties: `${environment.urls.api}/Lookup/GetVarieties`,
   getGrowthHabits: `${environment.urls.api}/Lookup/GetGrowthHabits`,
   getColors: `${environment.urls.api}/Lookup/getColors`,
+  getTypesOfSeedBusinesses: `${environment.urls.api}/Lookup/GetTypesOfSeedBusinesses`,
+  
 };
 
 export const cropEndPoint = {
   getCrops: `${environment.urls.api}/Crop/GetAllCrops`,
   addCrop: `${environment.urls.api}/Crop/AddCrop`,
   updateCrop: `${environment.urls.api}/Crop/UpdateCrop`
+};
+
+export const memberEndPoint = {
+  getMembers: `${environment.urls.api}/Member/GetAllMembers`,
+  addMember: `${environment.urls.api}/Member/AddMember`,
+  updateMember: `${environment.urls.api}/Member/UpdateMember`
 };

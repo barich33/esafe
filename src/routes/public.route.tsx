@@ -1,5 +1,6 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router'
+import WebSiteLayout from '../adminlayout/website_layout'
 import { isAuthenticated } from '../service/token.service'
 
 const PublicRoute = ()=> {
@@ -8,7 +9,10 @@ const PublicRoute = ()=> {
     return <Navigate to={'/admin'} replace />
   }
   else{
-   return <Outlet />}
+    return (
+      <WebSiteLayout></WebSiteLayout>
+    )
+  }
 }
 
 export default PublicRoute

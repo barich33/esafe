@@ -10,6 +10,7 @@ import {
   Col,
   PageHeader,
   Space,
+  InputNumber,
 } from "antd";
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
@@ -240,14 +241,14 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
     return {
       name: item.name,
       diseaseId: item.diseaseId,
-      value: ""
+      value: "-"
     };
   });
   const insectInputs = insects.map((item:any) => {
     return {
       name: item.name,
       insectId: item.insectId,
-      value: ""
+      value: "-"
     };
   });
 
@@ -331,7 +332,7 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
                  dropdownClassName={'w-auto'}                         
                  picker={'year'}
                  suffixIcon={<Icon fontSize={25} icon="bx:chevron-down" />}                 
-                  name={"releaseYear"}
+                 
                 />
               </Form.Item>
 
@@ -736,7 +737,7 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
           <PageHeader subTitle="Reaction to Diseases" />
 
-          <Form.List name="cropDiseases" initialValue={diseaseInputs}>
+          <Form.List name="diseases" initialValue={diseaseInputs}>
           {(fields) => ( 
             
             <>
@@ -768,7 +769,7 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
 
         <PageHeader subTitle="Reaction to Insects" />
          
-          <Form.List name="cropInsects" initialValue={insectInputs}>
+          <Form.List name="insects" initialValue={insectInputs}>
           {(fields) => ( 
             
             <>
@@ -803,7 +804,7 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
         
           <PageHeader subTitle="Morphological characteristics" />
           <Form.Item label="Plant Height(cm)" name="mrphoPlantHeight">
-             <Input placeholder="" />
+             <InputNumber placeholder="" />
               </Form.Item>    
               <Form.Item label="Stem Pigmentation" name="mrphoStemPigmentation">
              <Input placeholder="" />

@@ -1,11 +1,12 @@
+import { Route, Routes } from 'react-router'
+import AboutUs from '../features/website/pages/about_us'
 import PrimeCareHeader from './header'
-import SideBar from './side_bar'
+
 
 const MainLayout=()=> {
   return (
 <div className={`flex flex-col gap-4  relative h-full`}> 
 <PrimeCareHeader />
-{/*  <SideBar /> */}
  </div> 
   )
 }

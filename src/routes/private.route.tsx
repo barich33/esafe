@@ -8,8 +8,10 @@ const ProtectedRoute = ({redirectPath = 'admin/dashboard'}) => {
     return <Navigate to="/" replace />
   }
 
-  return (
+  return (   
+  
    <MainLayout />
+  
   )
 }
 export default ProtectedRoute

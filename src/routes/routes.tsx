@@ -7,33 +7,31 @@ import Users from '../features/user/user_list';
 import LoginPage from '../login/login';
 import ProtectedRoute from './private.route';
 import PublicRoute from './public.route';
-import Home from '../features/website/home';
 import CropList from '../features/crop/crop_list';
 import MemberList from '../features/member/member_list';
 import AboutUs from '../features/website/pages/about_us';
+import HomePage from '../features/website/pages/home';
 
 const MainRoutes=()=>{
-
   return(
     
     <Router>
       <Routes>
-
+         {/*  Website routes */}
         <Route path="/" element={<PublicRoute />} >
-         <Route path="admin/login" element={<LoginPage />} />   
-        <Route path="/" element={<Home />} /> 
-        <Route path="/about_us" element={<AboutUs />} />  
-
+              <Route path="admin/login" element={<LoginPage />} />               
+              <Route path="about_us" element={<AboutUs />} /> 
+              <Route path="/" element={<HomePage />} />
         </Route>
-         
-        <Route
-            path="admin"
-            element={
+          {/*  Website routes */}
+        <Route  path="admin"          
+           element={
               <ProtectedRoute
                 redirectPath="/admin"
               />
             }
-          >            
+          >
+            
           <Route index={true} element={<DashBoard />} />
           <Route path="users" element={<Users />} />
           <Route path='patient_list' element={<PatientList/>}/>

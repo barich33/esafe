@@ -7,7 +7,7 @@ const Dashboard = ({message = ''}) => {
       <div className="bg-white" style={{ height: '90vh' }}>
         <div className="flex items-center justify-center h-full pt-4">
           <div>
-            <img src={PCLogo} alt="Prime care Logo" />
+            Dashboard
             <div className="flex justify-center font-light text-2xl pt-4">
               {(message && <h2>{message}</h2>)}
             </div>

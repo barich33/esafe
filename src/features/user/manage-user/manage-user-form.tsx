@@ -6,9 +6,12 @@ const UserManageForm =({form, isEditMode, modalConfig})=>{
 
     const [isCountryCodeRequired, setIsCountryCodeRequired] = useState(true);
    return <Form
-     form={form}
-     layout={'vertical'}
-     preserve={false}
+   form={form}
+   layout={"horizontal"}
+   preserve={false}
+   size="small"
+   labelCol={{ span: 5 }}
+   wrapperCol={{ span: 30 }}
      onValuesChange={(changedValues, allValues) => {
       if (changedValues['phone']) {
         const phoneNumber = allValues['phone'].phoneNumber;
@@ -25,8 +28,7 @@ const UserManageForm =({form, isEditMode, modalConfig})=>{
 
     >
         
-          <div className={'md:border-r-2 md:pr-8 lg:pr-16'}>
-        
+      <br></br>
         <Form.Item
               label="First Name"
               name="firstName"
@@ -81,7 +83,7 @@ const UserManageForm =({form, isEditMode, modalConfig})=>{
               />
             </Form.Item>
       
-          </div>
+      
 
     </Form>
 }

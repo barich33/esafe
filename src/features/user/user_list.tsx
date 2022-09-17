@@ -87,12 +87,12 @@ return (
             Add
           </Button>
         </div>
-           <Table
+           <Table size='small'
              className="mt-1 w-full cursor-pointer"
            dataSource={users} 
            columns={ columns(OnEditUser)}
         
-           rowKey={'Id'}
+           rowKey={'userId'}
            bordered
            pagination={{
             pageSize: page,

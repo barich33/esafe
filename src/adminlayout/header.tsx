@@ -4,7 +4,7 @@ import Logo from '../features/icons/logo.webp';
 import LogoutButton from '../shared/logout-button';
 import { useDispatch } from 'react-redux';
 import { useNavigate  } from 'react-router';
-import SideBar from './side_bar';
+
 import { MailOutlined } from '@ant-design/icons'
 import { Divider, Menu } from 'antd'
 import {NavLink, Outlet} from 'react-router-dom';
@@ -48,7 +48,7 @@ const PrimeCareHeader = () => {
 
   return (
    
-    <header className="bg-white">
+    <header className="bg-white  h-screen">
     <div className="px-20 mx-auto sm:px-30 lg:px-50">
       <div className="flex justify-between" >
         <div className="md:flex md:items-center md:gap-12">
@@ -78,7 +78,7 @@ const PrimeCareHeader = () => {
         </div>
       </div>
     </div>    
-    <div className="bg-white mx-10 pt-0 z-40 border-solid border-1 border-sky-500 divide-y divide-dashed">
+    <div className="bg-white mx-10 pt-0 z-40 border-solid border-1 border-sky-500">
     <Outlet/>    
     </div>   
   </header>
