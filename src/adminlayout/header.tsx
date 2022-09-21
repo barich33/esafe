@@ -1,6 +1,6 @@
 import { Application } from '../core';
 import { Image } from 'antd';
-import Logo from '../features/icons/logo.webp';
+import Logo from '../features/icons/logo.png';
 import LogoutButton from '../shared/logout-button';
 import { useDispatch } from 'react-redux';
 import { useNavigate  } from 'react-router';
@@ -54,7 +54,7 @@ const PrimeCareHeader = () => {
         <div className="md:flex md:items-center md:gap-12">
           <a className="block text-teal-600" href="/">
             <span className="sr-only">Home</span>
-            <Image
+            <Image preview={false}
       width={120}
       src={Logo}
     />

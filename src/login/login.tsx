@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom'
 import { userEndPoint } from '../api/primecareApi.endpoint';
 import { httpService } from '../service/http.service';
 import { setToken} from '../service/token.service';
-import Logo from '../features/icons/logo.webp';
+import Logo from '../features/icons/logo.png';
 const LoginPage = ()=>{
     const [loginForm] = Form.useForm();
     const [loading,setLoading] = useState(false)

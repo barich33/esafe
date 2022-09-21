@@ -6,7 +6,7 @@ import {
   PlusOutlined,
 } from "@ant-design/icons";
 import { Image, Layout } from "antd";
-import Logo from "../features/icons/logo.webp";
+import Logo from "../features/icons/logo.png";
 import {
   Button,
   Col,
@@ -131,7 +131,7 @@ const WebSitHeader = () => {
           <div className="flex-shrink-0">
           <a className="block text-teal-600" href="/">
                     <span className="sr-only">Home</span>
-                    <Image width={80} src={Logo} />
+                    <Image width={80} src={Logo} preview={false}/>
                   </a>
           </div>
           <div className=" md:flex">
