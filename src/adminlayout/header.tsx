@@ -24,8 +24,8 @@ const PrimeCareHeader = () => {
     
     },
     {
-     name:'Settings',
-     route:'/admin/settings',
+     name:'Pages',
+     route:'/admin/pages',
    
     },
     

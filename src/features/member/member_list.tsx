@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { httpService } from '../../service/http.service';
-import { memberEndPoint} from '../../api/primecareApi.endpoint';
 import { Button, Input, Menu, notification, Table } from 'antd';
 import { Icon } from '@iconify/react';
 import ManageMemberModal from './manage-member/manage-member-modal';
 import { columns } from './columns/member-column';
 
 import Memberloading from './member_loading';
+import ManageSeedBusinessModal from './manage_seed_business/manage_seed_business_modal';
+import { httpService } from '../../service/http.service';
+import { memberEndPoint } from '../../api/primecareApi.endpoint';
 
    const MemberList=()=>{
   const [members, setMembers] = useState<any[]>([]);
@@ -18,7 +19,8 @@ import Memberloading from './member_loading';
   const [rowToUpdate, setRowToUpdate] = useState(false);
   const [updatedIndex, setUpdatedIndex] = useState(-1);
   const [page, setPage] = useState(10);
-  const [current, setCurrent] = useState(1);
+  const [current, setCurrent] = useState(1);  
+  const[isSeedBModalVisible,setIsSeedBModalVisible]=useState(false);
   const [modalConfig,setModalConfig] = useState({
     title:'Add New Member',
     data:{}
@@ -71,6 +73,24 @@ const onModalCancel =()=>{
     data:data
   })
  }
+
+ const OnEditSeedBusiness=(data)=>{
+  setIsSeedBModalVisible(true);
+  setModalConfig({
+    title:'Members Seed Business',
+    data:data
+  })
+ }
+ 
+const handleSeedBModalOk =()=>{
+  setIsSeedBModalVisible(false)
+  getMemberList();
+}
+
+const onSeedBModalCancel =()=>{
+  setIsSeedBModalVisible(false)
+
+}
 
  const clearSearch = (event) => {
   setMembers(searchFilterDataHolder);
@@ -136,8 +156,9 @@ return (
            <Table size='small'
              className="mt-1 w-full cursor-pointer"
            dataSource={members} 
-           columns={ columns(
+           columns={ columns(           
             OnEditMember,
+            OnEditSeedBusiness,
             rowToUpdate,
             updatedIndex,
             current,
@@ -169,6 +190,14 @@ return (
          isModalVisible={isMemberModalVisible}
          onOk={handleMemberModalOk}
          onCancel={onModalCancel}
+        />
+      }
+      {isSeedBModalVisible&&
+       <ManageSeedBusinessModal
+        modalConfig={modalConfig}
+         isModalVisible={isSeedBModalVisible}
+         onOk={handleSeedBModalOk}
+         onCancel={onSeedBModalCancel}
         />
       }
        </div>

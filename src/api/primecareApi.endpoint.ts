@@ -44,3 +44,9 @@ export const memberEndPoint = {
   addMember: `${environment.urls.api}/Member/AddMember`,
   updateMember: `${environment.urls.api}/Member/UpdateMember`
 };
+
+export const pageEndPoint = {
+  getPages: `${environment.urls.api}/Page/GetAllPages`,
+  addPage: `${environment.urls.api}/Page/AddPage`,
+  updatePage: `${environment.urls.api}/Page/UpdatePage`
+};

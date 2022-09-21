@@ -123,8 +123,7 @@ return (
            <Table size='small'
              className="mt-1 w-full cursor-pointer"
            dataSource={crops} 
-           columns={ columns(OnEditCrop)}
-        
+           columns={ columns(OnEditCrop)}        
            rowKey={'cropId'}
            bordered
            pagination={{

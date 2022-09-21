@@ -7,7 +7,7 @@ const App: React.FC = () => {
  
   return (
   <ShellProvider>   
-  <MainRoutes />
+  <MainRoutes/>
   </ShellProvider>
   );
 };

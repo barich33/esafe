@@ -1,20 +1,41 @@
+import { EllipsisOutlined } from '@ant-design/icons';
 import { Icon } from '@iconify/react';
-import { Button } from 'antd';
+import { Button, Dropdown, Menu } from 'antd';
 // Sample Columns data
 
 export const columns=(
   OnEditMember,
+  OnEditSeedBusiness,
   rowToUpdate,
   updatedIndex,
   current,
   page
   )=>{
 
+    const actionMenu = (record) => {
+      return  <Menu>
+        <Menu.Item key="0" className={'border-b'}>
+          <Button type="text" className={'font-bold text-left p-0 w-full'}
+                  onClick={(event) => {event.stopPropagation(); OnEditMember(record);}}
+          >Edit</Button>
+        </Menu.Item>
+        <Menu.Item key="1" className={'border-b'}>
+          <Button type="text" className={'font-bold text-left p-0 w-full'}
+                  onClick={(event) => {event.stopPropagation(); OnEditSeedBusiness(record);}}
+          >Business Crops</Button>
+        </Menu.Item>
+      </Menu>
+    };
+
   return [
     {
       title: '#',
       dataIndex: 'organizationId',
       render: (text, record, rowIndex) => (current - 1) * page + rowIndex + 1,
+    },
+    {
+    title:'Code',
+    dataIndex:'code'
     },
       {
           title: 'Name',
@@ -56,17 +77,14 @@ export const columns=(
     {
       title: 'Action',
       dataIndex: 'action',
-      render: (text, record, index) => {
+      render: (text, record) => {
         return (
-          <Button
-            onClick={() => OnEditMember(record)}
-            type="link"
-            className="edit-btn flex items-center justify-left"
-          >
-            <Icon icon="ant-design:edit-outlined" fontSize={30} color="grey" />
-          </Button>
+          <Dropdown overlay={actionMenu(record)} >
+            <EllipsisOutlined rotate={90}/>
+          </Dropdown>
         );
       },
   },
+  
   ];
 }

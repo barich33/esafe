@@ -118,6 +118,64 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
           cropReactiontoInsects: values.insects?.map((m) => {
             return { insectId: m.insectId, value: m.value };
           }),     
+
+         
+          cropTypeId: values?.cropTypeId,
+          varietyId: values?.varietyId,
+          adtSuitableToSoleCropping: values?.adtSuitableToSoleCropping,
+          adtSuitableToInterCropping:values?.adtSuitableToInterCropping,
+          adtSuitableToIrrigation: values?.adtSuitableToIrrigation,
+          adtAltitude: values?.adtAltitude,
+          adtRainfall: values?.adtRainfall,
+          highlandId: values?.highlandId,
+          adtMoistureStressArea: values?.adtMoistureStressArea,
+          srBroadcast: values?.srBroadcast,
+          srDrill: values?.srDrill,
+          srRow: values?.srRow,
+          agrFertilizerNitrogenOrUrea:
+            values?.agrFertilizerNitrogenOrUrea,
+          agrFertilizerP2o5: values?.agrFertilizerP2o5,
+          agrFertilizerNps: values?.agrFertilizerNps,
+          agrFertilizerSulfer: values?.agrFertilizerSulfer,
+          agrFertilizerCopper: values?.agrFertilizerCopper,
+  
+          agrPlantingDateRangeOfMonth:modalConfig?.data?.agrPlantingDateRangeOfMonth,
+          agrSpacingBetweenRow:modalConfig?.data?.agrSpacingBetweenRow,
+          agrSpcingBetweenPlant:modalConfig?.data?.agrSpcingBetweenPlant,
+  
+          mrphoPlantHeight: values?.mrphoPlantHeight,
+          mrphoStemPigmentation: values?.mrphoStemPigmentation,
+          mrphoDaystoHeading: values?.mrphoDaystoHeading,
+          mrphoDaystoMaturity: values?.mrphoDaystoMaturity,
+          mrphoPanicleLength: values?.mrphoPanicleLength,
+          mrphoSpikeLength: values?.mrphoSpikeLength,
+          mrphoEarOrCobLength: values?.mrphoEarOrCobLength,
+          growthHabitId: values?.growthHabitId,
+          panicleFormId: values?.panicleFormId,
+          maturityGroupId: values?.maturityGroupId,
+          flowerColor: values?.flowerColor,
+          seedColor: values?.seedColor,
+          seedCoatColor: values?.seedCoatColor,
+          yieldGrain: values?.yieldGrain,
+          yieldMarketableTuber: values?.yieldMarketableTuber,
+          yieldForage: values?.yieldForage,
+          yieldFodder: values?.yieldFodder,
+          qualityOilcontent: values?.qualityOilcontent,
+          qualityProteinContent: values?.qualityProteinContent,
+          qualityGlutienContent: values?.qualityGlutienContent,
+          qualityExtract: values?.qualityExtract,
+          qualityHlw: values?.qualityHlw,
+          qualityGrainSeedSize: values?.qualityGrainSeedSize,
+          qualityThousandSeedWeight: values?.qualityThousandSeedWeight,
+          qualitySokability: values?.qualitySokability,
+          soilTypeId: values?.soilTypeId,
+          rowTypeId: values?.rowTypeId, 
+         /*  sourceOfBasicSeedIds: values?.cropSourceOfBasicSeeds?.map((c) => c.organizationId),
+          sourceOfBreederSeedIds: values?.cropSourceOfBreederSeeds?.map((c) => c.organizationId),
+          sourceOfPreBasicSeedIds: values?.cropSourceOfPreBasicSeeds?.map((c) => c.organizationId), */
+
+
+
         };
         if (isEditMode) {
           prepareFormDataForUpdate(crop);

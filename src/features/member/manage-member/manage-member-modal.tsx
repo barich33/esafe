@@ -12,6 +12,7 @@ const ManageMemberModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
   console.log(modalConfig);
   const [form] = Form.useForm();
   const isEditMode = "organizationId" in modalConfig.data;
+  
   const [isFormSaving, setIsFormSaving] = useState(false);
   const [memberToSave, setMemberToSave] = useState(null);
   const [initialFormData, setInitialFormData] = useState({});
@@ -149,7 +150,7 @@ const ManageMemberModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
         <ManageMemberForm
           form={form}
           isEditMode={isEditMode}
-          modalConfig={modalConfig}
+          modalConfig={modalConfig?.data}
         />
       </div>
     </Modal>
