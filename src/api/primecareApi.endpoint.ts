@@ -42,7 +42,10 @@ export const cropEndPoint = {
 export const memberEndPoint = {
   getMembers: `${environment.urls.api}/Member/GetAllMembers`,
   addMember: `${environment.urls.api}/Member/AddMember`,
-  updateMember: `${environment.urls.api}/Member/UpdateMember`
+  updateMember: `${environment.urls.api}/Member/UpdateMember`,
+
+  addSeedBusiness: `${environment.urls.api}/SeedBusiness/AddSeedBusiness`,
+  updateSeedBusiness: `${environment.urls.api}/SeedBusiness/UpdateSeedBusiness`
 };
 
 export const pageEndPoint = {

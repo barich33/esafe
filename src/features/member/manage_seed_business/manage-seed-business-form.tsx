@@ -5,8 +5,8 @@ import { httpService } from '../../../service/http.service';
 
 import { seedBusinessColumns } from '../columns/seed-business-column';
 
-const ManageSeedBusinessForm = ({ members, isEditMode }) => {
-  const seedBusinesses=members?.data?.seedBusinesses;
+const ManageSeedBusinessForm = ({ seedbusiness, isEditMode }) => {
+  const seedBusinesses=seedbusiness?.data?.seedBusinesses;
   const [typesOfSeedBusinesses,setTypesOfSeedBusinesses]=useState([]);
   const [cropTypes,setCropTypes]=useState([]);
   const [form] = Form.useForm();

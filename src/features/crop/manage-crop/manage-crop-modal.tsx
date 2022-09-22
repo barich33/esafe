@@ -17,6 +17,7 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
   const [birthDate, setbirthDate] = useState(null);
   useEffect(() => {
     if (isEditMode) {
+      debugger
       const releaseYear= moment(moment(modalConfig.data?.releaseYear),format)
       const  diseases=modalConfig.data?.cropReactiontoDiseases;
       const insects= modalConfig.data?.cropReactionToInsects;
@@ -139,9 +140,9 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
           agrFertilizerSulfer: values?.agrFertilizerSulfer,
           agrFertilizerCopper: values?.agrFertilizerCopper,
   
-          agrPlantingDateRangeOfMonth:modalConfig?.data?.agrPlantingDateRangeOfMonth,
-          agrSpacingBetweenRow:modalConfig?.data?.agrSpacingBetweenRow,
-          agrSpcingBetweenPlant:modalConfig?.data?.agrSpcingBetweenPlant,
+          agrPlantingDateRangeOfMonth:values?.agrPlantingDateRangeOfMonth,
+          agrSpacingBetweenRow:values?.agrSpacingBetweenRow,
+          agrSpcingBetweenPlant:values?.agrSpcingBetweenPlant,
   
           mrphoPlantHeight: values?.mrphoPlantHeight,
           mrphoStemPigmentation: values?.mrphoStemPigmentation,
