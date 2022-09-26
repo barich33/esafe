@@ -106,7 +106,7 @@ return (
                     onCropSearch(event.target.value);
                     setCropSearch(event.target.value)
                   }}
-                  placeholder="Search Users"
+                  placeholder="Search crops"
                   suffix={<Icon icon="ci:search-small" fontSize={22}/>}
             />
           </div>

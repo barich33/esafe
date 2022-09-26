@@ -19,10 +19,7 @@ console.log('colm',OnEditSeedBusiness);
     };
 
   return [
-    {
-      title: '#',
-      dataIndex: 'organizationId',      
-    },
+    
     {
     title:'Crop Type',
     dataIndex:'cropType',

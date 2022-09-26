@@ -253,7 +253,7 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
         <CropManageForm
           form={form}
           isEditMode={isEditMode}
-          modalConfig={modalConfig}
+          modalConfig={modalConfig?.data}
         />
       </div>
     </Modal>

@@ -13,9 +13,9 @@ export const columns=(
   )=>{
 
     const actionMenu = (record) => {
-      return  <Menu>
+      return  <Menu mode='horizontal'>
         <Menu.Item key="0" className={'border-b'}>
-          <Button type="text" className={'font-bold text-left p-0 w-full'}
+          <Button type="text" className={'font-bold'}
                   onClick={(event) => {event.stopPropagation(); OnEditMember(record);}}
           >Edit</Button>
         </Menu.Item>
@@ -57,7 +57,7 @@ export const columns=(
           return region?.name
         },
     },
-    {
+    /* {
       title: 'Crops',
       dataIndex: 'seedBusinesses',
       key: 'seedBusinesses',
@@ -72,7 +72,7 @@ export const columns=(
     render: (seedBusinesses, record, index) => {
       return seedBusinesses?.map(m => m.typesOfSeedBusinesses?.name).join(' | ')
     },
-},
+}, */
     
     {
       title: 'Action',

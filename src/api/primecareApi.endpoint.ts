@@ -41,6 +41,7 @@ export const cropEndPoint = {
 
 export const memberEndPoint = {
   getMembers: `${environment.urls.api}/Member/GetAllMembers`,
+  getMemberById: `${environment.urls.api}/Member/GetMemberById`,
   addMember: `${environment.urls.api}/Member/AddMember`,
   updateMember: `${environment.urls.api}/Member/UpdateMember`,
 

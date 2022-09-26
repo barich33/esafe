@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Input, Menu, notification, Table } from 'antd';
+import { Button, Input, Menu, notification, PageHeader, Table } from 'antd';
 import { Icon } from '@iconify/react';
 import ManageMemberModal from './manage-member/manage-member-modal';
 import { columns } from './columns/member-column';
@@ -8,6 +8,7 @@ import Memberloading from './member_loading';
 import ManageSeedBusinessModal from './manage_seed_business/manage_seed_business_modal';
 import { httpService } from '../../service/http.service';
 import { memberEndPoint } from '../../api/primecareApi.endpoint';
+import ManageSeedBusinessForm from './manage_seed_business/manage-seed-business-form';
 
    const MemberList=()=>{
   const [members, setMembers] = useState<any[]>([]);
@@ -125,8 +126,10 @@ const onClear = () => {
 if (!loading) {
 return (
 
-  <div className="pt-3 pb-3 pl-3">
-  <div className="bg-white" style={{ height: '90vh' }}>
+       <div className="grid md:grid-cols-2">
+            <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
+            <div className="pt-3 pb-3 pl-3">
+             <div className="bg-white" style={{ height: '90vh' }}>
            <div className="flex justify-between items-center mb-5">
           <div className="flex items-center justify-center">
             <Input
@@ -143,7 +146,7 @@ return (
         </Button>
           </div>
          
-          <Button
+         <Button
             id="submit"
             type="primary"
             htmlType="submit"
@@ -151,7 +154,7 @@ return (
            onClick={onShowMemberModal}
           >
             Add
-          </Button>
+          </Button> 
         </div>
            <Table size='small'
              className="mt-1 w-full cursor-pointer"
@@ -184,22 +187,25 @@ return (
           }}
           />
        </div>
+       
+            </div>
+           
+            </div>
+            <div className={" md:pl-8 lg:pl-16"}>             
+              <ManageSeedBusinessForm
+               seedbusiness={modalConfig}   
+              />
+              </div>
+             
       {isMemberModalVisible&&
+      
        <ManageMemberModal
          modalConfig={modalConfig}
          isModalVisible={isMemberModalVisible}
          onOk={handleMemberModalOk}
          onCancel={onModalCancel}
         />
-      }
-      {isSeedBModalVisible&&
-       <ManageSeedBusinessModal
-        modalConfig={modalConfig}
-         isModalVisible={isSeedBModalVisible}
-         onOk={handleSeedBModalOk}
-         onCancel={onSeedBModalCancel}
-        />
-      }
+      }   
        </div>
     )
       }

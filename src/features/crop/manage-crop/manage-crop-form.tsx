@@ -11,6 +11,7 @@ import {
   PageHeader,
   Space,
   InputNumber,
+  Steps
 } from "antd";
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
@@ -18,6 +19,7 @@ import PhoneNumberPrefix from "../../../shared/user-phone-number-prefix";
 import { httpService } from "../../../service/http.service";
 import { lookupEndPoint } from "../../../api/primecareApi.endpoint";
 import "./manage-crop.css";
+
 const CropManageForm = ({ form, isEditMode, modalConfig }) => {
   const { TabPane } = Tabs;
   const [isCountryCodeRequired, setIsCountryCodeRequired] = useState(false);
@@ -262,7 +264,9 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
       labelCol={{ span: 10 }}
       wrapperCol={{ span: 30 }}
     >
-      <Tabs defaultActiveKey="1" className="p-3">
+      
+      <Tabs defaultActiveKey="1" className="p-3">     
+
         <TabPane tab="Crop Details" key={"1"}>
           <div className="grid md:grid-cols-2">
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
