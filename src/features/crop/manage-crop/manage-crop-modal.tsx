@@ -238,7 +238,7 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
 
   return (
     <Modal
-      width={1000}
+      width={1200}
       title={modalConfig.title}
       visible={isModalVisible}
       onOk={handleModalOk}

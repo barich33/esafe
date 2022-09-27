@@ -9,16 +9,18 @@ import {
   Row,
   Col,
   PageHeader,
-  Space,
   InputNumber,
-  Steps
+  Space,
+  Button,
 } from "antd";
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import PhoneNumberPrefix from "../../../shared/user-phone-number-prefix";
 import { httpService } from "../../../service/http.service";
 import { lookupEndPoint } from "../../../api/primecareApi.endpoint";
 import "./manage-crop.css";
+import TextArea from "antd/lib/input/TextArea";
 
 const CropManageForm = ({ form, isEditMode, modalConfig }) => {
   const { TabPane } = Tabs;
@@ -254,6 +256,12 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
     };
   });
 
+const diseasesReactions=[
+  {name:'Resistant'},
+  {name:'Moderately Resistant'},
+  {name:'Susceptible'},
+];
+
 
   return (
     <Form
@@ -339,10 +347,10 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
                  
                 />
               </Form.Item>
-
+  <PageHeader title="Source of Seed Organizations "></PageHeader>
               <Form.Item
                 name={["sourceOfBreederSeedIds"]}
-                label={"Source of Breeder Seeds"}
+                label={"Breeder Seeds"}
                 rules={[
                   { required: true, message: "select Source of breeder seeds" },
                 ]}
@@ -370,7 +378,7 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
 
               <Form.Item
                 name={["sourceOfPreBasicSeedIds"]}
-                label={"Source of Pre-Basic Seed"}
+                label={"Pre-Basic Seed"}
                 rules={[
                   { required: true, message: "Source of Pre-Basic Seed" },
                 ]}
@@ -397,7 +405,7 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
               </Form.Item>
               <Form.Item
                 name={["sourceOfBasicSeedIds"]}
-                label={"Source of Basic Seeds"}
+                label={"Basic Seeds"}
                 rules={[{ required: true, message: "Source of Basic Seeds" }]}
                 hidden={isEditMode && organizations.length === 0}
               >
@@ -605,15 +613,40 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
             </div>
           </div>
         </TabPane>
-        <TabPane tab="Adaptation and Seed Rate" key={"2"}>
+        <TabPane tab="Adaptation,Seed Rate,Agronomic Requirements and Fertilizer" key={"2"}>
           <div className="grid md:grid-cols-2">
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
-              <PageHeader subTitle="Adaptation" />
+              <PageHeader title="Adaptation" />
 
               <Form.Item label="Altitude" name="adtAltitude">
                 <Input placeholder="" />
               </Form.Item>
-
+              <Form.Item
+                name={["highlandId"]}
+                label={"Climate Zone"}
+                rules={[{ required: true, message: "select Highland" }]}
+                //  hidden={!isCropTypeFetched}
+              >
+                <Select
+                  disabled={!isEditMode && highlands.length === 1}
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={highlands?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.highlandId,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
+              </Form.Item>
+             
               <Form.Item label="Rainfall" name="adtRainfall">
                 <Input placeholder="" />
               </Form.Item>
@@ -640,34 +673,10 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
                 <Input placeholder="" />
               </Form.Item>
               
-              <Form.Item
-                name={["highlandId"]}
-                label={"Highland"}
-                rules={[{ required: true, message: "select Highland" }]}
-                //  hidden={!isCropTypeFetched}
-              >
-                <Select
-                  disabled={!isEditMode && highlands.length === 1}
-                  showSearch={true}
-                  placeholder=""
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0
-                  }
-                  options={highlands?.map((_: any, index) => {
-                    return {
-                      key: index,
-                      value: _.highlandId,
-                      label: _.name,
-                      title: _.name,
-                    };
-                  })}
-                />
-              </Form.Item>
+             
               <Form.Item
                 name={["soilTypeId"]}
-                label={"Soil"}
+                label={"Soil Type"}
                 rules={[{ required: true, message: "select Soil" }]}
                 //  hidden={!isCropTypeFetched}
               >
@@ -690,10 +699,8 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
                   })}
                 />
               </Form.Item>
-            </div>
-            <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
-            <PageHeader subTitle="Seed Rate(kg/ha)" />
-            <Form.Item label="Broadcast" name="srBroadcast">
+              <PageHeader title="Seed Rate(kg/ha)" />
+              <Form.Item label="Broadcast" name="srBroadcast">
                 <Input placeholder="" />
               </Form.Item>
               <Form.Item label="Drill" name="srDrill">
@@ -702,20 +709,23 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
               <Form.Item label="Row" name="srRow">
                 <Input placeholder="" />
               </Form.Item>
+            </div>
+            <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>           
 
-              <PageHeader subTitle="Agronomic Requirements(Fertilizer)" />
+              <PageHeader title="Agronomic Requirements" />
 
               <Form.Item label="Spacing Between Row" name="agrSpacingBetweenRow">
                 <Input placeholder="" />
               </Form.Item>
 
-              <Form.Item label="Spcing Between Plant" name="agrSpcingBetweenPlant">
-                <Input placeholder="" />
+              <Form.Item label="Spacing Between Plant" name="agrSpcingBetweenPlant">
+                <TextArea placeholder="" rows={3}/>
               </Form.Item>
               <Form.Item label="Planting Date Range of Month" name="agrPlantingDateRangeOfMonth">
                 <Input placeholder="" />
               </Form.Item>
-
+              
+              <PageHeader title="Fertilizer" />
               <Form.Item label="Nitrogen/Urea" name="agrFertilizerNitrogenOrUrea">
                 <Input placeholder="" />
               </Form.Item>
@@ -726,7 +736,7 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
                 <Input placeholder="" />
               </Form.Item>
 
-              <Form.Item label="Sulfer" name="agrFertilizerSulfer">
+              <Form.Item label="Sulfur" name="agrFertilizerSulfer">
                 <Input placeholder="" />
               </Form.Item>
               <Form.Item label="Copper" name="agrFertilizerCopper">
@@ -736,77 +746,167 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
 
           </div>
         </TabPane>
-        <TabPane tab="Reaction to Diseases and Insects" key={"3"}>
+        <TabPane tab="Reaction to Diseases,Insects,Morphological characteristics" key={"3"}>
             <div className="grid md:grid-cols-2">
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
-          <PageHeader subTitle="Reaction to Diseases" />
+          <PageHeader title="Reaction to Diseases" />
 
-          <Form.List name="diseases" initialValue={diseaseInputs}>
-          {(fields) => ( 
-            
-            <>
-              {fields.map((field,index) => (
-               
-               <div key={field.key}>
-             
-                  <Form.Item
-                    {...field}
-                    name={[field.name, "diseaseId"]}                   
-                    hidden
-                  >
-                    <Input placeholder="" />
-                  </Form.Item> 
-
-                  <Form.Item
-                    {...field} 
-                    label={diseaseInputs[index].name}
-                    name={[field.name, "value"]}                   
-                  >
-                    <Input placeholder="" />
-                  </Form.Item>  
-                              
-             </div>
-              ))}            
-            </>
-          )}
-        </Form.List>
-
-        <PageHeader subTitle="Reaction to Insects" />
+          <Form.List name="diseases">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(field => (
          
-          <Form.List name="insects" initialValue={insectInputs}>
-          {(fields) => ( 
-            
-            <>
-              {fields.map((field,index) => (
-               
-               <div key={field.key}>    
-                  <Form.Item
-                    {...field}
-                    name={[field.name, "insectId"]}                   
-                    hidden
-                  >
-                    <Input placeholder="" />
-                  </Form.Item> 
+                 <Space key={field.key}  align="baseline">
+                    <Form.Item
+                      {...field}
+                      label="Disease"
+                      name={[field.name, 'diseaseId']}
+                      rules={[{ required: true, message: 'Missing Disease' }]}
+                    >                     
+                      <Select
+                
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={diseases?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.diseaseId,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
 
-                  <Form.Item
-                    {...field} 
-                    label={insectInputs[index].name}
-                    name={[field.name, "value"]}                   
-                  >
-                    <Input placeholder="" />
-                  </Form.Item>  
-                              
-             </div>
-              ))}            
-            </>
-          )}
-        </Form.List>
-          
+
+                    </Form.Item>                
+                
+                    <Form.Item
+                      {...field}
+                      label="Reaction"
+                      name={[field.name, 'value']}
+                      rules={[{ required: true, message: 'Missing Reactions' }]}
+                    >                     
+                      <Select
+                
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={diseasesReactions?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.name,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
+
+
+                    </Form.Item>    
+
+                <MinusCircleOutlined onClick={() => remove(field.name)} />
+              </Space>
+            ))}
+
+            <Form.Item>
+              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                Add Diseases Reactions
+              </Button>
+            </Form.Item>
+          </>
+        )}
+          </Form.List>
+    
+
+        <PageHeader title="Reaction to Insects" />
+    
+        <Form.List name="insects">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(field => (
+              <Space key={field.key} align="baseline">                
+                    <Form.Item
+                      {...field}
+                      label="Insects"
+                      name={[field.name, 'insectId']}
+                      rules={[{ required: true, message: 'Missing Insects' }]}
+                    >                     
+                      <Select
+                
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={insects?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.insectId,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
+
+
+                    </Form.Item>                
+                
+                    <Form.Item
+                      {...field}
+                      label="Reaction"
+                      name={[field.name, 'value']}
+                      rules={[{ required: true, message: 'Missing Reactions' }]}
+                    >                     
+                      <Select
+                
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={diseasesReactions?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.name,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
+
+
+                    </Form.Item>    
+
+                <MinusCircleOutlined onClick={() => remove(field.name)} />
+              </Space>
+            ))}
+
+            <Form.Item>
+              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                Add Insects Reactions
+              </Button>
+            </Form.Item>
+          </>
+        )}
+          </Form.List>
 
           </div>
           < div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
         
-          <PageHeader subTitle="Morphological characteristics" />
+          <PageHeader title="Morphological characteristics" />
           <Form.Item label="Plant Height(cm)" name="mrphoPlantHeight">
              <InputNumber placeholder="" />
               </Form.Item>    
@@ -835,7 +935,7 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
         <div className="grid md:grid-cols-2">
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
          
-            <PageHeader subTitle="Quality attributes" />
+            <PageHeader title="Quality attributes" />
           <Form.Item label="Oil content(%)" name="qualityOilcontent">
              <Input placeholder="" />
               </Form.Item>    
@@ -848,7 +948,7 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
               <Form.Item label="Extract(%)" name="qualityExtract">
              <Input placeholder="" />
               </Form.Item>    
-              <Form.Item label="HLW()kg/hl" name="qualityHlw">
+              <Form.Item label="HLW(kg/hl)" name="qualityHlw">
              <Input placeholder="" />
               </Form.Item>    
               <Form.Item label="Grain Seed Size(mm)" name="qualityGrainSeedSize">
@@ -862,7 +962,7 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
               </Form.Item>  
           </div>
           < div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
-          <PageHeader subTitle="Yield (quintal/ha" />
+          <PageHeader title="Yield (quintal/ha" />
           <Form.Item label="Grain" name="yieldGrain">
                 <Input placeholder="" />
               </Form.Item>
