@@ -12,20 +12,6 @@ export const columns=(
   page
   )=>{
 
-    const actionMenu = (record) => {
-      return  <Menu mode='horizontal'>
-        <Menu.Item key="0" className={'border-b'}>
-          <Button type="text" className={'font-bold'}
-                  onClick={(event) => {event.stopPropagation(); OnEditMember(record);}}
-          >Edit</Button>
-        </Menu.Item>
-        <Menu.Item key="1" className={'border-b'}>
-          <Button type="text" className={'font-bold text-left p-0 w-full'}
-                  onClick={(event) => {event.stopPropagation(); OnEditSeedBusiness(record);}}
-          >Business Crops</Button>
-        </Menu.Item>
-      </Menu>
-    };
 
   return [
     {
@@ -51,37 +37,35 @@ export const columns=(
         
     },
       {
-        title: 'Region',
+        title: '(Location)',
         dataIndex: 'region',
         render: (region, record, index) => {
-          return region?.name
+          return ((record?.town===null || record?.town===undefined ? '': record?.town +',')+(region?.name===null || region?.name===undefined?'': region?.name))
         },
     },
-    /* {
-      title: 'Crops',
-      dataIndex: 'seedBusinesses',
-      key: 'seedBusinesses',
-      render: (seedBusiness, record, index) => {
-        return seedBusiness?.map(m => m.cropType?.name).join(' | ')
-      },
+     {
+      title: 'Contact Person',
+      dataIndex: 'contactPerson',
+      key: 'contactPerson',
   },
   {
-    title: 'Types Of Businesses',
-    dataIndex: 'seedBusinesses',
-    key: 'seedBusinesses',
-    render: (seedBusinesses, record, index) => {
-      return seedBusinesses?.map(m => m.typesOfSeedBusinesses?.name).join(' | ')
-    },
-}, */
+    title: 'Phone Number',
+    dataIndex: 'phoneNumber',
+    key: 'phoneNumber'   
+}, 
     
     {
       title: 'Action',
       dataIndex: 'action',
       render: (text, record) => {
         return (
-          <Dropdown overlay={actionMenu(record)} >
-            <EllipsisOutlined rotate={90}/>
-          </Dropdown>
+          <Button
+            onClick={() => OnEditMember(record)}
+            type="link"
+            className="edit-btn flex items-center justify-left"
+          >
+            <Icon icon="ant-design:edit-outlined" fontSize={30} color="grey" />
+          </Button>
         );
       },
   },

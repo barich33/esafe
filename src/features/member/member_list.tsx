@@ -126,8 +126,6 @@ const onClear = () => {
 if (!loading) {
 return (
 
-       <div className="grid md:grid-cols-2">
-            <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
             <div className="pt-3 pb-3 pl-3">
              <div className="bg-white" style={{ height: '90vh' }}>
            <div className="flex justify-between items-center mb-5">
@@ -188,14 +186,8 @@ return (
           />
        </div>
        
-            </div>
+       
            
-            </div>
-            <div className={" md:pl-8 lg:pl-16"}>             
-              <ManageSeedBusinessForm
-               seedbusiness={modalConfig}   
-              />
-              </div>
              
       {isMemberModalVisible&&
       
