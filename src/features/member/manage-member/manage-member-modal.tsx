@@ -28,7 +28,8 @@ const ManageMemberModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
       const phoneNumber = phoneNumber$
         ?.substring(phoneNumber$.indexOf(country?.dial_code) + country?.dial_code?.length)
         ?.replace('-', '');
-
+        const  cropVarieties=modalConfig.data?.cropVarietyPortfolios;     
+    
       const formData = {
         name: modalConfig.data?.name,
         code: modalConfig.data?.code,
@@ -39,8 +40,30 @@ const ManageMemberModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
          woreda: modalConfig.data?.woreda,
          town: modalConfig.data?.town,
          isMember: modalConfig.data?.isMember||false,
+         contactPerson:modalConfig.data?.contactPerson ,
+         yearOfEstablishment: modalConfig.data?.yearOfEstablishment,
+         landArea: modalConfig.data?.landArea,
+         volume:modalConfig.data?.volume ,
+         gpsposition:modalConfig.data?.gpsposition ,
+         boardMembers: modalConfig.data?.boardMembers,
+         manager:modalConfig.data?.manager ,
+         technicalStaff: modalConfig.data?.technicalStaff,
+         administrativeStaff: modalConfig.data?.administrativeStaff,
+         altitude:modalConfig.data?.altitude ,
+         rainfall: modalConfig.data?.rainfall,
+         temperature:modalConfig.data?.temperature,
+         irrigationPotential: modalConfig.data?.irrigationPotential,
+         soilTypeId: modalConfig.data?.soilTypeId,
+         ph: modalConfig.data?.ph,
+         majorActivity: modalConfig.data?.majorActivity,
+         diversification: modalConfig.data?.diversification,
+         vision: modalConfig.data?.vision,
+         customerIds: modalConfig.data?.customerToOrganizations?.map((c) => c.customerId),
+         supplierIds: modalConfig.data?.orgBasicSeedSupplierOrganizations?.map((c) => c.supplierId),
       };
-      
+      if(cropVarieties?.length>0){
+        formData['cropVarieties']=cropVarieties
+       }
       form.setFieldsValue(formData);
       setInitialFormData(formData);
     } else {      
@@ -63,21 +86,52 @@ const ManageMemberModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
     .validateFields()
     .then(values => {
       const dialCode = CountryCodes.find(f => f.code === values.phone.countryCode)?.dial_code;
-      const user = {
+     console.log('values',values)
+      const member = {
         ...values,
+
+        cropVarieties: values.cropVarieties,
+        cropVarietyPortfolios: values.cropVarieties?.map((m) => {
+              return { organizationId: m.organizationId, cropTypeId: m.cropTypeId,varietyId:m.varietyId };
+            }),
+
         name: values.name,
-        regionId: values.regionId,
-        email: values.email,
-        code:values.code,
-        isMember:values.isMember,
+        code: values.code,
         phoneNumber:
         (!dialCode || !values.phone.phoneNumber) ? null :
         `${dialCode}-${values.phone.phoneNumber}`,
+        regionId: values.regionId,
+        email: values.email,        
+         zone: values.zone,
+         woreda: values.woreda,
+         town: values.town,
+         isMember: values.isMember||false,
+         contactPerson:values.contactPerson ,
+         yearOfEstablishment: values.yearOfEstablishment,
+         landArea: values.landArea,
+         volume:values.volume ,
+         gpsposition:values.gpsposition ,
+         boardMembers: values.boardMembers,
+         manager:values.manager ,
+         technicalStaff: values.technicalStaff,
+         administrativeStaff: values.administrativeStaff,
+         altitude:values.altitude ,
+         rainfall: values.rainfall,
+         temperature:values.temperature,
+         irrigationPotential: values.irrigationPotential,
+         soilTypeId: values.soilTypeId,
+         ph: values.ph,
+         majorActivity: values.majorActivity,
+         diversification: values.diversification,
+         vision: values.vision,
+         //customerIds: values.customerToOrganizations?.map((c) => c.customerId),
+         //supplierIds: values.orgBasicSeedSupplierOrganizations?.map((c) => c.supplierId),       
+
       };
       if (isEditMode) {
-        prepareFormDataForUpdate(user);
+        prepareFormDataForUpdate(member);
       }
-      setMemberToSave(user);
+      setMemberToSave(member);
 
     })
     // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -135,7 +189,7 @@ const ManageMemberModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
 
   return (
     <Modal
-      width={450}
+      width={1000}
       title={modalConfig.title}
       visible={isModalVisible}
       onOk={handleModalOk}

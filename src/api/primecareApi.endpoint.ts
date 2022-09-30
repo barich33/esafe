@@ -30,6 +30,7 @@ export const lookupEndPoint = {
   getGrowthHabits: `${environment.urls.api}/Lookup/GetGrowthHabits`,
   getColors: `${environment.urls.api}/Lookup/getColors`,
   getTypesOfSeedBusinesses: `${environment.urls.api}/Lookup/GetTypesOfSeedBusinesses`,
+  getCustomers: `${environment.urls.api}/Lookup/GetCustomers`,
   
 };
 

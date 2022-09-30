@@ -275,7 +275,7 @@ const diseasesReactions=[
       
       <Tabs defaultActiveKey="1" className="p-3">     
 
-        <TabPane tab="Crop Details" key={"1"}>
+        <TabPane tab="Crop Details" key={"1"} forceRender>
           <div className="grid md:grid-cols-2">
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
               <Form.Item
@@ -347,7 +347,7 @@ const diseasesReactions=[
                  
                 />
               </Form.Item>
-  <PageHeader title="Source of Seed Organizations "></PageHeader>
+            <PageHeader title="Source of Seed Organizations "></PageHeader>
               <Form.Item
                 name={["sourceOfBreederSeedIds"]}
                 label={"Breeder Seeds"}
@@ -613,7 +613,7 @@ const diseasesReactions=[
             </div>
           </div>
         </TabPane>
-        <TabPane tab="Adaptation,Seed Rate,Agronomic Requirements and Fertilizer" key={"2"}>
+        <TabPane tab="Adaptation,Seed Rate,Agronomic Requirements and Fertilizer" key={"2"} forceRender>
           <div className="grid md:grid-cols-2">
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
               <PageHeader title="Adaptation" />
@@ -746,7 +746,7 @@ const diseasesReactions=[
 
           </div>
         </TabPane>
-        <TabPane tab="Reaction to Diseases,Insects,Morphological characteristics" key={"3"}>
+        <TabPane tab="Reaction to Diseases,Insects,Morphological characteristics" key={"3"} forceRender>
             <div className="grid md:grid-cols-2">
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
           <PageHeader title="Reaction to Diseases" />
@@ -931,7 +931,7 @@ const diseasesReactions=[
             </div>
           </div>
         </TabPane>
-        <TabPane tab=" Quality Attributes and Yields" key={"4"}>
+        <TabPane tab=" Quality Attributes and Yields" key={"4"} forceRender>
         <div className="grid md:grid-cols-2">
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
          
