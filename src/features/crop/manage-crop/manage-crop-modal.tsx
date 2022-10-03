@@ -77,6 +77,7 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
         sourceOfBasicSeedIds: modalConfig.data?.cropSourceOfBasicSeeds?.map((c) => c.organizationId),
         sourceOfBreederSeedIds: modalConfig.data?.cropSourceOfBreederSeeds?.map((c) => c.organizationId),
         sourceOfPreBasicSeedIds: modalConfig.data?.cropSourceOfPreBasicSeeds?.map((c) => c.organizationId),
+        sourceOfCertifiedSeedIds: modalConfig.data?.cropSourceOfCertifiedSeeds?.map((c) => c.organizationId),
       };
 
      if(diseases?.length>0){

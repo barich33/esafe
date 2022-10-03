@@ -17,6 +17,9 @@ import { httpService } from '../service/http.service';
 import { pageEndPoint } from '../api/primecareApi.endpoint';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import PageList from '../features/page/page_list';
+import MembersPage from '../features/website/pages/memersPage/members';
+import MarketingPage from '../features/website/pages/Marketing/marketings';
+
 
 const MainRoutes=()=>{
 
@@ -64,8 +67,9 @@ const MainRoutes=()=>{
                     ))}
                   </>
                 ))}
-                
-
+                {/* Routing for Static pages */}
+                <Route path="/members" element={<MembersPage />} />
+                <Route path="/marketings" element={<MarketingPage />} />
               <Route path="/" element={<HomePage />} />
               <Route path="*" element={<HomePage />} />
         </Route>

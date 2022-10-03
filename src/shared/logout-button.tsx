@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router';
 export function LogoutButton() {
 
   const navigate = useNavigate()
-  const onSignOut = async () => {
-    debugger
+  const onSignOut = async () => {    
     localStorage.clear();
     sessionStorage.clear()
     navigate('/')
+    window.location.reload();
   };
 
   return (

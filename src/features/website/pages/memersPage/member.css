@@ -1,0 +1,9 @@
+.ant-tabs-small > .ant-tabs-nav .ant-tabs-tab{
+  padding: 0px 8px;
+  text-align: center;
+}
+.ant-tabs > .ant-tabs-nav .ant-tabs-nav-list, .ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-list{
+  padding: 0px;
+  background-color: #F1F5F9;
+ 
+}

@@ -428,6 +428,32 @@ const diseasesReactions=[
                   })}
                 ></Select>
               </Form.Item>
+              <Form.Item
+                name={["sourceOfCertifiedSeedIds"]}
+                label={"Certified Seeds"}
+                rules={[{ required: true, message: "Source of Certified Seeds" }]}
+                hidden={isEditMode && organizations.length === 0}
+              >
+                <Select
+                  mode="multiple"
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={organizations?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.organizationId,
+                      title: _.name,
+                      label: _.name,
+                    };
+                  })}
+                ></Select>
+              </Form.Item>
+         
             </div>
             <div className={" md:pl-8 lg:pl-16"}>
               <Form.Item

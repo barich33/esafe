@@ -31,6 +31,7 @@ export interface ParamTypes {
 
   
   const getCropList = () => {
+    setLoading(true);
     httpService
       .get(`${cropEndPoint.getCrops}?page=${1}&size=100`)
       .then((response) => {

@@ -37,7 +37,8 @@ export const lookupEndPoint = {
 export const cropEndPoint = {
   getCrops: `${environment.urls.api}/Crop/GetAllCrops`,
   addCrop: `${environment.urls.api}/Crop/AddCrop`,
-  updateCrop: `${environment.urls.api}/Crop/UpdateCrop`
+  updateCrop: `${environment.urls.api}/Crop/UpdateCrop`,
+  searchCrop:`${environment.urls.api}/Crop/SearchCrop`
 };
 
 export const memberEndPoint = {
