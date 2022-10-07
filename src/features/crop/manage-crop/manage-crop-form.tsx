@@ -988,7 +988,7 @@ const diseasesReactions=[
               </Form.Item>  
           </div>
           < div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
-          <PageHeader title="Yield (quintal/ha" />
+          <PageHeader title="Yield (quintal/ha)" />
           <Form.Item label="Grain" name="yieldGrain">
                 <Input placeholder="" />
               </Form.Item>

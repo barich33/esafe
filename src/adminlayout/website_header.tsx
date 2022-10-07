@@ -77,7 +77,7 @@ const WebSitHeader = ({ pages }) => {
 
   return (
     <>
-      <nav className="bg-fuchsia-0">
+      <nav className="bg-fuchsia-0" style={{background:'#052501'}}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center">
@@ -87,9 +87,9 @@ const WebSitHeader = ({ pages }) => {
                   <Image width={80} src={Logo} preview={false} />
                 </a>
               </div>
-              <div className=" md:flex">
-                <div className="ml-10 flex items-baseline space-x-4 mt-10">
-                  <Menu mode="horizontal" className="">
+          
+                <div className="ml-5 flex items-baseline space-x-2 mt-0">
+                  <Menu mode="horizontal" style={{width:'600px'}}>
                     {pages
                       ?.filter((x) => x.isParent === true)
                       .map((menu: any, index) => (
@@ -112,7 +112,7 @@ const WebSitHeader = ({ pages }) => {
                     </Menu.Item>
                   </Menu>
                 </div>
-              </div>
+            
             </div>
             <div className="md:block">
               <div className="ml-4 flex items-center md:ml-6">

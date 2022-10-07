@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
-import { PageHeader, RadioChangeEvent, Space } from 'antd';
+import { Card, PageHeader, RadioChangeEvent, Space } from 'antd';
 import { Radio, Tabs } from 'antd';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import MemberDetails from './member_details';
-import './member.css'
+
 import { httpService } from '../../../../service/http.service';
 import { memberEndPoint } from '../../../../api/primecareApi.endpoint';
 
@@ -37,11 +37,11 @@ const MembersPage=()=> {
         });
   };
   return (
-    <>
+ <div style={{ backgroundColor: "#fff",height:'auto' }}>
      <PageHeader title="List of Members"></PageHeader>
-      <Tabs size='small' className='p-0'
+      <Tabs size='small' tabBarGutter={6} tabBarStyle={{width:'auto'}} type={'card'}
         tabPosition={'left'}
-        style={{ marginBottom: 10 }}
+      //  style={{height:'600px'}}
         items={members.map((member, i) => {
           const id = String(i + 1);
           return {
@@ -51,7 +51,7 @@ const MembersPage=()=> {
           };
         })}
       />
-    </>
+    </div>
 );
 };
 export default MembersPage

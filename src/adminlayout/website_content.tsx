@@ -11,8 +11,8 @@ export default function WebsiteContent() {
    
     </div>
   </header>
-  <main>
-    <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">     
+  <main style={{backgroundColor:'#E8E8E8'}} className='mt-0'>
+    <div className="mx-auto max-w-7xl py-4 sm:px-4 lg:px-6 mt-4" style={{backgroundColor:'#fff'}}>     
          <Outlet></Outlet>
     </div>
   </main>

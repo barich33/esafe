@@ -18,3 +18,11 @@
 .bg-gray-700{
   background-color: #023B6D;
 }
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+	background: transparent;
+
+}
+.ant-menu{
+  background: 'red';
+  }
