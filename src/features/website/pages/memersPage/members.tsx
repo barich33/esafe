@@ -42,7 +42,7 @@ const MembersPage=()=> {
       <Tabs size='small' tabBarGutter={6} tabBarStyle={{width:'auto'}} type={'card'}
         tabPosition={'left'}
       //  style={{height:'600px'}}
-        items={members.map((member, i) => {
+        items={members.filter(x=>x.isMember===true).map((member, i) => {
           const id = String(i + 1);
           return {
             label: member?.name,

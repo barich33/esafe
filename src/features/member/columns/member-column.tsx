@@ -37,7 +37,7 @@ export const columns=(
         
     },
       {
-        title: '(Location)',
+        title: 'Location',
         dataIndex: 'region',
         render: (region, record, index) => {
           return ((record?.town===null || record?.town===undefined ? '': record?.town +',')+(region?.name===null || region?.name===undefined?'': region?.name))

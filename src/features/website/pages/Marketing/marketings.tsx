@@ -11,8 +11,10 @@ import React, { useEffect, useState } from "react";
 import {
   cropEndPoint,
   lookupEndPoint,
+  memberEndPoint,
 } from "../../../../api/primecareApi.endpoint";
 import { httpService } from "../../../../service/http.service";
+import MarketingList from "./marketingdata/marketing_list";
 import MarketingDetail from "./marketingDetail";
 import Marketingloading from "./marketing_loading";
 
@@ -22,21 +24,18 @@ const MarketingPage = () => {
   const [form] = Form.useForm();
   const [cropTypes, setCropTypes] = useState([]);
   const [varieties, setVarieties] = useState([]);
-  const [crops, setCrops] = useState<any[]>([]);
+  const [marketings, setMarketings] = useState<any[]>([]);
   const [isSearching, setIsSearching] = useState(true);
   const IntialfilterParam = {
-   
     cropTypeId: 0,
     varietyId: 0,
-    releaseYear: 0,
   };
   useEffect(() => {
     getCropTypes();
-    getVarieties(); 
-    setIsSearching(true);  
-    setCrops([]);
-    setIsSearching(false);  
-
+    getVarieties();
+    setIsSearching(true);
+    setMarketings([]);
+    setIsSearching(false);
   }, []);
 
   const getCropTypes = () => {
@@ -64,36 +63,40 @@ const MarketingPage = () => {
   };
 
   const onFilterMarketing = (values: any) => {
-    const year = values.releaseYear === null ? 0 : values.releaseYear;
-    
     const filterParam = {
       ...values,
       cropTypeId: values.cropTypeId,
       varietyId: values.varietyId,
-      releaseYear: year,
     };
-   
-    searchCrops(filterParam);
+
+    searchMarketings(filterParam);
   };
-  const searchCrops = (filterParam) => {
+  const searchMarketings = (filterParam) => {
     setIsSearching(true);
-    const url = { search: "searchCrop" };
     httpService
-      .post(cropEndPoint[url.search], filterParam)
+      .post(memberEndPoint.getMarketingInfo, filterParam)
       .then((response) => {
-        setCrops(response.data);       
+        const data = response.data?.marketings?.map((x) => {
+          x.cropType.crops = x.cropType?.crops?.filter(
+            (v) => v.varietyId === x.varietyId
+          );
+          return x;
+        });
+
+        setMarketings(data);
         setIsSearching(false);
       })
       .catch((error) => {
         setIsSearching(false);
-        setCrops([]);
+        setMarketings([]);
         console.error(error);
       });
   };
 
   function LoadMarketingDetailPage() {
     if (!isSearching) {
-      return <MarketingDetail crops={crops} />;
+      //return <MarketingDetail marketings={marketings} />;
+      return <MarketingList data={marketings} />;
     } else {
       return <Marketingloading />;
     }
@@ -178,10 +181,10 @@ const MarketingPage = () => {
               })}
             />
           </Form.Item>
-          <Form.Item name="releaseYear" label="Release Year">
+          {/*  <Form.Item name="releaseYear" label="Release Year">
             <InputNumber></InputNumber>
-          </Form.Item>
-                      {/*   <Form.Item
+          </Form.Item> */}
+          {/*   <Form.Item
                 name={["seedSourceId"]}
                 label={"Seed Source"}
                 style={{ display: 'inline-block', width: 'calc(25% - 8px)', margin: '0 8px' }}
@@ -216,7 +219,7 @@ const MarketingPage = () => {
           </Form.Item>
         </Form>
       </div>
-      <LoadMarketingDetailPage/>
+      <LoadMarketingDetailPage />
     </div>
   );
 };

@@ -46,9 +46,10 @@ export const memberEndPoint = {
   getMemberById: `${environment.urls.api}/Member/GetMemberById`,
   addMember: `${environment.urls.api}/Member/AddMember`,
   updateMember: `${environment.urls.api}/Member/UpdateMember`,
-
+  getMarketingInfo: `${environment.urls.api}/Member/GetMarketingInfo`,
   addSeedBusiness: `${environment.urls.api}/SeedBusiness/AddSeedBusiness`,
   updateSeedBusiness: `${environment.urls.api}/SeedBusiness/UpdateSeedBusiness`
+
 };
 
 export const pageEndPoint = {

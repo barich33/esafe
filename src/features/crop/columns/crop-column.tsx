@@ -17,6 +17,15 @@ export const columns=(onEditcrop)=>{
             return cropType?.name;
           },
       },
+      
+  {
+    title: 'Variety',
+    dataIndex: 'variety',
+    key: 'varietyId',
+    render:(variety,record,index)=>{
+   return variety?.name;
+    },
+  },
       {
         title: 'Release Year',
         dataIndex: 'releaseYear',
@@ -29,14 +38,6 @@ export const columns=(onEditcrop)=>{
       render: (organization, record, index) => {
         return organization?.map(m => m.organization?.name).join(' | ')
       },
-  },
-  {
-    title: 'Variety',
-    dataIndex: 'variety',
-    key: 'varietyId',
-    render:(variety,record,index)=>{
-   return variety?.name;
-    },
   },
   {
     title: 'Flower Color',

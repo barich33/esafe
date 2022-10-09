@@ -262,6 +262,11 @@ const diseasesReactions=[
   {name:'Susceptible'},
 ];
 
+const yesNoOptions=[
+  {name:'Yes'},
+  {name:'No'},
+];
+
 
   return (
     <Form
@@ -639,7 +644,7 @@ const diseasesReactions=[
             </div>
           </div>
         </TabPane>
-        <TabPane tab="Adaptation,Seed Rate,Agronomic Requirements and Fertilizer" key={"2"} forceRender>
+        <TabPane tab="Adaptation, Seed Rate, Agronomic Requirements and Fertilizer" key={"2"} forceRender>
           <div className="grid md:grid-cols-2">
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
               <PageHeader title="Adaptation" />
@@ -672,37 +677,120 @@ const diseasesReactions=[
                   })}
                 />
               </Form.Item>
+            
              
               <Form.Item label="Rainfall" name="adtRainfall">
                 <Input placeholder="" />
               </Form.Item>
-              <Form.Item
-                label="Moisture Stress Area"
-                name="adtMoistureStressArea"
+              
+                 <Form.Item
+                name={["adtMoistureStressArea"]}
+                label={"Moisture Stress Area"}
+                rules={[{ required: true, message: "select Moisture Stress Area" }]}
+                //  hidden={!isCropTypeFetched}
               >
-                <Input placeholder="" />
+                <Select
+                 
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={yesNoOptions?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.name,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
+              </Form.Item>
+           
+           
+              <Form.Item
+                name={["adtSuitableToIrrigation"]}
+                label={"Suitable to Irrigation"}
+                rules={[{ required: true, message: "select Suitable to Irrigation" }]}
+                //  hidden={!isCropTypeFetched}
+              >
+                <Select
+                 
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={yesNoOptions?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.name,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
+              </Form.Item>
+          
+              <Form.Item
+                name={["adtSuitableToInterCropping"]}
+                label={"Suitable to Inter Cropping"}
+                rules={[{ required: true, message: "select Suitable to Inter Cropping" }]}
+                //  hidden={!isCropTypeFetched}
+              >
+                <Select
+                 
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={yesNoOptions?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.name,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
+              </Form.Item>
+            
+              <Form.Item
+                name={["adtSuitableToSoleCropping"]}
+                label={"Suitable to Sole Cropping"}
+                rules={[{ required: true, message: "select Suitable to Sole Cropping" }]}
+                //  hidden={!isCropTypeFetched}
+              >
+                <Select
+                 
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={yesNoOptions?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.name,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
               </Form.Item>
 
-              <Form.Item label="Suitable to Irrigation" name="adtSuitableToIrrigation">
-                <Input placeholder="" />
-              </Form.Item>
-              <Form.Item
-                label="Suitable to Inter Cropping"
-                name="adtSuitableToInterCropping"
-              >
-                <Input placeholder="" />
-              </Form.Item>
-              <Form.Item
-                label="Suitable to Sole Cropping"
-                name="adtSuitableToSoleCropping"
-              >
-                <Input placeholder="" />
-              </Form.Item>
-              
-             
               <Form.Item
                 name={["soilTypeId"]}
-                label={"Soil Type"}
+                label={"Soil"}
                 rules={[{ required: true, message: "select Soil" }]}
                 //  hidden={!isCropTypeFetched}
               >
@@ -725,7 +813,13 @@ const diseasesReactions=[
                   })}
                 />
               </Form.Item>
-              <PageHeader title="Seed Rate(kg/ha)" />
+              <Form.Item
+              label="Soil PH"
+              name="AdtSoilPH"
+              >
+           <Input></Input>
+              </Form.Item>
+              <PageHeader title="Seed Rate By Planting Method (kg/ha)" />
               <Form.Item label="Broadcast" name="srBroadcast">
                 <Input placeholder="" />
               </Form.Item>
@@ -747,11 +841,11 @@ const diseasesReactions=[
               <Form.Item label="Spacing Between Plant" name="agrSpcingBetweenPlant">
                 <TextArea placeholder="" rows={3}/>
               </Form.Item>
-              <Form.Item label="Planting Date Range of Month" name="agrPlantingDateRangeOfMonth">
-                <Input placeholder="" />
+              <Form.Item label="Suitable planting period" name="agrPlantingDateRangeOfMonth">
+                <TextArea rows={3} placeholder="" />
               </Form.Item>
               
-              <PageHeader title="Fertilizer" />
+              <PageHeader title="Fertilizer Rate" />
               <Form.Item label="Nitrogen/Urea" name="agrFertilizerNitrogenOrUrea">
                 <Input placeholder="" />
               </Form.Item>
@@ -772,7 +866,7 @@ const diseasesReactions=[
 
           </div>
         </TabPane>
-        <TabPane tab="Reaction to Diseases,Insects,Morphological characteristics" key={"3"} forceRender>
+        <TabPane tab="Reaction to Diseases, Insects" key={"3"} forceRender>
             <div className="grid md:grid-cols-2">
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
           <PageHeader title="Reaction to Diseases" />
@@ -785,14 +879,14 @@ const diseasesReactions=[
                  <Space key={field.key}  align="baseline">
                     <Form.Item
                       {...field}
-                      label="Disease"
+                      //label="Disease"
                       name={[field.name, 'diseaseId']}
                       rules={[{ required: true, message: 'Missing Disease' }]}
                     >                     
                       <Select
-                
+                   style={{ minWidth: 150 }}
                   showSearch={true}
-                  placeholder=""
+                  placeholder="Disease"
                   optionFilterProp="children"
                   filterOption={(input, option) =>
                     option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
@@ -813,14 +907,14 @@ const diseasesReactions=[
                 
                     <Form.Item
                       {...field}
-                      label="Reaction"
+                    //  label="Reaction"
                       name={[field.name, 'value']}
                       rules={[{ required: true, message: 'Missing Reactions' }]}
                     >                     
                       <Select
-                
+                   style={{ minWidth: 150 }}
                   showSearch={true}
-                  placeholder=""
+                  placeholder="Disease Reaction"
                   optionFilterProp="children"
                   filterOption={(input, option) =>
                     option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
@@ -838,6 +932,20 @@ const diseasesReactions=[
 
 
                     </Form.Item>    
+                    <Form.Item
+                        {...field}
+                        name={[field.name, "cause"]}
+                        
+                      //  rules={[{ required: true, message: "Missing Price" }]}
+                      >
+                        <TextArea
+                         placeholder="Disease Cause"
+                          size="small"
+                          style={{ minWidth: 150 }}  
+                          autoSize     
+                          rows={1}                 
+                        />
+                      </Form.Item>
 
                 <MinusCircleOutlined onClick={() => remove(field.name)} />
               </Space>
@@ -852,87 +960,109 @@ const diseasesReactions=[
         )}
           </Form.List>
     
-
-        <PageHeader title="Reaction to Insects" />
-    
-        <Form.List name="insects">
-        {(fields, { add, remove }) => (
-          <>
-            {fields.map(field => (
-              <Space key={field.key} align="baseline">                
-                    <Form.Item
-                      {...field}
-                      label="Insects"
-                      name={[field.name, 'insectId']}
-                      rules={[{ required: true, message: 'Missing Insects' }]}
-                    >                     
-                      <Select
-                
-                  showSearch={true}
-                  placeholder=""
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0
-                  }
-                  options={insects?.map((_: any, index) => {
-                    return {
-                      key: index,
-                      value: _.insectId,
-                      label: _.name,
-                      title: _.name,
-                    };
-                  })}
-                />
-
-
-                    </Form.Item>                
-                
-                    <Form.Item
-                      {...field}
-                      label="Reaction"
-                      name={[field.name, 'value']}
-                      rules={[{ required: true, message: 'Missing Reactions' }]}
-                    >                     
-                      <Select
-                
-                  showSearch={true}
-                  placeholder=""
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0
-                  }
-                  options={diseasesReactions?.map((_: any, index) => {
-                    return {
-                      key: index,
-                      value: _.name,
-                      label: _.name,
-                      title: _.name,
-                    };
-                  })}
-                />
-
-
-                    </Form.Item>    
-
-                <MinusCircleOutlined onClick={() => remove(field.name)} />
-              </Space>
-            ))}
-
-            <Form.Item>
-              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                Add Insects Reactions
-              </Button>
-            </Form.Item>
-          </>
-        )}
-          </Form.List>
-
           </div>
           < div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
         
-          <PageHeader title="Morphological characteristics" />
+
+          <PageHeader title="Reaction to Insects" />
+    
+    <Form.List name="insects">
+    {(fields, { add, remove }) => (
+      <>
+        {fields.map(field => (
+          <Space key={field.key} align="baseline">                
+                <Form.Item
+                  {...field}
+                  //label="Insects"
+                  name={[field.name, 'insectId']}
+                  rules={[{ required: true, message: 'Missing Insects' }]}
+                >                     
+                  <Select
+             size="small"
+             style={{ minWidth: 150 }}  
+              showSearch={true}
+              placeholder="Insects"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                0
+              }
+              options={insects?.map((_: any, index) => {
+                return {
+                  key: index,
+                  value: _.insectId,
+                  label: _.name,
+                  title: _.name,
+                };
+              })}
+            />
+
+
+                </Form.Item>                
+            
+                <Form.Item
+                  {...field}
+                //  label="Reaction"
+                  name={[field.name, 'value']}
+                  rules={[{ required: true, message: 'Missing Reactions' }]}
+                >                     
+                  <Select
+             size="small"
+             style={{ minWidth: 150 }}  
+              showSearch={true}
+              placeholder="Reaction to Insects"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                0
+              }
+              options={diseasesReactions?.map((_: any, index) => {
+                return {
+                  key: index,
+                  value: _.name,
+                  label: _.name,
+                  title: _.name,
+                };
+              })}
+            />
+
+
+                </Form.Item>    
+                <Form.Item
+                        {...field}
+                        name={[field.name, "cause"]}
+                        
+                      //  rules={[{ required: true, message: "Missing Price" }]}
+                      >
+                        <TextArea
+                         placeholder="Insects Cause"
+                          size="small"
+                          style={{ minWidth: 150 }}  
+                          autoSize     
+                          rows={1}                 
+                        />
+                      </Form.Item>
+
+            <MinusCircleOutlined onClick={() => remove(field.name)} />
+          </Space>
+        ))}
+
+        <Form.Item>
+          <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+            Add Insects Reactions
+          </Button>
+        </Form.Item>
+      </>
+    )}
+      </Form.List>
+
+            </div>
+          </div>
+        </TabPane>
+        <TabPane tab="Morphological characteristics, Quality Attributes and  Yields" key={"4"} forceRender>
+        <div className="grid md:grid-cols-2">
+            <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
+            <PageHeader title="Morphological characteristics" />
           <Form.Item label="Plant Height(cm)" name="mrphoPlantHeight">
              <InputNumber placeholder="" />
               </Form.Item>    
@@ -953,15 +1083,11 @@ const diseasesReactions=[
               </Form.Item>    
               <Form.Item label="Ear/CobLength" name="mrphoEarOrCobLength">
              <Input placeholder="" />
-              </Form.Item>    
-            </div>
+              </Form.Item> 
+
           </div>
-        </TabPane>
-        <TabPane tab=" Quality Attributes and Yields" key={"4"} forceRender>
-        <div className="grid md:grid-cols-2">
-            <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
-         
-            <PageHeader title="Quality attributes" />
+          < div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
+          <PageHeader title="Quality attributes" />
           <Form.Item label="Oil content(%)" name="qualityOilcontent">
              <Input placeholder="" />
               </Form.Item>    
@@ -986,8 +1112,6 @@ const diseasesReactions=[
               <Form.Item label="Sokability(%)" name="qualitySokability">
              <Input placeholder="" />
               </Form.Item>  
-          </div>
-          < div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
           <PageHeader title="Yield (quintal/ha)" />
           <Form.Item label="Grain" name="yieldGrain">
                 <Input placeholder="" />

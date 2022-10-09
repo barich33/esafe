@@ -32,6 +32,7 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
         adtAltitude: modalConfig.data?.adtAltitude,
         adtRainfall: modalConfig.data?.adtRainfall,
         highlandId: modalConfig.data?.highlandId,
+        adtSoilPH:modalConfig.data?.adtSoilPH,
         adtMoistureStressArea: modalConfig.data?.adtMoistureStressArea,
         srBroadcast: modalConfig.data?.srBroadcast,
         srDrill: modalConfig.data?.srDrill,
@@ -114,11 +115,11 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
           ).toString(),
           diseases: values.diseases,
           cropReactiontoDiseases: values.diseases?.map((m) => {
-            return { diseaseId: m.diseaseId, value: m.value };
+            return { diseaseId: m.diseaseId, value: m.value,cause:m.cause};
           }),
           insects: values.insects,
           cropReactiontoInsects: values.insects?.map((m) => {
-            return { insectId: m.insectId, value: m.value };
+            return { insectId: m.insectId, value: m.value,cause:m.cause };
           }),     
 
          
@@ -129,6 +130,7 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
           adtSuitableToIrrigation: values?.adtSuitableToIrrigation,
           adtAltitude: values?.adtAltitude,
           adtRainfall: values?.adtRainfall,
+          adtSoilPH:values?.adtSoilPH,
           highlandId: values?.highlandId,
           adtMoistureStressArea: values?.adtMoistureStressArea,
           srBroadcast: values?.srBroadcast,
