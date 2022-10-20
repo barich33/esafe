@@ -262,6 +262,13 @@ const diseasesReactions=[
   {name:'Susceptible'},
 ];
 
+const diseasesCauses=[
+  {name:'Fungal'},
+  {name:'Bacterial'},
+  {name:'Viral'},
+];
+
+
 const yesNoOptions=[
   {name:'Yes'},
   {name:'No'},
@@ -352,7 +359,7 @@ const yesNoOptions=[
                  
                 />
               </Form.Item>
-            <PageHeader title="Source of Seed Organizations "></PageHeader>
+            <PageHeader title="EGS Suppliers"></PageHeader>
               <Form.Item
                 name={["sourceOfBreederSeedIds"]}
                 label={"Breeder Seeds"}
@@ -845,7 +852,7 @@ const yesNoOptions=[
                 <TextArea rows={3} placeholder="" />
               </Form.Item>
               
-              <PageHeader title="Fertilizer Rate" />
+              <PageHeader title="Fertilizer Type and Rate" />
               <Form.Item label="Nitrogen/Urea" name="agrFertilizerNitrogenOrUrea">
                 <Input placeholder="" />
               </Form.Item>
@@ -929,23 +936,35 @@ const yesNoOptions=[
                     };
                   })}
                 />
+               </Form.Item>
+                  <Form.Item
+                      {...field}
+                    //  label="Reaction"
+                      name={[field.name, 'cause']}
+                      rules={[{ required: true, message: 'Disease Cause' }]}
+                    >                     
+                      <Select
+                   style={{ minWidth: 150 }}
+                  showSearch={true}
+                  placeholder="Disease Cause"
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={diseasesCauses?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.name,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
 
 
                     </Form.Item>    
-                    <Form.Item
-                        {...field}
-                        name={[field.name, "cause"]}
-                        
-                      //  rules={[{ required: true, message: "Missing Price" }]}
-                      >
-                        <TextArea
-                         placeholder="Disease Cause"
-                          size="small"
-                          style={{ minWidth: 150 }}  
-                          autoSize     
-                          rows={1}                 
-                        />
-                      </Form.Item>
+                   
 
                 <MinusCircleOutlined onClick={() => remove(field.name)} />
               </Space>
@@ -1035,7 +1054,7 @@ const yesNoOptions=[
                       //  rules={[{ required: true, message: "Missing Price" }]}
                       >
                         <TextArea
-                         placeholder="Insects Cause"
+                         placeholder="Remark"
                           size="small"
                           style={{ minWidth: 150 }}  
                           autoSize     
@@ -1055,10 +1074,15 @@ const yesNoOptions=[
       </>
     )}
       </Form.List>
-
             </div>
+           
           </div>
+          <PageHeader title="Reaction to Weeds" />
+            <Form.Item  name="reactionToWeed">
+             <TextArea placeholder="" />
+              </Form.Item> 
         </TabPane>
+
         <TabPane tab="Morphological characteristics, Quality Attributes and  Yields" key={"4"} forceRender>
         <div className="grid md:grid-cols-2">
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
@@ -1088,32 +1112,35 @@ const yesNoOptions=[
           </div>
           < div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
           <PageHeader title="Quality attributes" />
-          <Form.Item label="Oil content(%)" name="qualityOilcontent">
-             <Input placeholder="" />
+             <Form.Item label="Oil content(%)" name="qualityOilcontent">
+             <InputNumber placeholder="" min="0" max="100"  />
               </Form.Item>    
               <Form.Item label="Protein Content(%)" name="qualityProteinContent">
-             <Input placeholder="" />
+              <InputNumber placeholder="" min="0" max="100"  />
               </Form.Item>    
               <Form.Item label="Glutien Content(%)" name="qualityGlutienContent">
-             <Input placeholder="" />
+              <InputNumber placeholder="" min="0" max="100"  />
               </Form.Item>    
               <Form.Item label="Extract(%)" name="qualityExtract">
-             <Input placeholder="" />
+              <InputNumber placeholder="" min="0" max="100"  />
               </Form.Item>    
               <Form.Item label="HLW(kg/hl)" name="qualityHlw">
-             <Input placeholder="" />
+              <InputNumber placeholder="" min="0"   />
               </Form.Item>    
               <Form.Item label="Grain Seed Size(mm)" name="qualityGrainSeedSize">
-             <Input placeholder="" />
+              <InputNumber placeholder=""  />
               </Form.Item>    
               <Form.Item label="Thousand Seed Weight(g)" name="qualityThousandSeedWeight">
-             <Input placeholder="" />
+              <InputNumber placeholder="" min="0"  />
               </Form.Item>    
-              <Form.Item label="Sokability(%)" name="qualitySokability">
-             <Input placeholder="" />
+              <Form.Item label="Soacability(%)" name="qualitySokability">
+              <InputNumber placeholder="" min="0" max="100"  />
               </Form.Item>  
           <PageHeader title="Yield (quintal/ha)" />
           <Form.Item label="Grain" name="yieldGrain">
+                <Input placeholder="" />
+              </Form.Item>
+              <Form.Item label="Seed" name="yieldSeed">
                 <Input placeholder="" />
               </Form.Item>
               <Form.Item label="Marketable Tuber" name="yieldMarketableTuber">

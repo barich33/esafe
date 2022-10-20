@@ -40,35 +40,22 @@ export const columns=(onEditcrop)=>{
       },
   },
   {
-    title: 'Flower Color',
-    dataIndex: 'flowerColor',
-    key: 'flowerColor',
-  },
-  {
-    title: 'Growth Habits',
-    dataIndex: 'growthHabit',
-    key: 'growthHabitId',
-    render:(growthHabit,record,index)=>{
-   return growthHabit?.name;
+    title: 'Maturity Period',
+    dataIndex: 'maturityGroup',
+    render: (maturityGroup, record, index) => {
+      return maturityGroup?.name
     },
   },
+ 
   {
-    title: 'Highland',
+    title: 'Climate Zone',
     dataIndex: 'highland',
     key: 'highlandId',
     render:(highland,record,index)=>{
       return highland?.name;
        },
   },
-  {
-        title: 'Soil Type',
-        dataIndex: 'soilType',
-        key: 'soilTypeId',
-        render:(soilType,record,index)=>{
-          return soilType?.name;
-           },
-    },   
-    
+        
     {
       title: 'Action',
       dataIndex: 'action',
@@ -79,7 +66,7 @@ export const columns=(onEditcrop)=>{
             type="link"
             className="edit-btn flex items-center justify-left"
           >
-            <Icon icon="ant-design:edit-outlined" fontSize={30} color="grey" />
+            Edit
           </Button>
         );
       },

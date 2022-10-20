@@ -312,7 +312,7 @@ const ManageMemberForm = ({ form, isEditMode, modalConfig }) => {
                 <Form.Item
                   name={["soilTypeId"]}
                   label={"Soil Type"}
-                  rules={[{ required: true, message: "select Soil" }]}
+                //  rules={[{ required: true, message: "select Soil" }]}
                   //  hidden={!isCropTypeFetched}
                 >
                   <Select
@@ -411,13 +411,22 @@ const ManageMemberForm = ({ form, isEditMode, modalConfig }) => {
             <Form.List name="cropVarieties">
               {(fields, { add, remove }) => (
                 <>
+                          <table>
+                            <tbody>
+                           <th>Crop</th>
+                           <th>Varieties</th>
+                           <th>Volume of Production(per 100kg)</th>
+                           <th>Price(per 100kg)</th>
+                           <th> Pack Size</th>
+                           <th> Distribution Location</th>
+                           
+                   
                   {fields.map((field) => (
-                    <Space
-                      key={field.key}
-                      style={{ display: "flex", marginBottom: 8 }}
-                      align="baseline"
-                    >
-                      <Form.Item
+                          <tr key={field.key}>
+                  
+                 
+                          
+                              <td>   <Form.Item
                         {...field}
                         name={[field.name, "cropTypeId"]}
                         rules={[{ required: true, message: "Missing Crop" }]}
@@ -443,8 +452,8 @@ const ManageMemberForm = ({ form, isEditMode, modalConfig }) => {
                           })}
                         />
                       </Form.Item>
-
-                      <Form.Item
+                       </td>
+                              <td><Form.Item
                         {...field}
                         name={[field.name, "varietyId"]}
                         rules={[
@@ -471,8 +480,8 @@ const ManageMemberForm = ({ form, isEditMode, modalConfig }) => {
                             };
                           })}
                         />
-                      </Form.Item>
-                      <Form.Item
+                      </Form.Item></td>
+                              <td>  <Form.Item
                         {...field}
                         name={[field.name, "price"]}
                         
@@ -485,12 +494,59 @@ const ManageMemberForm = ({ form, isEditMode, modalConfig }) => {
                           style={{ minWidth: 150 }}
                         
                         />
-                      </Form.Item>
+                      </Form.Item></td>
+                      <td>  <Form.Item
+                        {...field}
+                        name={[field.name, "volumeOfProduction"]}
+                        
+                      //  rules={[{ required: true, message: "Missing Price" }]}
+                      >
+                        <InputNumber
+                          min={0}
+                          defaultValue={0.00}
+                          size="small"
+                          style={{ minWidth: 150 }}
+                        
+                        />
+                      </Form.Item></td>
+                      <td>  <Form.Item
+                        {...field}
+                        name={[field.name, "packSize"]}
+                        
+                      //  rules={[{ required: true, message: "Missing Price" }]}
+                      >
+                        <InputNumber
+                          min={0}
+                       defaultValue={1}
+                          size="small"
+                          style={{ minWidth: 150 }}
+                        
+                        />
+                      </Form.Item></td>
 
+                      <td style={{paddingTop:'0px'}}>
+                      <Form.Item
+                        {...field}
+                        name={[field.name, "distributionLocation"]}
+                        
+                      //  rules={[{ required: true, message: "Missing Price" }]}
+                      >
+                        <TextArea                         
+                          rows={1}
+                          size="small"
+                          style={{ minWidth: 150 }}
+                        
+                        />
+                      </Form.Item></td>
+                     
                       <MinusCircleOutlined onClick={() => remove(field.name)} />
-                    </Space>
+                      
+                        
+                    </tr>
+                       
                   ))}
-
+                    </tbody>
+                    </table>
                   <Form.Item>
                     <Button
                       type="dashed"

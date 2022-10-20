@@ -92,7 +92,9 @@ const ManageMemberModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
 
         cropVarieties: values.cropVarieties,
         cropVarietyPortfolios: values.cropVarieties?.map((m) => {
-              return { organizationId: m.organizationId, cropTypeId: m.cropTypeId,varietyId:m.varietyId,price:m.price};
+              return { organizationId: m.organizationId, cropTypeId: m.cropTypeId,varietyId:m.varietyId,price:m.price,volumeOfProduction:m.volumeOfProduction,
+                distributionLocation:m.distributionLocation,
+                packSize:m.packSize};
             }),
 
         name: values.name,

@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { Button } from 'antd';
 // Sample Columns data
-export const columns=(onEditUser)=>{
+export const columns=(onEditUser,OnEditUserRoles)=>{
   return [
     {
       title: '#',
@@ -11,7 +11,7 @@ export const columns=(onEditUser)=>{
     {
       title: 'First Name',
       dataIndex: 'firstName',
-      key: 'firstName',
+      key: 'firstName'      
   },
  
   {
@@ -32,22 +32,49 @@ export const columns=(onEditUser)=>{
       dataIndex: 'phoneNumber',
       key: 'phoneNumber',
     },
-    
+    {
+      title: 'Organization',
+      dataIndex: 'organization',
+      render: (organization, record, index) => {
+        return ((organization?.name))
+      },   
+    },   
+    {
+      title: 'User Roles',
+      dataIndex: 'userRoles',
+      render: (userRoles, record, index) => {
+        return ((userRoles.map(m => m.role?.name).join(' | ')))
+      }, 
+    },
     {
       title: 'Action',
       dataIndex: 'action',
         render: (text:any, record:any) => {
           return (
+            <>
             <Button
               onClick={(event) => {
                 event.stopPropagation();
                 onEditUser(record);
               }}
               type="link"
+              size='small'
               className="edit-btn flex items-center justify-left"
             >
-              <Icon icon="ant-design:edit-outlined" fontSize={30} color="grey" />
+             Edit
             </Button>
+
+            <Button
+              onClick={(event) => {
+                event.stopPropagation();
+                OnEditUserRoles(record);
+              }}
+              type="link"
+              className="edit-btn flex items-center justify-left"
+            >
+            Roles
+            </Button>
+            </>
           );
         },
   },

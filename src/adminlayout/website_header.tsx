@@ -56,16 +56,16 @@ const WebSitHeader = ({ pages }) => {
   const subMenu = (menu) => {
     return (
       <>
-        <Menu.SubMenu title={menu?.name} key={menu?.name}>
+        <Menu.SubMenu title={menu?.name} key={menu?.name}> 
           <NavLink
             to={menu?.route}
-            style={{ color: "black" }}
+           
             className="px-3 py-2 rounded-md text-sm font-medium"
           ></NavLink>
 
           {menu.children?.map((childMenu, index) => (
             <Menu.Item key={index}>
-              <NavLink to={childMenu.route} style={{ color: "black" }}>
+              <NavLink to={childMenu.route} >
                 {childMenu.name}
               </NavLink>
             </Menu.Item>
@@ -77,7 +77,7 @@ const WebSitHeader = ({ pages }) => {
 
   return (
     <>
-      <nav className="bg-fuchsia-0" style={{background:'#052501'}}>
+      <nav className="bg-fuchsia-0" style={{background:'#2845AD'}}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center">
@@ -89,7 +89,7 @@ const WebSitHeader = ({ pages }) => {
               </div>
           
                 <div className="ml-5 flex items-baseline space-x-2 mt-0">
-                  <Menu mode="horizontal" style={{width:'600px'}}>
+                  <Menu mode="horizontal" style={{width:'600px',background:'#2845AD',color:'#FFFFFF'}}>
                     {pages
                       ?.filter((x) => x.isParent === true)
                       .map((menu: any, index) => (
@@ -101,12 +101,12 @@ const WebSitHeader = ({ pages }) => {
                         </>
                       ))}
                     <Menu.Item>
-                      <NavLink to="/members" style={{ color: "black" }}>
+                      <NavLink to="/members" style={{ color: "#FFFFFF" }}>
                         Members
                       </NavLink>
                     </Menu.Item>
                     <Menu.Item>
-                      <NavLink to="/marketings" style={{ color: "black" }}>
+                      <NavLink to="/marketings" style={{ color: "#FFFFFF" }}>
                       Marketing
                       </NavLink>
                     </Menu.Item>

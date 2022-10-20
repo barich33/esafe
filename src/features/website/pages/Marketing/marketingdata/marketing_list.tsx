@@ -5,6 +5,7 @@ import { httpService } from '../../../../../service/http.service';
 import { memberEndPoint } from '../../../../../api/primecareApi.endpoint';
 import { MarketingColumns } from './columns';
 import Marketingloading from '../marketing_loading';
+import MarketingDetail from '../marketingDetail';
 
    const MarketingList=({data})=>{
     const [marketingData, setMarketingData] = useState<any[]>([]);
@@ -13,12 +14,27 @@ import Marketingloading from '../marketing_loading';
   const [updatedIndex, setUpdatedIndex] = useState(-1);
   const [page, setPage] = useState(10);
   const [current, setCurrent] = useState(1);  
-  const[isSeedBModalVisible,setIsSeedBModalVisible]=useState(false);
- 
+  const [isViewCropModalVisible,setIsViewCropModalVisible] = useState(false)
+  const [modalConfig,setModalConfig] = useState({
+    title:'Crop Details',
+    data:{}
+  })
   useEffect(()=>{
       setMarketingData(data);
       console.log("data",data);
   },[data])
+
+  const onViewCrop = (data)=>{
+
+    setIsViewCropModalVisible(true);
+    setModalConfig({
+      title:'Crop Details',
+      data:data
+    })
+   }
+   const onModalCancel =()=>{
+   setIsViewCropModalVisible(false);  
+  }
 
 return (
         
@@ -31,7 +47,7 @@ return (
            className="mt-1 w-full cursor-pointer"
            dataSource={marketingData} 
            columns={ MarketingColumns(         
-           
+            onViewCrop,
             rowToUpdate,
             updatedIndex,
             current,
@@ -58,7 +74,17 @@ return (
           />
        </div>
      
+              
+       {isViewCropModalVisible&&
+      
+      <MarketingDetail
+        modalConfig={modalConfig}
+        isModalVisible={isViewCropModalVisible}      
+        onCancel={onModalCancel}
+       />
+     }
        </div>
+
     )      
 }
 export default MarketingList

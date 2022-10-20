@@ -1,10 +1,28 @@
 import { Form, Input, Select } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { lookupEndPoint } from "../../../api/primecareApi.endpoint";
+import { httpService } from "../../../service/http.service";
 import PhoneNumberPrefix from "../../../shared/user-phone-number-prefix";
 const { Option } = Select;
 const UserManageForm =({form, isEditMode, modalConfig})=>{
 
     const [isCountryCodeRequired, setIsCountryCodeRequired] = useState(true);
+    const [organizations, setOrganizations] = useState([]);
+    useEffect(() => {     
+      getOrganizations();
+    }, []);
+
+    const getOrganizations = () => {
+      httpService
+        .get(lookupEndPoint.getOrganizations)
+        .then((response) => {
+          setOrganizations(response.data);
+        })
+        .catch(() => {
+     
+        });
+    };
+  
    return <Form
    form={form}
    layout={"horizontal"}
@@ -82,7 +100,33 @@ const UserManageForm =({form, isEditMode, modalConfig})=>{
                 placeholder="enter phone number"
               />
             </Form.Item>
-      
+            <Form.Item
+                name={["organizationId"]}
+                label={"Organization"}
+                rules={[
+                  { required: true, message: "Select Organization" },
+                ]}
+                hidden={isEditMode && organizations.length === 0}
+              >
+                <Select
+                 // mode="multiple"
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={organizations?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.organizationId,
+                      title: _.name,
+                      label: _.name,
+                    };
+                  })}
+                ></Select>
+              </Form.Item>
       
 
     </Form>

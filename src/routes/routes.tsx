@@ -19,6 +19,7 @@ import SubMenu from 'antd/lib/menu/SubMenu';
 import PageList from '../features/page/page_list';
 import MembersPage from '../features/website/pages/memersPage/members';
 import MarketingPage from '../features/website/pages/Marketing/marketings';
+import CropTypes from '../features/lookups/crop-type';
 
 
 const MainRoutes=()=>{
@@ -89,6 +90,8 @@ const MainRoutes=()=>{
           <Route path='members' element={<MemberList/>}/>
           <Route path='crops' element={<CropList/>}/>
           <Route path='pages' element={<PageList/>}/>
+          {/*    Configuration routes */}
+          <Route path='cropTypes' element={<CropTypes/>}/>
           <Route path="*" element={<DashBoard />} />
           </Route>
            <Route path="*" element={<DashBoard />} /> 

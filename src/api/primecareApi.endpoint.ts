@@ -11,6 +11,7 @@ export const userEndPoint = {
   updateUser: `${environment.urls.api}/User/UpdateUser`,
   getUserById: `${environment.urls.api}/User/GetUserById`,
   addUser: `${environment.urls.api}/User/AddUser`,
+  updateUserRole: `${environment.urls.api}/User/UpdateUserRole`,
 };
 
 export const lookupEndPoint = {
@@ -31,6 +32,7 @@ export const lookupEndPoint = {
   getColors: `${environment.urls.api}/Lookup/getColors`,
   getTypesOfSeedBusinesses: `${environment.urls.api}/Lookup/GetTypesOfSeedBusinesses`,
   getCustomers: `${environment.urls.api}/Lookup/GetCustomers`,
+  getRoles: `${environment.urls.api}/Lookup/GetRoles`,
   
 };
 

@@ -79,6 +79,7 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
         sourceOfBreederSeedIds: modalConfig.data?.cropSourceOfBreederSeeds?.map((c) => c.organizationId),
         sourceOfPreBasicSeedIds: modalConfig.data?.cropSourceOfPreBasicSeeds?.map((c) => c.organizationId),
         sourceOfCertifiedSeedIds: modalConfig.data?.cropSourceOfCertifiedSeeds?.map((c) => c.organizationId),
+        reactionToWeed:modalConfig.data?.reactionToWeed,
       };
 
      if(diseases?.length>0){
@@ -174,6 +175,7 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
           qualitySokability: values?.qualitySokability,
           soilTypeId: values?.soilTypeId,
           rowTypeId: values?.rowTypeId, 
+          reactionToWeed:values?.reactionToWeed
          /*  sourceOfBasicSeedIds: values?.cropSourceOfBasicSeeds?.map((c) => c.organizationId),
           sourceOfBreederSeedIds: values?.cropSourceOfBreederSeeds?.map((c) => c.organizationId),
           sourceOfPreBasicSeedIds: values?.cropSourceOfPreBasicSeeds?.map((c) => c.organizationId), */

@@ -1,32 +1,27 @@
 import { EllipsisOutlined } from '@ant-design/icons';
 import { Icon } from '@iconify/react';
-import { Button, Dropdown, Menu } from 'antd';
+import { Button, Drawer, Dropdown, Menu, Space } from 'antd';
+import { useState } from 'react';
+import MarketingDetail from '../marketingDetail';
 // Sample Columns data
 
 export const MarketingColumns=(  
+  onViewCrop,
   rowToUpdate,
   updatedIndex,
   current,
   page
   )=>{
 
-
+  
+    
   return [
     {
       title: '#',
       dataIndex: 'organizationId',
       render: (text, record, rowIndex) => (current - 1) * page + rowIndex + 1,
-    },
-    
-  
-      {
-        title: 'Organization',
-        dataIndex: 'organization',
-        render: (organization, record, index) => {
-          return organization?.name;
-        },
-        
-    },
+    },  
+      
     {
       title: 'Crop',
       dataIndex: 'cropType',
@@ -43,27 +38,48 @@ export const MarketingColumns=(
         },
     },
    
- 
+    {
+      title: 'Volume Of Production',
+        dataIndex: 'volumeOfProduction',       
+  }, 
+  {
+   title:'Update Date(mm/dd/yyyy)',
+   dataIndex:'modifiedDate',
+   render: (text, record, index) => {
+    if (text === null || text === undefined) {
+      return 'NA';
+    } else {
+      const dateResult = new Date(text);
+      const date = dateResult.toLocaleDateString();
+      return <span>{date}</span>;
+    }
+  },
+  },
   {
     title: 'Price',
-      dataIndex: 'price',
-     
+      dataIndex: 'price',     
 }, 
+{
+  title: 'Organization',
+  dataIndex: 'organization',
+  render: (organization, record, index) => {
+    return organization?.name;
+  },        
+},
     
-    {
-      title: 'More Info',
-      dataIndex: 'moreInfo',
-      render: (text, record) => {
-        return (
-          <Button
-           onClick={() => {}}
-            type="link"
-            className="info-btn flex items-center justify-left"
-          >
-            <Icon icon="ant-design:info-outlined" fontSize={20} color="green" />
-          </Button>
-        );
-      },
+   
+
+  {
+    title: 'Action',
+    dataIndex: 'action',
+    render: (text, record) => {
+      return (
+        <Button type="text" className={'font-bold text-left p-0 w-full'}                 
+        onClick={(event) => {event.stopPropagation();onViewCrop(record)}}
+>View</Button>  
+       
+      );
+    },
   },
   
   ];

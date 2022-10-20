@@ -6,18 +6,25 @@ import { Button, Input, Menu, notification, Table } from 'antd';
 import { Icon } from '@iconify/react';
 import ManageUserDialog from './manage-user/manage-user-dialog';
 import { columns } from './columns/user-column';
+import ManageUserRoleDialog from './manage-user/manage-user-role/manage-user-role-dialog';
 
    const UserList=()=>{
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(10);
   const [current, setCurrent] = useState(1);
-  const [showUserModal,setShowUserModal] = useState(false)
 
+  const [showUserRoleModal,setShowUserRoleModal] = useState(false);
+  const [showUserModal,setShowUserModal] = useState(false)
+  const [userRoleModalConfig,setUserRoleModalConfig] = useState({
+    title:'Add New User',
+    data:{}
+  })
   const [modalConfig,setModalConfig] = useState({
     title:'Add New User',
     data:{}
   })
+
   useEffect(() => {
     getUserList();
     setLoading(false)
@@ -47,12 +54,23 @@ const onShowUserModal =()=>{
 
 const onModalOk =()=>{
   setShowUserModal(false)
+  getUserList();
 }
 
 const onModalCancel =()=>{
   setShowUserModal(false)
 
 }
+
+const onUserRoleModalOk =()=>{
+  setShowUserRoleModal(false)
+  getUserList();
+}
+
+const onUserRoleModalCancel =()=>{
+  setShowUserRoleModal(false)
+}
+
 
  const OnEditUser = (data)=>{
 
@@ -62,6 +80,16 @@ const onModalCancel =()=>{
     data:data
   })
  }
+
+ const OnEditUserRoles = (data)=>{
+
+  setShowUserRoleModal(true);
+  setUserRoleModalConfig({
+    title:'Edit User Role',
+    data:data
+  })
+ }
+
 
 if (!loading) {
 return (
@@ -90,7 +118,7 @@ return (
            <Table size='small'
              className="mt-1 w-full cursor-pointer"
            dataSource={users} 
-           columns={ columns(OnEditUser)}
+           columns={ columns(OnEditUser,OnEditUserRoles)}
         
            rowKey={'userId'}
            bordered
@@ -119,6 +147,15 @@ return (
          onCancel={onModalCancel}
         />
       }
+      {showUserRoleModal&&
+       <ManageUserRoleDialog
+         modalConfig={userRoleModalConfig}
+         isModalVisible={showUserRoleModal}
+         onOk={onUserRoleModalOk}
+         onCancel={onUserRoleModalCancel}
+        />
+      }
+
        </div>
     )
       }

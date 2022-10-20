@@ -1,44 +1,25 @@
 import { Form, Modal, notification } from "antd"
 import React,{ useEffect, useState } from "react";
-import { userEndPoint } from "../../../api/primecareApi.endpoint";
-import CountryCodes from "../../../components/resources/country-codes";
-import { httpService } from "../../../service/http.service";
-import UserManageForm from "./manage-user-form";
+import { userEndPoint } from "../../../../api/primecareApi.endpoint";
+import { httpService } from "../../../../service/http.service";
+import UserRoleManageForm from "./manage-user-role-form";
+import UserManageForm from "./manage-user-role-form";
 
-const  ManageUserDialog =({modalConfig,isModalVisible,onOk,onCancel})=>{
-       console.log(modalConfig);
+const  ManageUserRoleDialog =({modalConfig,isModalVisible,onOk,onCancel})=>{
+       console.log("modalConfig",modalConfig);
   const [form] =Form.useForm()
   const isEditMode  ='userId' in modalConfig.data;  
   const [isFormSaving, setIsFormSaving] = useState(false);
   const [userToSave, setUserToSave] = useState(null);
   const [initialFormData, setInitialFormData] = useState({});    
   useEffect(()=>{   
-    if (isEditMode) {   
-      
-      const phoneNumber$ = modalConfig.data?.phoneNumber;
-
-      const country = CountryCodes.find((c) =>
-        phoneNumber$?.startsWith(c.dial_code)
-      );
-      const phoneNumber = phoneNumber$
-        ?.substring(phoneNumber$.indexOf(country?.dial_code) + country?.dial_code?.length)
-        ?.replace('-', '');
-
+    
       const formData = {
-        firstName: modalConfig.data?.firstName,
-        lastName: modalConfig.data?.lastName,
-        userName: modalConfig.data?.userName,
-        email: modalConfig.data?.email,
-        phone: { countryCode: country?.code, phoneNumber },
-        organizationId:modalConfig.data?.organizationId
+        roleIds: modalConfig.data?.userRoles?.map((c) => c.roleId),       
       };
       
       form.setFieldsValue(formData);
-      setInitialFormData(formData);
-    } else {      
-      // default phone country to Ethiopia
-      form.setFieldsValue({phone: { countryCode: 'ET'}});      
-    }
+      setInitialFormData(formData);   
   }
   ,[modalConfig])
 
@@ -54,19 +35,12 @@ const  ManageUserDialog =({modalConfig,isModalVisible,onOk,onCancel})=>{
     form
     .validateFields()
     .then(values => {
-      const dialCode = CountryCodes.find(f => f.code === values.phone.countryCode)?.dial_code;
+    
       const user = {
-        ...values,
-        firstName: values.firstName,
-        lastName: values.lastName,
-        email: values.email,
-        userName:values.userName,
-        phoneNumber:
-        (!dialCode || !values.phone.phoneNumber) ? null :
-        `${dialCode}-${values.phone.phoneNumber}`,
-        organizationId:values.organizationId
+        ...values,          
       };
       if (isEditMode) {
+        console.log(user)
         prepareFormDataForUpdate(user);
       }
       setUserToSave(user);
@@ -78,7 +52,7 @@ const  ManageUserDialog =({modalConfig,isModalVisible,onOk,onCancel})=>{
   }
   
   const prepareFormDataForUpdate = (user) => {
-    user.userId = modalConfig.data?.userId;
+    user.userId = modalConfig.data?.userId;    
   };
 
   const handleModalCancel = () => {
@@ -91,7 +65,7 @@ const  ManageUserDialog =({modalConfig,isModalVisible,onOk,onCancel})=>{
   const createOrUpdateUser =()=>{
   
     setIsFormSaving(true);
-    const url = { add: 'addUser', update: 'updateUser' };
+    const url = { add: 'addUserRole', update: 'updateUserRole' };
     
     httpService
     .post((userEndPoint[isEditMode ? url.update: url.add]), userToSave) 
@@ -111,7 +85,7 @@ const  ManageUserDialog =({modalConfig,isModalVisible,onOk,onCancel})=>{
     setIsFormSaving(false);
     form.resetFields();
     notification.success({
-      message: `${isEditMode ? 'Update' : 'Add'} User`,
+      message: `${isEditMode ? 'Update' : 'Add'} User Role`,
       description: `User ${isEditMode ? 'Updated' : 'Added'} Successfully.`,
     });
   };
@@ -120,13 +94,13 @@ const  ManageUserDialog =({modalConfig,isModalVisible,onOk,onCancel})=>{
     console.log(message);
     setIsFormSaving(false);
     notification.error({
-      message: `${isEditMode ? 'Update' : 'Add'} User`,
-      description: message ? message : `unable to ${isEditMode ? 'update' : 'add'} User`,
+      message: `${isEditMode ? 'Update' : 'Add'} User Role`,
+      description: message ? message : `unable to ${isEditMode ? 'update' : 'add'} User Role`,
     });
   };
 
   return <Modal
-  width={600}
+  width={500}
   title={modalConfig.title}
   visible={isModalVisible}
   onOk={handleModalOk}
@@ -138,7 +112,7 @@ const  ManageUserDialog =({modalConfig,isModalVisible,onOk,onCancel})=>{
   destroyOnClose={true}
   >
     <div>
-      <UserManageForm
+      <UserRoleManageForm
        form={form}
        isEditMode={isEditMode}
        modalConfig={modalConfig}
@@ -147,4 +121,4 @@ const  ManageUserDialog =({modalConfig,isModalVisible,onOk,onCancel})=>{
   </Modal>
 }
 
-export default ManageUserDialog
+export default ManageUserRoleDialog

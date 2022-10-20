@@ -1,5 +1,8 @@
-import { Col, Divider, Empty, PageHeader, Row } from "antd";
-import React from "react";
+import { Col, Divider, Empty, Modal, PageHeader, Row } from "antd";
+import React, { useEffect, useState } from "react";
+import { cropEndPoint } from "../../../../api/primecareApi.endpoint";
+import { httpService } from "../../../../service/http.service";
+import Marketingloading from "./marketing_loading";
 const style: React.CSSProperties = { background: "", padding: "8px 0" };
 
 const Tiles = (props) => {
@@ -24,23 +27,58 @@ const Tiles = (props) => {
   );
 };
 
-const MarketingDetail = ({ crops }) => {
-  //const cropsLength=crops?.crops.length
-  console.log("cropssss",crops);
-  return (
-    <>
-      {(crops?.length===0 || crops?.crops.length===0) &&
-      <>
-        <Empty/>
-        </>
-      }
-      {crops.crops?.map((crop, index) => (
+const MarketingDetail =  ({ modalConfig, isModalVisible, onCancel }) => {
+    console.log("modalConfig",modalConfig);
+    const [crop,setCrop]= useState<any>();
+    const [isSearching, setIsSearching] = useState(false);
+    const [searchparams, setSearchparams] = useState({
+      cropTypeId:modalConfig?.data?.cropTypeId,
+      varietyId:modalConfig?.data?.varietyId
+    });
+    useEffect(() => {          
+      searchCrops();
+    }, [modalConfig]);
+
+    const searchCrops = () => {
+     
+      setIsSearching(true);     
+      httpService
+        .post(cropEndPoint.searchCrop, searchparams)
+        .then((response) => {         
+             console.log(response.data);
+          setCrop(response.data?.crop);
+          setIsSearching(false);
+        })
+        .catch((error) => {
+          setIsSearching(false);
+          setCrop([]);
+          console.error(error);
+        });
+    };
+    const handleModalCancel = () => {     
+        onCancel();      
+    };
+    if (!isSearching) {
+   return(
+      <Modal
+      width={1000}
+      title={modalConfig.title}
+      visible={isModalVisible}
+     
+      onCancel={handleModalCancel}
+      closable={false}
+      maskClosable={false}
+      okText={"Save"}
+     
+      destroyOnClose={true}
+    >
+      <div></div>
             <div className={'flex flex-col'}>
           <div className={"mt-0 p-0"}>
             <Divider orientation="left" style={{margin:'2px'}}>
               {" "}
               <h5 className="text-xl font-bold" style={{color:'#4bc714'}}>
-                Crop: {crop?.cropType.name}
+                Crop: {crop?.cropType?.name}
               </h5>
             </Divider>
             <div className={"grid grid-cols-1 gap-4 md:grid-cols-5"}>
@@ -108,7 +146,7 @@ const MarketingDetail = ({ crops }) => {
                     </table>
                   }
                 />
-              </div>
+              </div> 
 
               <div className={"col-span-2"}>
                 <Tiles
@@ -121,9 +159,11 @@ const MarketingDetail = ({ crops }) => {
             </div>
           </div>
         </div>
-      ))}      
-    </>
-  );
-};
-
+         </Modal>        
+ )
+}
+else{
+  return <Marketingloading />;
+}
+}             
 export default MarketingDetail;
