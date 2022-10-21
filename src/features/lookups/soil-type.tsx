@@ -5,14 +5,14 @@ import { httpService } from "../../service/http.service";
 import {LookUpColumns } from "./columns/lookup-column";
 
 
-const CropTypes = () => {  
+const SoilType = () => {  
   const [lookupData, setLooupData] = useState([]);
   const [form] = Form.useForm();
   const [isEditMode, setIsEditMode] = useState(false);
   const [isFormSaving, setIsFormSaving] = useState(false);
   const [lookupToSave, setCropTypeToSave] = useState(null);
    const[lookupId,setLookupId]=useState();
-   const lookupTable='Crop Type';
+   const lookupTable='Soil Type';
   useEffect(() => {
     getLookups();
   }, []);
@@ -20,7 +20,7 @@ const CropTypes = () => {
 
   const getLookups = () => {
     httpService
-      .get(lookupEndPoint.getCropTypes)
+      .get(lookupEndPoint.getSoilTypes)
       .then((response) => {
         console.log(response.data);
         setLooupData(response.data);
@@ -37,9 +37,9 @@ const CropTypes = () => {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
   }, [lookupToSave]);
 
-  const prepareFormDataForUpdate = (seedBusiness) => {
+  const prepareFormDataForUpdate = (lookup) => {
     debugger;
-    seedBusiness.lookupId = lookupId;
+    lookup.lookupId = lookupId;
   };
   const createOrUpdateCropTypeToSave = () => {
     setIsFormSaving(true);
@@ -66,18 +66,18 @@ const CropTypes = () => {
     setIsEditMode(false);
     form.resetFields();
     notification.success({
-      message: `${isEditMode ? "Update" : "Add"} Crop Type`,
-      description: `Crop Type ${isEditMode ? "Updated" : "Added"} Successfully.`,
+      message: `${isEditMode ? "Update" : "Add"} Soil Type`,
+      description: `Soil Type ${isEditMode ? "Updated" : "Added"} Successfully.`,
     });
   };
 
   const showError = (message = null) => {
     setIsFormSaving(false);
     notification.error({
-      message: `${isEditMode ? "Update" : "Add"} Crop Type`,
+      message: `${isEditMode ? "Update" : "Add"} Soil Type`,
       description: message
         ? message
-        : `unable to ${isEditMode ? "update" : "add"} Crop Type`,
+        : `unable to ${isEditMode ? "update" : "add"} Soil Type`,
     });
   };
 
@@ -101,7 +101,7 @@ const CropTypes = () => {
  
   const onEditForm = (data)=>{
     setIsEditMode(true);
-    setLookupId(data?.cropTypeId);  
+    setLookupId(data?.soilTypeId);  
     const formData={
       name:data?.name
     }
@@ -114,7 +114,7 @@ const CropTypes = () => {
     <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-4">
       <div className="lg:col-span-2 lg:py-0">    
       <PageHeader
-        title='Crop Type'
+        title='Variety'
       />    
   <Table
           size="small"
@@ -172,4 +172,4 @@ const CropTypes = () => {
   );
 };
 
-export default CropTypes;
+export default SoilType;

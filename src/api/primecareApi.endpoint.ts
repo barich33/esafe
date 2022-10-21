@@ -33,6 +33,9 @@ export const lookupEndPoint = {
   getTypesOfSeedBusinesses: `${environment.urls.api}/Lookup/GetTypesOfSeedBusinesses`,
   getCustomers: `${environment.urls.api}/Lookup/GetCustomers`,
   getRoles: `${environment.urls.api}/Lookup/GetRoles`,
+
+  addLookup: `${environment.urls.api}/Lookup/AddLookup`,
+  updateLookup: `${environment.urls.api}/Lookup/UpdateLookup`,
   
 };
 

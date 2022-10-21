@@ -51,8 +51,8 @@ const PrimeCareHeader = () => {
         route:'/admin/cropTypes',   
        },
        {
-        name:'Customers',
-        route:'/admin/customers',   
+        name:'Varieties',
+        route:'/admin/varieties',   
        },
        {
         name:'Diseases',
@@ -61,15 +61,12 @@ const PrimeCareHeader = () => {
        {
         name:'Insects',
         route:'/admin/insects',   
-       },
+       },       
        {
         name:'SoilTypes',
         route:'/admin/soilTypes',   
        },
-       {
-        name:'Varieties',
-        route:'/admin/varieties',   
-       },
+     
      ]
     },
     

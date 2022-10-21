@@ -20,6 +20,12 @@ import PageList from '../features/page/page_list';
 import MembersPage from '../features/website/pages/memersPage/members';
 import MarketingPage from '../features/website/pages/Marketing/marketings';
 import CropTypes from '../features/lookups/crop-type';
+import Varieties from '../features/lookups/variety';
+import Insect from '../features/lookups/insect';
+import SoilType from '../features/lookups/soil-type';
+import Disease from '../features/lookups/disease';
+
+
 
 
 const MainRoutes=()=>{
@@ -92,6 +98,12 @@ const MainRoutes=()=>{
           <Route path='pages' element={<PageList/>}/>
           {/*    Configuration routes */}
           <Route path='cropTypes' element={<CropTypes/>}/>
+          <Route path='varieties' element={<Varieties/>}/>
+          <Route path='diseases' element={<Disease/>}/>
+          <Route path='insects' element={<Insect/>}/>
+          <Route path='soilTypes' element={<SoilType/>}/>
+
+
           <Route path="*" element={<DashBoard />} />
           </Route>
            <Route path="*" element={<DashBoard />} /> 

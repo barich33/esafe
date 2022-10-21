@@ -3,11 +3,10 @@ import { Icon } from '@iconify/react';
 import { Button, Dropdown, Menu } from 'antd';
 // Sample Columns data
 
-export const cropTypeColumns=(
-  OnEditSeedBusiness, 
+export const LookUpColumns=(
+  onEditForm, 
   )=>{
-console.log('colm',OnEditSeedBusiness);
-    
+console.log('colm',onEditForm);    
 
   return [
     
@@ -22,7 +21,7 @@ console.log('colm',OnEditSeedBusiness);
       render: (text, record, index) => {
         return (
           <Button
-           // onClick={() => onDeleteSeedBusiness(record)}
+            onClick={() => onEditForm(record)}
             type="link"
             className="edit-btn flex items-center justify-left"
           >
