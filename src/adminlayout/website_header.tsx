@@ -45,7 +45,7 @@ const WebSitHeader = ({ pages }) => {
     return (
       <>
         <Menu.Item key={menu.name}>
-          <NavLink to={menu.route} style={{ color: "black" }}>
+          <NavLink to={menu.route} >
             {menu.name}
           </NavLink>
         </Menu.Item>
@@ -77,7 +77,7 @@ const WebSitHeader = ({ pages }) => {
 
   return (
     <>
-      <nav className="bg-fuchsia-0" style={{background:'#2845AD'}}>
+      <nav className="bg-fuchsia-0" >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center">
@@ -89,7 +89,7 @@ const WebSitHeader = ({ pages }) => {
               </div>
           
                 <div className="ml-5 flex items-baseline space-x-2 mt-0">
-                  <Menu mode="horizontal" style={{width:'600px',background:'#2845AD',color:'#FFFFFF'}}>
+                  <Menu mode="horizontal" style={{width:'600px'}}>
                     {pages
                       ?.filter((x) => x.isParent === true)
                       .map((menu: any, index) => (
@@ -101,12 +101,12 @@ const WebSitHeader = ({ pages }) => {
                         </>
                       ))}
                     <Menu.Item>
-                      <NavLink to="/members" style={{ color: "#FFFFFF" }}>
+                      <NavLink to="/members">
                         Members
                       </NavLink>
                     </Menu.Item>
                     <Menu.Item>
-                      <NavLink to="/marketings" style={{ color: "#FFFFFF" }}>
+                      <NavLink to="/marketings">
                       Marketing
                       </NavLink>
                     </Menu.Item>
