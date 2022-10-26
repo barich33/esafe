@@ -1,5 +1,5 @@
 import { Application } from '../core';
-import { Image } from 'antd';
+import { Button, Drawer, Image, Space } from 'antd';
 import Logo from '../features/icons/logo.png';
 import LogoutButton from '../shared/logout-button';
 import { useDispatch } from 'react-redux';
@@ -9,7 +9,20 @@ import { MailOutlined } from '@ant-design/icons'
 import { Divider, Menu } from 'antd'
 import {NavLink, Outlet} from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import ChangePassword from '../shared/change-password';
+import { useState } from 'react';
 const PrimeCareHeader = () => {
+
+  const [open, setOpen] = useState(false);
+  // const [loading, setLoading] = useState(true);
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
   const MenuList = [
     {
      name:'Crops',
@@ -172,13 +185,28 @@ const PrimeCareHeader = () => {
           
         <div className="md:flex md:items-center md:gap-3">
         <span>{user}</span>
-            <LogoutButton/>         
+        <LogoutButton/>   
+             <span   onClick={showDrawer}>Change Password</span>
         </div>
       </div>
     </div>    
     <div className="bg-white mx-10 pt-0 z-40 border-solid border-1 border-sky-500">
     <Outlet/>    
     </div>   
+    <Drawer
+        title="Login to ESA"
+        width={400}
+        onClose={onClose}
+        open={open}
+        bodyStyle={{ paddingBottom: 200 }}
+        extra={
+          <Space>
+            <Button onClick={onClose}>Cancel</Button>
+          </Space>
+        }
+      >
+        <ChangePassword />
+      </Drawer>
   </header>    
   );
 };

@@ -66,7 +66,12 @@ export const MarketingColumns=(
     return organization?.name;
   },        
 },
-    
+{
+  title: 'Distribution Location',
+  dataIndex: 'distributionLocation',
+        
+},
+
    
 
   {

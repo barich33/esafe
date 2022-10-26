@@ -12,6 +12,7 @@ export const userEndPoint = {
   getUserById: `${environment.urls.api}/User/GetUserById`,
   addUser: `${environment.urls.api}/User/AddUser`,
   updateUserRole: `${environment.urls.api}/User/UpdateUserRole`,
+  changePassword: `${environment.urls.api}/User/ChangePassword`,
 };
 
 export const lookupEndPoint = {
