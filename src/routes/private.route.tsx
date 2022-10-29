@@ -2,6 +2,7 @@
 import { Navigate, Outlet} from 'react-router';
 import MainLayout from '../adminlayout/main_layout';
 import { isAuthenticated } from '../service/token.service';
+import IdleTimer from '../shared/Idel-time-out-handler';
 const ProtectedRoute = ({redirectPath = 'admin/dashboard'}) => {
 
   if (!isAuthenticated()) {
@@ -9,8 +10,10 @@ const ProtectedRoute = ({redirectPath = 'admin/dashboard'}) => {
   }
 
   return (   
-  
-   <MainLayout />
+    <>  
+    <IdleTimer/>
+    <MainLayout />
+   </>
   
   )
 }

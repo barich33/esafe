@@ -7,6 +7,7 @@ import { Icon } from '@iconify/react';
 import ManageUserDialog from './manage-user/manage-user-dialog';
 import { columns } from './columns/user-column';
 import ManageUserRoleDialog from './manage-user/manage-user-role/manage-user-role-dialog';
+import ManageResetPasswordDialog from './manage-user/reset-password';
 
    const UserList=()=>{
   const [users, setUsers] = useState([]);
@@ -24,12 +25,17 @@ import ManageUserRoleDialog from './manage-user/manage-user-role/manage-user-rol
     title:'Add New User',
     data:{}
   })
+  const [showResetPassword,setShowResetPasswordModal] = useState(false);
 
   useEffect(() => {
     getUserList();
     setLoading(false)
   }, []);
 
+  const [resetPasswordModalConfig,setResetPasswordModalConfig] = useState({
+    title:'Add New User',
+    data:{}
+  })
   
   const getUserList = () => {
     httpService
@@ -90,6 +96,22 @@ const onUserRoleModalCancel =()=>{
   })
  }
 
+ const OnResetPassword = (data)=>{
+
+  setShowResetPasswordModal(true);
+  setResetPasswordModalConfig({
+    title:'Reset Password',
+    data:data
+  })
+ }
+ const onResetPasswordModalCancel =()=>{
+  setShowResetPasswordModal(false)
+}
+
+const onResetPasswordModalOk =()=>{
+  setShowResetPasswordModal(false)
+  getUserList();
+}
 
 if (!loading) {
 return (
@@ -118,7 +140,7 @@ return (
            <Table size='small'
              className="mt-1 w-full cursor-pointer"
            dataSource={users} 
-           columns={ columns(OnEditUser,OnEditUserRoles)}
+           columns={ columns(OnEditUser,OnEditUserRoles,OnResetPassword)}
         
            rowKey={'userId'}
            bordered
@@ -153,6 +175,15 @@ return (
          isModalVisible={showUserRoleModal}
          onOk={onUserRoleModalOk}
          onCancel={onUserRoleModalCancel}
+        />
+      }
+
+          {showResetPassword&&
+       <ManageResetPasswordDialog
+         modalConfig={resetPasswordModalConfig}
+         isModalVisible={showResetPassword}
+         onOk={onUserRoleModalOk}
+         onCancel={onResetPasswordModalCancel}
         />
       }
 

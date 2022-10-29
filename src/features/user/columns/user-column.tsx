@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { Button } from 'antd';
 // Sample Columns data
-export const columns=(onEditUser,OnEditUserRoles)=>{
+export const columns=(onEditUser,OnEditUserRoles,OnResetPassword)=>{
   return [
     {
       title: '#',
@@ -74,6 +74,17 @@ export const columns=(onEditUser,OnEditUserRoles)=>{
             >
             Roles
             </Button>
+            <Button
+              onClick={(event) => {
+                event.stopPropagation();
+                OnResetPassword(record);
+              }}
+              type="link"
+              className="edit-btn flex items-center justify-left"
+            >
+            Reset Password
+            </Button>
+            
             </>
           );
         },
