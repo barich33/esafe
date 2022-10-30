@@ -40,10 +40,10 @@ const WebSiteLayout=()=> {
     <div >
     <WebSitHeader pages={pages}/>
     </div>
-    <main className="flex-1 overflow-y-auto">
+    <main>
     <WebsiteContent />
     </main>
-    <footer className="py-5 bg-gray-700 text-center text-white">
+    <footer>
       <WebsiteFooter/>
     </footer>
   </div>

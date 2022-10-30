@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@headlessui/react": "^1.7.3",
     "@iconify/react": "^3.2.2",
     "@reduxjs/toolkit": "^1.8.4",
     "@types/react": "^18.0.5",

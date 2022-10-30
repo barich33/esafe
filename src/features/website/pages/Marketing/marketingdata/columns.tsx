@@ -39,7 +39,7 @@ export const MarketingColumns=(
     },
    
     {
-      title: 'Volume Of Production',
+      title: 'Volume Of Production(per 100kg)',
         dataIndex: 'volumeOfProduction',       
   }, 
   {
@@ -56,7 +56,7 @@ export const MarketingColumns=(
   },
   },
   {
-    title: 'Price',
+    title: 'Price(per 100kg)',
       dataIndex: 'price',     
 }, 
 {
@@ -75,13 +75,13 @@ export const MarketingColumns=(
    
 
   {
-    title: 'Action',
+    title: '',
     dataIndex: 'action',
     render: (text, record) => {
       return (
         <Button type="text" className={'font-bold text-left p-0 w-full'}                 
         onClick={(event) => {event.stopPropagation();onViewCrop(record)}}
->View</Button>  
+>More Detail</Button>  
        
       );
     },

@@ -68,7 +68,7 @@ const MarketingDetail =  ({ modalConfig, isModalVisible, onCancel }) => {
       onCancel={handleModalCancel}
       closable={false}
       maskClosable={false}
-      okText={"Save"}
+     
      
       destroyOnClose={true}
     >

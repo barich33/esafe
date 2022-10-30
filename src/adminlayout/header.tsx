@@ -25,7 +25,7 @@ const PrimeCareHeader = () => {
 
   const MenuList = [
     {
-     name:'Crops',
+     name:'Crop Varieties',
      route:'/admin/crops',
      isParent:true,     
      children:[],
@@ -194,7 +194,7 @@ const PrimeCareHeader = () => {
     <Outlet/>    
     </div>   
     <Drawer
-        title="Login to ESA"
+        title="Change Password"
         width={400}
         onClose={onClose}
         open={open}

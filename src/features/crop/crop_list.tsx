@@ -21,7 +21,7 @@ export interface ParamTypes {
   const [searchFilterDataHolder, setSearchFilterDataHolder] = useState([]);
 
   const [modalConfig,setModalConfig] = useState({
-    title:'Add New Crop',
+    title:'Add New Crop Variety',
     data:{}
   })
   useEffect(() => {
@@ -50,7 +50,7 @@ export interface ParamTypes {
 };
 
 const onShowCropModal =()=>{
-  setModalConfig({ title: 'Add New Crop', data: {} });
+  setModalConfig({ title: 'Add New Crop Variety', data: {} });
   setIsCropModalVisible(true)
  
 }
@@ -69,7 +69,7 @@ const onModalCancel =()=>{
 
   setIsCropModalVisible(true);
   setModalConfig({
-    title:'Edit Crop',
+    title:'Edit Crop Variety',
     data:data
   })
  }

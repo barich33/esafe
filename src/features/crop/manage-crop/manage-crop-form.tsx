@@ -287,7 +287,7 @@ const yesNoOptions=[
       
       <Tabs defaultActiveKey="1" className="p-3">     
 
-        <TabPane tab="Crop Details" key={"1"} forceRender>
+        <TabPane tab="General" key={"1"} forceRender>
           <div className="grid md:grid-cols-2">
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
               <Form.Item
