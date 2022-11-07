@@ -86,7 +86,7 @@ const ManageMemberForm = ({ form, isEditMode, modalConfig }) => {
         console.log(response.data);
         setSoilTypes(response.data);
       })
-      .catch(() => {});
+      .catch(() => {}); 
   };
   const getCropTypes = () => {
     httpService
@@ -256,21 +256,31 @@ const ManageMemberForm = ({ form, isEditMode, modalConfig }) => {
                 </Form.Item>
               </div>
               <div className={" md:pl-4 lg:pl-8"}>
+              <Form.Item
+                  name="cOCReferenceNo"
+                  label="COC Reference No"
+                >
+                  <Input placeholder="" />
+                </Form.Item>
+                <Form.Item
+                  name="tradeLicenseReferenceNo"
+                  label="Trade License Reference No"
+                >
+                  <Input placeholder="" />
+                </Form.Item>
                 <Form.Item
                   name="yearOfEstablishment"
                   label="Year of Establishment"
                 >
                   <InputNumber placeholder="" />
                 </Form.Item>
-                <Form.Item label="Land Area" name="landArea">
+              {/*   <Form.Item label="Land Area" name="landArea">
                   <Input placeholder="" />
-                </Form.Item>
-                <Form.Item label="Volume" name="volume">
+                </Form.Item> */}
+                
+            {/*     <Form.Item label="GPSPosition" name="gpsposition">
                   <Input placeholder="" />
-                </Form.Item>
-                <Form.Item label="GPSPosition" name="gpsposition">
-                  <Input placeholder="" />
-                </Form.Item>
+                </Form.Item> */}
                 <PageHeader title="Structure and Size of Company" />
                 <Form.Item label="Board Members" name="boardMembers">
                   <InputNumber placeholder="" />
@@ -290,7 +300,54 @@ const ManageMemberForm = ({ form, isEditMode, modalConfig }) => {
               </div>
             </div>
           </TabPane>
-          <TabPane tab="Agro-Ecology and Climate" key={"2"} forceRender>
+          <TabPane tab="Land Holding" key={"2"} forceRender>
+            <div className="grid md:grid-cols-2">
+              <div className={"md:border-r-2 md:pr-2 lg:pr-2"}>
+                <Form.Item label="Contracted" name="landContracted">
+                  <Input placeholder="" />
+                </Form.Item>
+                <Form.Item label="Self Owned" name="landSelfOwned">
+                  <Input placeholder="" />
+                </Form.Item>
+                <Form.Item label="Rented in" name="landRented">
+                  <Input placeholder="" />
+                </Form.Item>
+                <Form.Item label="Volume of Production" name="volume">
+                  <Input placeholder="" />
+                </Form.Item>
+               <PageHeader title='Storage(m3)'></PageHeader>
+                <Form.Item label="Available" name="storageAvailable">
+                  <Input placeholder="" />
+                </Form.Item>
+                <Form.Item label="Capacity" name="storageCapacity">
+                  <Input placeholder="" />
+                </Form.Item>
+              </div>
+
+              <div className={" md:pl-4 lg:pl-8"}>
+                <Form.Item label="Processing Plants " name="processingPlant">
+                  <TextArea placeholder="" rows={2} />
+                </Form.Item>
+                <Form.Item label="Seed Lab" name="seedLab">
+                  <TextArea placeholder="" rows={2} />
+                </Form.Item>
+                <PageHeader title="Farm Implements"></PageHeader>
+                <Form.Item label="Tractors" name="tractor">
+                  <InputNumber placeholder=""  />
+                </Form.Item>
+                <Form.Item label="Combiners" name="combiner">
+                  <InputNumber placeholder=""  />
+                </Form.Item>
+                <Form.Item label="Accessories " name="accessory">
+                  <TextArea placeholder="" rows={2} />
+                </Form.Item>
+                <Form.Item label="Others " name="farmImplementsOther">
+                  <TextArea placeholder="" rows={2} />
+                </Form.Item>
+              </div>
+            </div>
+          </TabPane>
+          <TabPane tab="Agro-Ecology and Climate" key={"3"} forceRender>
             <div className="grid md:grid-cols-2">
               <div className={"md:border-r-2 md:pr-2 lg:pr-2"}>
                 <Form.Item label="Altitude" name="altitude">
@@ -354,7 +411,7 @@ const ManageMemberForm = ({ form, isEditMode, modalConfig }) => {
               </div>
             </div>
           </TabPane>
-          <TabPane tab="Seed Crop Details" key={"3"} forceRender>
+          <TabPane tab="Seed Crop Details" key={"4"} forceRender>
             <Form.Item
               name={["customerIds"]}
               label={"Seed Customers"}
@@ -414,19 +471,22 @@ const ManageMemberForm = ({ form, isEditMode, modalConfig }) => {
                           <table>
                             <tbody>
                            <th>Crop</th>
-                           <th>Varieties</th>
-                           <th>Volume of Production(per 100kg)</th>
-                           <th>Price(per 100kg)</th>
+                           <th>Varieties</th>                          
+                           <th>Estimated(qt)</th>
+                           <th>Raw(qt)</th>
+                           <th>Clean(qt)</th>
+                           <th>Certified(qt)</th>
+                           <th>Sold(qt)</th>
+                           <th>Price(qt)</th>
                            <th> Pack Size</th>
-                           <th> Distribution Location</th>
+                           <th>Sales Center</th>
                            
                    
                   {fields.map((field) => (
-                          <tr key={field.key}>
-                  
+                          <tr key={field.key}>                
                  
                           
-                              <td>   <Form.Item
+                          <td>   <Form.Item
                         {...field}
                         name={[field.name, "cropTypeId"]}
                         rules={[{ required: true, message: "Missing Crop" }]}
@@ -480,7 +540,87 @@ const ManageMemberForm = ({ form, isEditMode, modalConfig }) => {
                             };
                           })}
                         />
+                        
+                      </Form.Item>
+                      </td>
+                         <td>  <Form.Item
+                        {...field}
+                        name={[field.name, "volumeEstimated"]}
+                        
+                      //  rules={[{ required: true, message: "Missing Price" }]}
+                      >
+                        <InputNumber
+                          min={0}
+                          defaultValue={0.00}
+                          size="small"
+                          style={{ minWidth: 50 }}
+                        
+                        />
                       </Form.Item></td>
+                      <td>  
+                        <Form.Item
+                        {...field}
+                        name={[field.name, "volumeRaw"]}
+                        
+                      //  rules={[{ required: true, message: "Missing Price" }]}
+                      >
+                        <InputNumber
+                          min={0}
+                          defaultValue={0.00}
+                          size="small"
+                          style={{ minWidth: 50 }}
+                        
+                        />
+                      </Form.Item>
+                      </td>
+                      <td>  
+                        <Form.Item
+                        {...field}
+                        name={[field.name, "volumeClean"]}
+                        
+                      //  rules={[{ required: true, message: "Missing Price" }]}
+                      >
+                        <InputNumber
+                          min={0}
+                          defaultValue={0.00}
+                          size="small"
+                          style={{ minWidth: 50 }}
+                        
+                        />
+                      </Form.Item>
+                      </td>
+                      <td>  
+                        <Form.Item
+                        {...field}
+                        name={[field.name, "volumeCertified"]}
+                        
+                      //  rules={[{ required: true, message: "Missing Price" }]}
+                      >
+                        <InputNumber
+                          min={0}
+                          defaultValue={0.00}
+                          size="small"
+                          style={{ minWidth: 50 }}
+                        
+                        />
+                      </Form.Item>
+                      </td>
+                      <td>  
+                        <Form.Item
+                        {...field}
+                        name={[field.name, "volumeSold"]}
+                        
+                      //  rules={[{ required: true, message: "Missing Price" }]}
+                      >
+                        <InputNumber
+                          min={0}
+                          defaultValue={0.00}
+                          size="small"
+                          style={{ minWidth: 50 }}
+                        
+                        />
+                      </Form.Item>
+                      </td>
                               <td>  <Form.Item
                         {...field}
                         name={[field.name, "price"]}
@@ -495,32 +635,15 @@ const ManageMemberForm = ({ form, isEditMode, modalConfig }) => {
                         
                         />
                       </Form.Item></td>
-                      <td>  <Form.Item
-                        {...field}
-                        name={[field.name, "volumeOfProduction"]}
-                        
-                      //  rules={[{ required: true, message: "Missing Price" }]}
-                      >
-                        <InputNumber
-                          min={0}
-                          defaultValue={0.00}
-                          size="small"
-                          style={{ minWidth: 150 }}
-                        
-                        />
-                      </Form.Item></td>
+                   
                       <td>  <Form.Item
                         {...field}
                         name={[field.name, "packSize"]}
                         
                       //  rules={[{ required: true, message: "Missing Price" }]}
                       >
-                        <InputNumber
-                          min={0}
-                       defaultValue={1}
-                          size="small"
-                          style={{ minWidth: 150 }}
-                        
+                        <TextArea rows={1}                       
+                          size="small"                          
                         />
                       </Form.Item></td>
 

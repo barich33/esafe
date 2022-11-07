@@ -8,7 +8,7 @@ import { prepareDateUsingLocalFormat,  format } from "../../patient/manage-patie
 import CropManageForm from "./manage-crop-form";
 import "./manage-crop.css";
 const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
-  console.log(modalConfig);
+
   const [form] = Form.useForm();
   const isEditMode = "cropId" in modalConfig.data;
   const [isFormSaving, setIsFormSaving] = useState(false);
@@ -17,7 +17,7 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
   const [birthDate, setbirthDate] = useState(null);
   useEffect(() => {
     if (isEditMode) {
-      debugger
+    
       const releaseYear= moment(moment(modalConfig.data?.releaseYear),format)
       const  diseases=modalConfig.data?.cropReactiontoDiseases;
       const insects= modalConfig.data?.cropReactionToInsects;
@@ -32,7 +32,7 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
         adtAltitude: modalConfig.data?.adtAltitude,
         adtRainfall: modalConfig.data?.adtRainfall,
         highlandId: modalConfig.data?.highlandId,
-        adtSoilPH:modalConfig.data?.adtSoilPH,
+        adtAdaptationArea:modalConfig.data?.adtAdaptationArea,
         adtMoistureStressArea: modalConfig.data?.adtMoistureStressArea,
         srBroadcast: modalConfig.data?.srBroadcast,
         srDrill: modalConfig.data?.srDrill,
@@ -40,10 +40,13 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
         agrFertilizerNitrogenOrUrea:
           modalConfig.data?.agrFertilizerNitrogenOrUrea,
         agrFertilizerP2o5: modalConfig.data?.agrFertilizerP2o5,
-        agrFertilizerNps: modalConfig.data?.agrFertilizerNps,
+
         agrFertilizerSulfer: modalConfig.data?.agrFertilizerSulfer,
         agrFertilizerCopper: modalConfig.data?.agrFertilizerCopper,
+        agrFertilizerOther: modalConfig.data?.agrFertilizerOther,
+        agrFertilizerZink: modalConfig.data?.agrFertilizerZink,
 
+        agrFertilizerBoron: modalConfig.data?.agrFertilizerBoron,
         agrPlantingDateRangeOfMonth:modalConfig?.data?.agrPlantingDateRangeOfMonth,
         agrSpacingBetweenRow:modalConfig?.data?.agrSpacingBetweenRow,
         agrSpcingBetweenPlant:modalConfig?.data?.agrSpcingBetweenPlant,
@@ -55,16 +58,16 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
         mrphoPanicleLength: modalConfig.data?.mrphoPanicleLength,
         mrphoSpikeLength: modalConfig.data?.mrphoSpikeLength,
         mrphoEarOrCobLength: modalConfig.data?.mrphoEarOrCobLength,
+        mrphoLeafArrangement:modalConfig.data?.mrphoLeafArrangement,
+        mrphoAnterColor:modalConfig.data?.mrphoAnterColor,
         growthHabitId: modalConfig.data?.growthHabitId,
         panicleFormId: modalConfig.data?.panicleFormId,
         maturityGroupId: modalConfig.data?.maturityGroupId,
         flowerColor: modalConfig.data?.flowerColor,
         seedColor: modalConfig.data?.seedColor,
-        seedCoatColor: modalConfig.data?.seedCoatColor,
-        yieldGrain: modalConfig.data?.yieldGrain,
-        yieldMarketableTuber: modalConfig.data?.yieldMarketableTuber,
-        yieldForage: modalConfig.data?.yieldForage,
-        yieldFodder: modalConfig.data?.yieldFodder,
+        seedCoatColor: modalConfig.data?.seedCoatColor,      
+        gyieldResearchField: modalConfig.data?.gyieldResearchField,  
+        syieldFarmersField: modalConfig.data?.syieldFarmersField,
         qualityOilcontent: modalConfig.data?.qualityOilcontent,
         qualityProteinContent: modalConfig.data?.qualityProteinContent,
         qualityGlutienContent: modalConfig.data?.qualityGlutienContent,
@@ -80,6 +83,8 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
         sourceOfPreBasicSeedIds: modalConfig.data?.cropSourceOfPreBasicSeeds?.map((c) => c.organizationId),
         sourceOfCertifiedSeedIds: modalConfig.data?.cropSourceOfCertifiedSeeds?.map((c) => c.organizationId),
         reactionToWeed:modalConfig.data?.reactionToWeed,
+        maintainerId:modalConfig.data?.maintainerId,
+        opvorHybrid:modalConfig.data?.opvorHybrid
       };
 
      if(diseases?.length>0){
@@ -131,7 +136,7 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
           adtSuitableToIrrigation: values?.adtSuitableToIrrigation,
           adtAltitude: values?.adtAltitude,
           adtRainfall: values?.adtRainfall,
-          adtSoilPH:values?.adtSoilPH,
+          adtAdaptationArea:values?.adtAdaptationArea,
           highlandId: values?.highlandId,
           adtMoistureStressArea: values?.adtMoistureStressArea,
           srBroadcast: values?.srBroadcast,
@@ -144,6 +149,11 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
           agrFertilizerSulfer: values?.agrFertilizerSulfer,
           agrFertilizerCopper: values?.agrFertilizerCopper,
   
+  
+          agrFertilizerOther: values?.agrFertilizerOther,
+          agrFertilizerZink:values?.agrFertilizerZink,
+          agrFertilizerBoron: values?.agrFertilizerBoron,
+
           agrPlantingDateRangeOfMonth:values?.agrPlantingDateRangeOfMonth,
           agrSpacingBetweenRow:values?.agrSpacingBetweenRow,
           agrSpcingBetweenPlant:values?.agrSpcingBetweenPlant,
@@ -155,16 +165,18 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
           mrphoPanicleLength: values?.mrphoPanicleLength,
           mrphoSpikeLength: values?.mrphoSpikeLength,
           mrphoEarOrCobLength: values?.mrphoEarOrCobLength,
+          mrphoLeafArrangement:values?.mrphoLeafArrangement,
+          mrphoAnterColor:values?.mrphoAnterColor,
           growthHabitId: values?.growthHabitId,
           panicleFormId: values?.panicleFormId,
           maturityGroupId: values?.maturityGroupId,
           flowerColor: values?.flowerColor,
           seedColor: values?.seedColor,
           seedCoatColor: values?.seedCoatColor,
-          yieldGrain: values?.yieldGrain,
+          gyieldResearchField: values?.gyieldResearchField,
           yieldMarketableTuber: values?.yieldMarketableTuber,
-          yieldForage: values?.yieldForage,
-          yieldFodder: values?.yieldFodder,
+          syieldFarmersField: values?.syieldFarmersField,
+        
           qualityOilcontent: values?.qualityOilcontent,
           qualityProteinContent: values?.qualityProteinContent,
           qualityGlutienContent: values?.qualityGlutienContent,
@@ -175,7 +187,9 @@ const ManageCropModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
           qualitySokability: values?.qualitySokability,
           soilTypeId: values?.soilTypeId,
           rowTypeId: values?.rowTypeId, 
-          reactionToWeed:values?.reactionToWeed
+          reactionToWeed:values?.reactionToWeed,
+          maintainerId:values?.maintainerId,
+          opvorHybrid:values?.opvorHybrid
          /*  sourceOfBasicSeedIds: values?.cropSourceOfBasicSeeds?.map((c) => c.organizationId),
           sourceOfBreederSeedIds: values?.cropSourceOfBreederSeeds?.map((c) => c.organizationId),
           sourceOfPreBasicSeedIds: values?.cropSourceOfPreBasicSeeds?.map((c) => c.organizationId), */

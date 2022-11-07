@@ -38,10 +38,7 @@ export const MarketingColumns=(
         },
     },
    
-    {
-      title: 'Volume Of Production(per 100kg)',
-        dataIndex: 'volumeOfProduction',       
-  }, 
+    
   {
    title:'Update Date(mm/dd/yyyy)',
    dataIndex:'modifiedDate',
@@ -56,7 +53,7 @@ export const MarketingColumns=(
   },
   },
   {
-    title: 'Price(per 100kg)',
+    title: 'Price(per qt)',
       dataIndex: 'price',     
 }, 
 {
@@ -67,7 +64,7 @@ export const MarketingColumns=(
   },        
 },
 {
-  title: 'Distribution Location',
+  title: 'Sells Center',
   dataIndex: 'distributionLocation',
         
 },

@@ -9,7 +9,7 @@ const token=getToken();
 const AxiosService = axios.create({
   baseURL: baseURL,
   headers: {
-    Authorization: `Bearer ${token}`,
+    'Authorization': `Bearer ${token}`,
     'Access-Control-Allow-Credentials': true,
   },
 })

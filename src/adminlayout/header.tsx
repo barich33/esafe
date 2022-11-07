@@ -25,7 +25,7 @@ const PrimeCareHeader = () => {
 
   const MenuList = [
     {
-     name:'Crop Varieties',
+     name:'Plant Varieties',
      route:'/admin/crops',
      isParent:true,     
      children:[],

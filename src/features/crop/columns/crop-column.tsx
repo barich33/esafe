@@ -10,7 +10,7 @@ export const columns=(onEditcrop)=>{
       dataIndex: 'cropId',
     },
       {
-          title: 'Crop',
+          title: 'Plant',
           dataIndex: 'cropType',
           key: 'cropTypeId',
           render: (cropType, record, index) => {

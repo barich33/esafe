@@ -33,6 +33,7 @@ import ManageSeedBusinessForm from './manage_seed_business/manage-seed-business-
 
   
   const getMemberList = () => {
+    setLoading(true)
     httpService
       .get(`${memberEndPoint.getMembers}`)
       .then((response) => {

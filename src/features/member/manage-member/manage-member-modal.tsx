@@ -1,6 +1,6 @@
 import { Form, Modal, notification } from "antd";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useDebugValue, useEffect, useState } from "react";
 import { memberEndPoint } from "../../../api/primecareApi.endpoint";
 import CountryCodes from "../../../components/resources/country-codes";
 import { httpService } from "../../../service/http.service";
@@ -8,6 +8,7 @@ import { prepareDateUsingLocalFormat,  format } from "../../patient/manage-patie
 import MemberManageForm from "./manage-member-form";
 import "./manage-member.css";
 import ManageMemberForm from "./manage-member-form";
+import { FullscreenExitOutlined } from "@ant-design/icons";
 const ManageMemberModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
   console.log(modalConfig);
   const [form] = Form.useForm();
@@ -60,6 +61,19 @@ const ManageMemberModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
          vision: modalConfig.data?.vision,
          customerIds: modalConfig.data?.customerToOrganizations?.map((c) => c.customerId),
          supplierIds: modalConfig.data?.orgBasicSeedSupplierOrganizations?.map((c) => c.supplierId),
+         cOCReferenceNo: modalConfig.data?.cocreferenceNo,
+         tradeLicenseReferenceNo: modalConfig.data?.tradeLicenseReferenceNo,
+         storageAvailable:modalConfig.data?.storageAvailable,
+         storageCapacity:modalConfig.data?.storageCapacity,         
+         landContracted:modalConfig.data?.landContracted,
+         landRented:modalConfig.data?.landRented,
+         landSelfOwned:modalConfig.data?.landSelfOwned,
+         tractor:modalConfig.data?.tractor,
+         combiner:modalConfig.data?.combiner,
+         accessory:modalConfig.data?.accessory,
+         farmImplementsOther:modalConfig.data?.farmImplementsOther,
+         seedLab:modalConfig.data?.seedLab,
+         processingPlant:modalConfig.data?.processingPlant
       };
       if(cropVarieties?.length>0){
         formData['cropVarieties']=cropVarieties
@@ -94,7 +108,14 @@ const ManageMemberModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
         cropVarietyPortfolios: values.cropVarieties?.map((m) => {
               return { organizationId: m.organizationId, cropTypeId: m.cropTypeId,varietyId:m.varietyId,price:m.price,volumeOfProduction:m.volumeOfProduction,
                 distributionLocation:m.distributionLocation,
-                packSize:m.packSize};
+                packSize:m.packSize,
+                volumeEstimated:m.volumeEstimated,
+                volumeRaw:m.volumeRaw,
+                volumeClean:m.volumeClean,
+                volumeCertified:m.volumeCertified,
+                volumeSold:m.volumeSold,               
+
+              };
             }),
 
         name: values.name,
@@ -126,6 +147,20 @@ const ManageMemberModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
          majorActivity: values.majorActivity,
          diversification: values.diversification,
          vision: values.vision,
+         cOCReferenceNo:values?.cOCReferenceNo,
+         tradeLicenseReferenceNo:values?.tradeLicenseReferenceNo,
+         storageAvailable:values?.storageAvailable,
+         storageCapacity:values?.storageCapacity,         
+         landContracted:values?.landContracted,
+         landRented:values?.landRented,
+         landSelfOwned:values?.landSelfOwned,
+         tractor:values?.tractor,
+         combiner:values?.combiner,
+         accessory:values?.accessory,
+         farmImplementsOther:values?.farmImplementsOther,
+         seedLab:values?.seedLab,
+         processingPlant:values?.processingPlant
+
          //customerIds: values.customerToOrganizations?.map((c) => c.customerId),
          //supplierIds: values.orgBasicSeedSupplierOrganizations?.map((c) => c.supplierId),       
 
@@ -191,7 +226,7 @@ const ManageMemberModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
 
   return (
     <Modal
-      width={1000}
+      width={1300}
       title={modalConfig.title}
       visible={isModalVisible}
       onOk={handleModalOk}

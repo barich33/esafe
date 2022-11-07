@@ -24,8 +24,7 @@ import TextArea from "antd/lib/input/TextArea";
 
 const CropManageForm = ({ form, isEditMode, modalConfig }) => {
   const { TabPane } = Tabs;
-  const [isCountryCodeRequired, setIsCountryCodeRequired] = useState(false);
-  const gender = ["Male", "Female"];
+  console.log(modalConfig);
   const [cropTypes, setCropTypes] = useState([]);
   const [cropTypes$, setCropTypes$] = useState([]);
 
@@ -68,10 +67,11 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
   const [isHighlandFetched, setIsHighlandFetched] = useState(false);
   const [isSoilTypeFetched, setIsSoilTypeFetched] = useState(false);
 
+  const [cropTypeId, setCropTypeId] = useState();
+
   useEffect(() => {
     getCropTypes();
     getOrganizations();
-    getVarieties();
     getHighlands();
     getSoilTypes();
     getInsects();
@@ -82,6 +82,18 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
     getMaturityGroups();
     getColors();
   }, []);
+
+  useEffect(() => {
+    debugger
+    if(isEditMode) {    
+        setCropTypeId(modalConfig?.cropTypeId)
+          getVarieties();
+    }
+  }, [modalConfig]);
+
+  useEffect(() => {    
+    getVarieties();   
+  }, [cropTypeId]);
 
   const getColors = () => {
     httpService
@@ -185,13 +197,12 @@ const CropManageForm = ({ form, isEditMode, modalConfig }) => {
         setIsSoilTypeFetched(false);
       });
   };
-  const getVarieties = () => {
+  const getVarieties = () => {   
+    
     httpService
       .get(lookupEndPoint.getVarieties)
-      .then((response) => {
-        console.log(response.data);
-        setVarieties(response.data);
-        setVarieties$(response.data);
+      .then((response) => {        
+        setVarieties(response.data?.filter(x=>x?.cropTypeId===cropTypeId));       
         setIsVarietyFetched(true);
       })
       .catch(() => {
@@ -268,6 +279,11 @@ const diseasesCauses=[
   {name:'Viral'},
 ];
 
+const OPVOrHybrid=[
+  {name:'OPV'},
+  {name:'Hybrid'},
+];
+
 
 const yesNoOptions=[
   {name:'Yes'},
@@ -292,7 +308,7 @@ const yesNoOptions=[
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
               <Form.Item
                 name={["cropTypeId"]}
-                label={"Crop"}
+                label={"Plant"}
                 rules={[{ required: true, message: "select Crop" }]}
                 //  hidden={!isCropTypeFetched}
               >
@@ -305,6 +321,7 @@ const yesNoOptions=[
                     option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
                     0
                   }
+                  
                   options={cropTypes?.map((_: any, index) => {
                     return {
                       key: index,
@@ -313,6 +330,9 @@ const yesNoOptions=[
                       title: _.name,
                     };
                   })}
+                  onChange={(cropTypeId) => {
+                    setCropTypeId(cropTypeId);
+                  }}
                 />
               </Form.Item>
 
@@ -341,7 +361,31 @@ const yesNoOptions=[
                   })}
                 />
               </Form.Item>
-
+              <Form.Item
+                name={["opvorHybrid"]}
+                label={"OPV/Hybrid"}
+                rules={[{ required: true, message: "select OPV/Hybrid" }]}
+                //  hidden={!isCropTypeFetched}
+              >
+                <Select
+                  disabled={!isEditMode && varieties.length === 1}
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={OPVOrHybrid?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.name,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
+              </Form.Item>
               <Form.Item
                 label="Release Year"
                 name="releaseYear"
@@ -359,17 +403,16 @@ const yesNoOptions=[
                  
                 />
               </Form.Item>
-            <PageHeader title="EGS Suppliers"></PageHeader>
+          
               <Form.Item
-                name={["sourceOfBreederSeedIds"]}
-                label={"Breeder Seeds"}
+                name={["maintainerId"]}
+                label={"Maintainer"}
                 rules={[
-                  { required: true, message: "select Source of breeder seeds" },
+                  { required: true, message: "Select Maintainers" },
                 ]}
                 hidden={isEditMode && organizations.length === 0}
               >
-                <Select
-                  mode="multiple"
+                <Select                 
                   showSearch={true}
                   placeholder=""
                   optionFilterProp="children"
@@ -386,272 +429,13 @@ const yesNoOptions=[
                     };
                   })}
                 ></Select>
-              </Form.Item>
-
-              <Form.Item
-                name={["sourceOfPreBasicSeedIds"]}
-                label={"Pre-Basic Seed"}
-                rules={[
-                  { required: true, message: "Source of Pre-Basic Seed" },
-                ]}
-                hidden={isEditMode && organizations.length === 0}
-              >
-                <Select
-                  mode="multiple"
-                  showSearch={true}
-                  placeholder=""
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0
-                  }
-                  options={organizations?.map((_: any, index) => {
-                    return {
-                      key: index,
-                      value: _.organizationId,
-                      title: _.name,
-                      label: _.name,
-                    };
-                  })}
-                ></Select>
-              </Form.Item>
-              <Form.Item
-                name={["sourceOfBasicSeedIds"]}
-                label={"Basic Seeds"}
-                rules={[{ required: true, message: "Source of Basic Seeds" }]}
-                hidden={isEditMode && organizations.length === 0}
-              >
-                <Select
-                  mode="multiple"
-                  showSearch={true}
-                  placeholder=""
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0
-                  }
-                  options={organizations?.map((_: any, index) => {
-                    return {
-                      key: index,
-                      value: _.organizationId,
-                      title: _.name,
-                      label: _.name,
-                    };
-                  })}
-                ></Select>
-              </Form.Item>
-              <Form.Item
-                name={["sourceOfCertifiedSeedIds"]}
-                label={"Certified Seeds"}
-                rules={[{ required: true, message: "Source of Certified Seeds" }]}
-                hidden={isEditMode && organizations.length === 0}
-              >
-                <Select
-                  mode="multiple"
-                  showSearch={true}
-                  placeholder=""
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0
-                  }
-                  options={organizations?.map((_: any, index) => {
-                    return {
-                      key: index,
-                      value: _.organizationId,
-                      title: _.name,
-                      label: _.name,
-                    };
-                  })}
-                ></Select>
-              </Form.Item>
-         
-            </div>
-            <div className={" md:pl-8 lg:pl-16"}>
-              <Form.Item
-                name={["growthHabitId"]}
-                label={"Growth Habit"}
-                // rules={[{ required: true, message: 'select CropType' }]}
-                //  hidden={!isCropTypeFetched}
-              >
-                <Select
-                  disabled={!isEditMode && cropTypes.length === 1}
-                  showSearch={true}
-                  placeholder=""
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0
-                  }
-                  options={growthHabits?.map((_: any, index) => {
-                    return {
-                      key: index,
-                      value: _.growthHabitId,
-                      label: _.name,
-                      title: _.name,
-                    };
-                  })}
-                />
-              </Form.Item>
-
-              <Form.Item
-                name={["panicleFormId"]}
-                label={"Panicle Form"}
-                // rules={[{ required: true, message: 'select CropType' }]}
-                //  hidden={!isCropTypeFetched}
-              >
-                <Select
-                  disabled={!isEditMode && cropTypes.length === 1}
-                  showSearch={true}
-                  placeholder=""
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0
-                  }
-                  options={panicleForms?.map((_: any, index) => {
-                    return {
-                      key: index,
-                      value: _.panicleFormId,
-                      label: _.name,
-                      title: _.name,
-                    };
-                  })}
-                />
-              </Form.Item>
-              <Form.Item
-                name={["rowTypeId"]}
-                label={"Row Types"}
-                // rules={[{ required: true, message: 'select CropType' }]}
-                //  hidden={!isCropTypeFetched}
-              >
-                <Select
-                  disabled={!isEditMode && cropTypes.length === 1}
-                  showSearch={true}
-                  placeholder=""
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0
-                  }
-                  options={rowTypes?.map((_: any, index) => {
-                    return {
-                      key: index,
-                      value: _.rowTypeId,
-                      label: _.name,
-                      title: _.name,
-                    };
-                  })}
-                />
-              </Form.Item>
-              <Form.Item
-                name={["maturityGroupId"]}
-                label={"Maturity Groups"}
-                // rules={[{ required: true, message: 'select CropType' }]}
-                //  hidden={!isCropTypeFetched}
-              >
-                <Select
-                  disabled={!isEditMode && cropTypes.length === 1}
-                  showSearch={true}
-                  placeholder=""
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0
-                  }
-                  options={maturityGroups?.map((_: any, index) => {
-                    return {
-                      key: index,
-                      value: _.maturityGroupId,
-                      label: _.name,
-                      title: _.name,
-                    };
-                  })}
-                />
-              </Form.Item>
-
-              <Form.Item
-                name={["flowerColor"]}
-                label={"Flower Color"}
-                // rules={[{ required: true, message: 'select CropType' }]}
-                //  hidden={!isCropTypeFetched}
-              >
-                <Select
-                  disabled={!isEditMode && cropTypes.length === 1}
-                  showSearch={true}
-                  placeholder=""
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0
-                  }
-                  options={colors?.map((_: any, index) => {
-                    return {
-                      key: index,
-                      value: _.colorName,
-                      label: _.name,
-                      title: _.name,
-                    };
-                  })}
-                />
-              </Form.Item>
-
-              <Form.Item
-                name={["seedColor"]}
-                label={"Seed Color"}
-                // rules={[{ required: true, message: 'select CropType' }]}
-                //  hidden={!isCropTypeFetched}
-              >
-                <Select
-                  disabled={!isEditMode && cropTypes.length === 1}
-                  showSearch={true}
-                  placeholder=""
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0
-                  }
-                  options={colors?.map((_: any, index) => {
-                    return {
-                      key: index,
-                      value: _.colorName,
-                      label: _.name,
-                      title: _.name,
-                    };
-                  })}
-                />
-              </Form.Item>
-
-              <Form.Item
-                name={["seedCoatColor"]}
-                label={"Seed Coat Color"}
-                // rules={[{ required: true, message: 'select CropType' }]}
-                //  hidden={!isCropTypeFetched}
-              >
-                <Select
-                  disabled={!isEditMode && cropTypes.length === 1}
-                  showSearch={true}
-                  placeholder=""
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0
-                  }
-                  options={colors?.map((_: any, index) => {
-                    return {
-                      key: index,
-                      value: _.colorName,
-                      label: _.name,
-                      title: _.name,
-                    };
-                  })}
-                />
               </Form.Item>
 
             </div>
+     
           </div>
         </TabPane>
-        <TabPane tab="Adaptation, Seed Rate, Agronomic Requirements and Fertilizer" key={"2"} forceRender>
+        <TabPane tab="Adaptation, Seed Rate,and Fertilizer" key={"2"} forceRender>
           <div className="grid md:grid-cols-2">
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
               <PageHeader title="Adaptation" />
@@ -662,7 +446,7 @@ const yesNoOptions=[
               <Form.Item
                 name={["highlandId"]}
                 label={"Climate Zone"}
-                rules={[{ required: true, message: "select Highland" }]}
+               // rules={[{ required: true, message: "select Highland" }]}
                 //  hidden={!isCropTypeFetched}
               >
                 <Select
@@ -689,11 +473,18 @@ const yesNoOptions=[
               <Form.Item label="Rainfall" name="adtRainfall">
                 <Input placeholder="" />
               </Form.Item>
+
+              <Form.Item
+              label="Adaptation Area"
+              name="adtAdaptationArea"
+              >
+           <TextArea rows={2}></TextArea>
+              </Form.Item>
               
                  <Form.Item
                 name={["adtMoistureStressArea"]}
                 label={"Moisture Stress Area"}
-                rules={[{ required: true, message: "select Moisture Stress Area" }]}
+              //  rules={[{ required: true, message: "select Moisture Stress Area" }]}
                 //  hidden={!isCropTypeFetched}
               >
                 <Select
@@ -720,7 +511,7 @@ const yesNoOptions=[
               <Form.Item
                 name={["adtSuitableToIrrigation"]}
                 label={"Suitable to Irrigation"}
-                rules={[{ required: true, message: "select Suitable to Irrigation" }]}
+                //rules={[{ required: true, message: "select Suitable to Irrigation" }]}
                 //  hidden={!isCropTypeFetched}
               >
                 <Select
@@ -746,7 +537,7 @@ const yesNoOptions=[
               <Form.Item
                 name={["adtSuitableToInterCropping"]}
                 label={"Suitable to Inter Cropping"}
-                rules={[{ required: true, message: "select Suitable to Inter Cropping" }]}
+               // rules={[{ required: true, message: "select Suitable to Inter Cropping" }]}
                 //  hidden={!isCropTypeFetched}
               >
                 <Select
@@ -772,7 +563,7 @@ const yesNoOptions=[
               <Form.Item
                 name={["adtSuitableToSoleCropping"]}
                 label={"Suitable to Sole Cropping"}
-                rules={[{ required: true, message: "select Suitable to Sole Cropping" }]}
+                //rules={[{ required: true, message: "select Suitable to Sole Cropping" }]}
                 //  hidden={!isCropTypeFetched}
               >
                 <Select
@@ -798,7 +589,7 @@ const yesNoOptions=[
               <Form.Item
                 name={["soilTypeId"]}
                 label={"Soil"}
-                rules={[{ required: true, message: "select Soil" }]}
+                //rules={[{ required: true, message: "select Soil" }]}
                 //  hidden={!isCropTypeFetched}
               >
                 <Select
@@ -820,12 +611,7 @@ const yesNoOptions=[
                   })}
                 />
               </Form.Item>
-              <Form.Item
-              label="Soil PH"
-              name="AdtSoilPH"
-              >
-           <Input></Input>
-              </Form.Item>
+            
               <PageHeader title="Seed Rate By Planting Method (kg/ha)" />
               <Form.Item label="Broadcast" name="srBroadcast">
                 <Input placeholder="" />
@@ -839,27 +625,20 @@ const yesNoOptions=[
             </div>
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>           
 
-              <PageHeader title="Agronomic Requirements" />
-
-              <Form.Item label="Spacing Between Row" name="agrSpacingBetweenRow">
-                <Input placeholder="" />
-              </Form.Item>
-
-              <Form.Item label="Spacing Between Plant" name="agrSpcingBetweenPlant">
-                <TextArea placeholder="" rows={3}/>
-              </Form.Item>
-              <Form.Item label="Suitable planting period" name="agrPlantingDateRangeOfMonth">
-                <TextArea rows={3} placeholder="" />
-              </Form.Item>
+            
               
-              <PageHeader title="Fertilizer Type and Rate" />
-              <Form.Item label="Nitrogen/Urea" name="agrFertilizerNitrogenOrUrea">
-                <Input placeholder="" />
+              <PageHeader title="Fertilizer Type , Rate and Time" />
+              <Form.Item label="Nitrogen" name="agrFertilizerNitrogenOrUrea">
+                <TextArea placeholder="" rows={2} />
               </Form.Item>
               <Form.Item label="P2O5" name="agrFertilizerP2o5">
                 <Input placeholder="" />
               </Form.Item>
-              <Form.Item label="NPS" name="agrFertilizerNps">
+              <Form.Item label="Boron" name="agrFertilizerBoron">
+                <Input placeholder="" />
+              </Form.Item>
+
+              <Form.Item label="Zink" name="agrFertilizerZink">
                 <Input placeholder="" />
               </Form.Item>
 
@@ -868,6 +647,10 @@ const yesNoOptions=[
               </Form.Item>
               <Form.Item label="Copper" name="agrFertilizerCopper">
                 <Input placeholder="" />
+              </Form.Item>
+
+              <Form.Item label="Others" name="agrFertilizerOther">
+                <TextArea rows={2} placeholder="" />
               </Form.Item>
 </div>
 
@@ -1083,9 +866,21 @@ const yesNoOptions=[
               </Form.Item> 
         </TabPane>
 
-        <TabPane tab="Morphological characteristics, Quality Attributes and  Yields" key={"4"} forceRender>
+        <TabPane tab="Agronomics and Morphological characteristics" key={"4"} forceRender>
         <div className="grid md:grid-cols-2">
             <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
+            <PageHeader title="Agronomic Requirements" />
+
+            <Form.Item label="Spacing Between Row" name="agrSpacingBetweenRow">
+              <Input placeholder="" />
+            </Form.Item>
+
+            <Form.Item label="Spacing Between Plant" name="agrSpcingBetweenPlant">
+              <TextArea placeholder="" rows={2}/>
+            </Form.Item>
+            <Form.Item label="Suitable planting period" name="agrPlantingDateRangeOfMonth">
+              <TextArea rows={2} placeholder="" />
+            </Form.Item>
             <PageHeader title="Morphological characteristics" />
           <Form.Item label="Plant Height(cm)" name="mrphoPlantHeight">
              <InputNumber placeholder="" />
@@ -1107,9 +902,204 @@ const yesNoOptions=[
               </Form.Item>    
               <Form.Item label="Ear/CobLength" name="mrphoEarOrCobLength">
              <Input placeholder="" />
-              </Form.Item> 
+             </Form.Item>    
+              <Form.Item label="Leaf Arrangement" name="mrphoLeafArrangement">
+             <TextArea rows={2} placeholder="" />
+              </Form.Item>
+             <Form.Item label="Anther Color" name="mrphoAnterColor">
+             <Input placeholder="" />
+
+             </Form.Item> 
+
 
           </div>
+          <div className={" md:pl-8 lg:pl-16"}>
+              <Form.Item
+                name={["growthHabitId"]}
+                label={"Growth Habit"}
+                // rules={[{ required: true, message: 'select CropType' }]}
+                //  hidden={!isCropTypeFetched}
+              >
+                <Select
+                  disabled={!isEditMode && cropTypes.length === 1}
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={growthHabits?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.growthHabitId,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
+              </Form.Item>
+
+              <Form.Item
+                name={["panicleFormId"]}
+                label={"Panicle Form"}
+                // rules={[{ required: true, message: 'select CropType' }]}
+                //  hidden={!isCropTypeFetched}
+              >
+                <Select
+                  disabled={!isEditMode && cropTypes.length === 1}
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={panicleForms?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.panicleFormId,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
+              </Form.Item>
+              <Form.Item
+                name={["rowTypeId"]}
+                label={"Row Types"}
+                // rules={[{ required: true, message: 'select CropType' }]}
+                //  hidden={!isCropTypeFetched}
+              >
+                <Select
+                  disabled={!isEditMode && cropTypes.length === 1}
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={rowTypes?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.rowTypeId,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
+              </Form.Item>
+              <Form.Item
+                name={["maturityGroupId"]}
+                label={"Maturity Groups"}
+                // rules={[{ required: true, message: 'select CropType' }]}
+                //  hidden={!isCropTypeFetched}
+              >
+                <Select
+                  disabled={!isEditMode && cropTypes.length === 1}
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={maturityGroups?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.maturityGroupId,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
+              </Form.Item>
+
+              <Form.Item
+                name={["flowerColor"]}
+                label={"Flower Color"}
+                // rules={[{ required: true, message: 'select CropType' }]}
+                //  hidden={!isCropTypeFetched}
+              >
+                <Select
+                  disabled={!isEditMode && cropTypes.length === 1}
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={colors?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.colorName,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
+              </Form.Item>
+
+              <Form.Item
+                name={["seedColor"]}
+                label={"Seed Color"}
+                // rules={[{ required: true, message: 'select CropType' }]}
+                //  hidden={!isCropTypeFetched}
+              >
+                <Select
+                  disabled={!isEditMode && cropTypes.length === 1}
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={colors?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.colorName,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
+              </Form.Item>
+
+              <Form.Item
+                name={["seedCoatColor"]}
+                label={"Seed Coat Color"}
+                // rules={[{ required: true, message: 'select CropType' }]}
+                //  hidden={!isCropTypeFetched}
+              >
+                <Select
+                  disabled={!isEditMode && cropTypes.length === 1}
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={colors?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.colorName,
+                      label: _.name,
+                      title: _.name,
+                    };
+                  })}
+                />
+              </Form.Item>
+
+            </div>
+          </div>
+        </TabPane>
+        <TabPane tab="Quality Attributes and  Yields" key={"5"} forceRender>
+        <div className="grid md:grid-cols-2">
+           
           < div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
           <PageHeader title="Quality attributes" />
              <Form.Item label="Oil content(%)" name="qualityOilcontent">
@@ -1127,8 +1117,8 @@ const yesNoOptions=[
               <Form.Item label="HLW(kg/hl)" name="qualityHlw">
               <InputNumber placeholder="" min="0"   />
               </Form.Item>    
-              <Form.Item label="Grain Seed Size(mm)" name="qualityGrainSeedSize">
-              <InputNumber placeholder=""  />
+              <Form.Item label="Seed Size" name="qualityGrainSeedSize">
+              <TextArea rows={1}/>
               </Form.Item>    
               <Form.Item label="Thousand Seed Weight(g)" name="qualityThousandSeedWeight">
               <InputNumber placeholder="" min="0"  />
@@ -1136,23 +1126,131 @@ const yesNoOptions=[
               <Form.Item label="Soacability(%)" name="qualitySokability">
               <InputNumber placeholder="" min="0" max="100"  />
               </Form.Item>  
-          <PageHeader title="Yield (quintal/ha)" />
-          <Form.Item label="Grain" name="yieldGrain">
+        
+            </div>
+            <div className={"md:border-r-2 md:pr-8 lg:pr-6"}>
+            <PageHeader title="Grain Yield (qt/ha)" />
+            <Form.Item label="Research Field" name="gyieldResearchField">
                 <Input placeholder="" />
               </Form.Item>
-              <Form.Item label="Seed" name="yieldSeed">
+              <Form.Item label="Farmer's Field" name="syieldFarmersField">
                 <Input placeholder="" />
               </Form.Item>
-              <Form.Item label="Marketable Tuber" name="yieldMarketableTuber">
-                <Input placeholder="" />
+                  
+            </div>
+          </div>
+        </TabPane>
+        <TabPane tab="Seed Source" key={"6"} forceRender>
+          <div className="grid md:grid-cols-2">
+         
+            <div className={" md:pl-8 lg:pl-16"}>
+            <PageHeader title="Seed Source(Annually Update)"></PageHeader>
+            <Form.Item
+                name={["sourceOfBreederSeedIds"]}
+                label={"Breeder seeds"}
+                rules={[
+                  { required: true, message: "select Source of breeder seeds" },
+                ]}
+                hidden={isEditMode && organizations.length === 0}
+              >
+                <Select
+                  mode="multiple"
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={organizations?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.organizationId,
+                      title: _.name,
+                      label: _.name,
+                    };
+                  })}
+                ></Select>
               </Form.Item>
-              <Form.Item label="Forage" name="yieldForage">
-                <Input placeholder="" />
+              <Form.Item
+                name={["sourceOfPreBasicSeedIds"]}
+                label={"Pre-Basic Seed"}
+                rules={[
+                  { required: true, message: "Source of Pre-Basic Seed" },
+                ]}
+                hidden={isEditMode && organizations.length === 0}
+              >
+                <Select
+                  mode="multiple"
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={organizations?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.organizationId,
+                      title: _.name,
+                      label: _.name,
+                    };
+                  })}
+                ></Select>
               </Form.Item>
-              <Form.Item label="Fodder" name="yieldFodder">
-                <Input placeholder="" />
+              <Form.Item
+                name={["sourceOfBasicSeedIds"]}
+                label={"Basic Seeds"}
+                rules={[{ required: true, message: "Source of Basic Seeds" }]}
+                hidden={isEditMode && organizations.length === 0}
+              >
+                <Select
+                  mode="multiple"
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={organizations?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.organizationId,
+                      title: _.name,
+                      label: _.name,
+                    };
+                  })}
+                ></Select>
               </Form.Item>
-            
+              <Form.Item
+                name={["sourceOfCertifiedSeedIds"]}
+                label={"Certified Seeds"}
+                rules={[{ required: true, message: "Source of Certified Seeds" }]}
+                hidden={isEditMode && organizations.length === 0}
+              >
+                <Select
+                  mode="multiple"
+                  showSearch={true}
+                  placeholder=""
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option?.title?.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                  options={organizations?.map((_: any, index) => {
+                    return {
+                      key: index,
+                      value: _.organizationId,
+                      title: _.name,
+                      label: _.name,
+                    };
+                  })}
+                ></Select>
+              </Form.Item>
+           
+
             </div>
           </div>
         </TabPane>
