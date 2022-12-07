@@ -46,10 +46,19 @@ const ManageMemberModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
          landArea: modalConfig.data?.landArea,
          volume:modalConfig.data?.volume ,
          gpsposition:modalConfig.data?.gpsposition ,
-         boardMembers: modalConfig.data?.boardMembers,
-         manager:modalConfig.data?.manager ,
-         technicalStaff: modalConfig.data?.technicalStaff,
-         administrativeStaff: modalConfig.data?.administrativeStaff,
+
+         femaleManager: modalConfig.data?.femaleManager,
+         maleManager:modalConfig.data?.maleManager ,
+
+         maleBoardMember: modalConfig.data?.maleBoardMember,
+         femaleBoardMember: modalConfig.data?.femaleBoardMember,
+
+         maleTechincalStaff: modalConfig.data?.maleTechincalStaff,
+         femaleTechinicalStaff: modalConfig.data?.femaleTechinicalStaff,
+
+         maleAdministrativeStaff: modalConfig.data?.maleAdministrativeStaff,
+         femaleAdministrativeStaff: modalConfig.data?.femaleAdministrativeStaff,
+
          altitude:modalConfig.data?.altitude ,
          rainfall: modalConfig.data?.rainfall,
          temperature:modalConfig.data?.temperature,
@@ -134,10 +143,18 @@ const ManageMemberModal = ({ modalConfig, isModalVisible, onOk, onCancel }) => {
          landArea: values.landArea,
          volume:values.volume ,
          gpsposition:values.gpsposition ,
-         boardMembers: values.boardMembers,
-         manager:values.manager ,
-         technicalStaff: values.technicalStaff,
-         administrativeStaff: values.administrativeStaff,
+        
+         femaleManager: values.femaleManager,
+         maleManager:values.maleManager ,
+
+         maleBoardMember: values.maleBoardMember,
+         femaleBoardMember: values.femaleBoardMember,
+
+         maleTechincalStaff: values.maleTechincalStaff,
+         femaleTechinicalStaff: values.femaleTechinicalStaff,
+
+         maleAdministrativeStaff: values.maleAdministrativeStaff,
+         femaleAdministrativeStaff: values.femaleAdministrativeStaff,
          altitude:values.altitude ,
          rainfall: values.rainfall,
          temperature:values.temperature,

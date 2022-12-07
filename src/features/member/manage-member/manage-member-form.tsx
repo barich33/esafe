@@ -21,6 +21,7 @@ import { lookupEndPoint } from "../../../api/primecareApi.endpoint";
 import "./manage-member.css";
 import TextArea from "antd/lib/input/TextArea";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import FormItemLabel from "antd/es/form/FormItemLabel";
 
 const formItemLayoutWithOutLabel = {
   wrapperCol: {
@@ -282,21 +283,80 @@ const ManageMemberForm = ({ form, isEditMode, modalConfig }) => {
                   <Input placeholder="" />
                 </Form.Item> */}
                 <PageHeader title="Structure and Size of Company" />
-                <Form.Item label="Board Members" name="boardMembers">
-                  <InputNumber placeholder="" />
-                </Form.Item>
-                <Form.Item label="Manager" name="manager">
-                  <InputNumber placeholder="" />
-                </Form.Item>
-                <Form.Item label="Technical Staff" name="technicalStaff">
-                  <InputNumber placeholder="" />
+                <div className="flex justify-center">
+                         <label style={{width:"20%"}}>Board Members</label>
+                          <Form.Item
+                  name="maleBoardMember"
+                  label="M"
+                >
+                  <InputNumber  placeholder="" />
                 </Form.Item>
                 <Form.Item
-                  label="Administrative Staff"
-                  name="administrativeStaff"
+                  name="femaleBoardMember"   
+                  label="F"   
                 >
-                  <InputNumber placeholder="" />
+                  <InputNumber
+                        
+                  />
                 </Form.Item>
+                </div>
+
+                <div className="flex justify-center">
+                            <label style={{width:"20%"}}>Manager</label>
+                          <Form.Item
+                  name="maleManager"
+                  label="M"
+                >
+                  <InputNumber  placeholder="" />
+                </Form.Item>
+                <Form.Item
+                  name="femaleManager"   
+                  label="F"   
+                >
+                  <InputNumber
+                        
+                  />
+                </Form.Item>
+                </div>
+
+                <div className="flex justify-center">
+                            
+                            <label style={{width:"20%"}}>Technical Staffs</label>
+                          <Form.Item
+                  name="maleTechincalStaff"
+                  label="M"
+                >
+                  <InputNumber  placeholder="" />
+                </Form.Item>
+                <Form.Item
+                  name="femaleTechinicalStaff"   
+                  label="F"   
+                >
+                  <InputNumber
+                        
+                  />
+                </Form.Item>
+                </div>
+
+                <div className="flex justify-center">
+                            
+                            <label style={{width:"20%"}}>Administrative Staff</label>
+                          <Form.Item
+                  name="maleAdministrativeStaff"
+                  label="M"
+                >
+                  <InputNumber  placeholder="" />
+                </Form.Item>
+                <Form.Item
+                  name="femaleAdministrativeStaff"   
+                  label="F"   
+                >
+                  <InputNumber
+                        
+                  />
+                </Form.Item>
+                </div>
+              
               </div>
             </div>
           </TabPane>

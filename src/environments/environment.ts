@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
   urls: {   
-    api: 'http://localhost:5100/api',   
+    api: 'https://esaapi.ethiopianseedsassociation.com:8443/api',   
   }
 }

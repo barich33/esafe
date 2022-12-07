@@ -47,7 +47,7 @@ const IdleTimer = () => {
   const onActive = () => {
   };
 
-  useIdleTimer({ onIdle, onActive, timeout: 1000 * 60 * 30}); // 10 minutes
+  useIdleTimer({ onIdle, onActive, timeout: 1000 * 30 * 10}); // 10 minutes
   return <Modal
     visible={visible}
     title="You have been idle!"
